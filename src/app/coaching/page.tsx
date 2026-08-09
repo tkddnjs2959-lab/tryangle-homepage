@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { NEWS } from '../newsData';
 import pageStyles from '../page.module.css';
+import TrackedLink from '../TrackedLink';
 import styles from './coaching.module.css';
 import { BENEFITS, COACHING_AREAS, DIFFERENCE_FROM_GROUP_CLASS, FAQ, PRICING, TRAINER } from './content';
 
@@ -44,9 +45,16 @@ export default function CoachingPage() {
             <Image src="/logo.jpg" alt="TRY앵글" width={36} height={36} className={pageStyles.logoImg} priority />
             TRY앵글
           </div>
-          <a className={pageStyles.navKakao} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">
+          <TrackedLink
+            className={pageStyles.navKakao}
+            href={KAKAO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            eventName="click_kakao_consult"
+            eventParams={{ placement: 'coaching_header' }}
+          >
             카카오 상담
-          </a>
+          </TrackedLink>
         </div>
       </header>
 
@@ -71,9 +79,16 @@ export default function CoachingPage() {
             &lsquo;캐스팅&rsquo;이라는 결과로 만드는 힘입니다.
           </p>
           <div className={pageStyles.heroActions}>
-            <a className={pageStyles.kakaoBtn} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">
+            <TrackedLink
+              className={pageStyles.kakaoBtn}
+              href={KAKAO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              eventName="click_kakao_consult"
+              eventParams={{ placement: 'coaching_hero' }}
+            >
               카카오톡으로 문의하기
-            </a>
+            </TrackedLink>
           </div>
         </section>
 
@@ -264,14 +279,16 @@ export default function CoachingPage() {
             현재 연기 역량과 목표를 바탕으로 코칭 방향 및 일정을 함께 조율합니다.
           </p>
 
-          <a
+          <TrackedLink
             className={`${pageStyles.kakaoBtn} ${pageStyles.kakaoBtnWide}`}
             href={KAKAO_URL}
             target="_blank"
             rel="noopener noreferrer"
+            eventName="click_kakao_consult"
+            eventParams={{ placement: 'coaching_application_section' }}
           >
             TRY앵글 공식 카카오톡 채널 바로가기
-          </a>
+          </TrackedLink>
         </section>
       </main>
 
@@ -280,9 +297,15 @@ export default function CoachingPage() {
           <Image src="/logo.jpg" alt="TRY앵글" width={22} height={22} className={pageStyles.footerLogo} />
           ⓒ Artist Branding Company TRY앵글
         </div>
-        <a href={KAKAO_URL} target="_blank" rel="noopener noreferrer">
+        <TrackedLink
+          href={KAKAO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          eventName="click_kakao_consult"
+          eventParams={{ placement: 'coaching_footer' }}
+        >
           카카오톡 채널
-        </a>
+        </TrackedLink>
       </footer>
     </>
   );

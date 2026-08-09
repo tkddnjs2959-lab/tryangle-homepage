@@ -139,7 +139,7 @@ Example:
 3. GA4 property created: done
 4. GA4 GTM connection: done
 5. Microsoft Clarity project and GTM connection: done, waiting for data
-6. Event tracking: pending
+6. Event tracking: first event implemented in code, GTM event tag pending
 7. UTM operating rules: drafted
 8. Looker Studio dashboard: pending
 9. Consultation/registration data sheet: pending
@@ -253,6 +253,28 @@ Microsoft Clarity:
 - Status screen says Clarity was installed using Google Tag Manager and data should start appearing within a few hours.
 - Screenshot status: Clarity tour shows 1/7 completed.
 
+Event tracking:
+
+- First event: `click_kakao_consult`
+- Code implementation: done.
+- Files:
+  - `src/app/TrackedLink.tsx`
+  - `src/app/page.tsx`
+  - `src/app/coaching/page.tsx`
+- Behavior: Kakao consultation links push a `click_kakao_consult` event into `window.dataLayer`.
+- Event parameter: `placement`
+- Placements:
+  - `main_header`
+  - `main_hero`
+  - `main_consult_section`
+  - `main_footer`
+  - `coaching_header`
+  - `coaching_hero`
+  - `coaching_application_section`
+  - `coaching_footer`
+- Verification: `npm.cmd run build` passed after code changes.
+- GTM setup still needed: create a Custom Event trigger for `click_kakao_consult`, then create a GA4 Event tag that sends the same event name to GA4.
+
 ---
 
 Adjusted the coaching page copy and spacing for mobile.
@@ -300,9 +322,11 @@ Centered the trainer profile header on the coaching page.
 
 Add the GTM ID to the production deployment:
 
-1. Wait for Microsoft Clarity data to appear.
-2. Verify Recordings and Heatmaps after visits are collected.
-3. Move to first custom event tracking: `click_kakao_consult`.
+1. In GTM, create a Custom Event trigger named `CE - click_kakao_consult`.
+2. In GTM, create a GA4 Event tag named `GA4 Event - click_kakao_consult`.
+3. Publish GTM.
+4. Verify the event in GTM Preview and GA4 Realtime/DebugView.
+5. Wait for Microsoft Clarity data to appear and verify Recordings/Heatmaps.
 
 ## Future Lead Sheet
 

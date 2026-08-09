@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { NEWS } from './newsData';
 import styles from './page.module.css';
+import TrackedLink from './TrackedLink';
 
 const KAKAO_URL = 'http://pf.kakao.com/_mWxcMb/chat';
 
@@ -51,9 +52,16 @@ export default function Home() {
             <Image src="/logo.jpg" alt="TRY앵글" width={36} height={36} className={styles.logoImg} priority />
             TRY앵글
           </div>
-          <a className={styles.navKakao} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">
+          <TrackedLink
+            className={styles.navKakao}
+            href={KAKAO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            eventName="click_kakao_consult"
+            eventParams={{ placement: 'main_header' }}
+          >
             카카오 상담
-          </a>
+          </TrackedLink>
         </div>
       </header>
 
@@ -77,9 +85,16 @@ export default function Home() {
             오디션 기회로 이어질 가능성은 더욱 높아집니다.
           </p>
           <div className={styles.heroActions}>
-            <a className={styles.kakaoBtn} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">
+            <TrackedLink
+              className={styles.kakaoBtn}
+              href={KAKAO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              eventName="click_kakao_consult"
+              eventParams={{ placement: 'main_hero' }}
+            >
               카카오톡으로 상담하기
-            </a>
+            </TrackedLink>
           </div>
         </section>
 
@@ -364,14 +379,16 @@ export default function Home() {
             TRY앵글 카카오톡 채널을 이용해주세요.
           </p>
 
-          <a
+          <TrackedLink
             className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
             href={KAKAO_URL}
             target="_blank"
             rel="noopener noreferrer"
+            eventName="click_kakao_consult"
+            eventParams={{ placement: 'main_consult_section' }}
           >
             TRY앵글 공식 카카오톡 채널 바로가기
-          </a>
+          </TrackedLink>
         </section>
       </main>
 
@@ -380,9 +397,15 @@ export default function Home() {
           <Image src="/logo.jpg" alt="TRY앵글" width={22} height={22} className={styles.footerLogo} />
           ⓒ Artist Branding Company TRY앵글
         </div>
-        <a href={KAKAO_URL} target="_blank" rel="noopener noreferrer">
+        <TrackedLink
+          href={KAKAO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          eventName="click_kakao_consult"
+          eventParams={{ placement: 'main_footer' }}
+        >
           카카오톡 채널
-        </a>
+        </TrackedLink>
       </footer>
     </>
   );
