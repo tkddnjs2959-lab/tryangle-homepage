@@ -240,6 +240,7 @@ Google Analytics 4:
 
 - Measurement ID: `G-1Z0PL2VZHX`
 - Status: GA4 property/web stream created by owner, connected through GTM, and verified in GA4 Realtime.
+- Owner also reported that both Google Tag and Google Analytics were linked.
 - Troubleshooting note: during GA4 setup, GTM Preview later reported that `GTM-WP798468` could not be found. Code still contains the GTM loader, so the likely issue is Vercel environment variable scope/value or a deployment that was built without `NEXT_PUBLIC_GTM_ID`.
 - Follow-up troubleshooting: owner found the Vercel environment variable had been created with `GMT` instead of `GTM`. Owner corrected it, but `GTM-WP798468` still was not visible afterward. Next checks: confirm the corrected variable exists under Production, redeploy the latest Production deployment after the correction, and verify with Tag Assistant rather than relying only on page source.
 - Resolution: after correcting the environment variable name and redeploying, owner reported that `GTM-WP798468` is now visible on the live site.
