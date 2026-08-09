@@ -142,7 +142,7 @@ Example:
 6. Event tracking: first event implemented and GTM setup in progress, GA4 verification pending
 7. UTM operating rules: drafted and ready to use
 8. Looker Studio dashboard: pending
-9. Consultation/registration data sheet: design drafted, creation pending
+9. Consultation/registration data sheet: created and structured
 10. TRYANGLE ADMIN analytics integration: later
 
 ## Codebase Notes
@@ -390,6 +390,14 @@ Recommended first file name:
 TRYANGLE_상담_등록_관리
 ```
 
+Created Google Sheet:
+
+```text
+https://docs.google.com/spreadsheets/d/1uYwRYGfa-mMs-jlmI75ADoAKTaDAqiaJQ_runu2UJ90/edit
+```
+
+Note: the owner initially created the file as `TRYANLGE_상담_등록_관리`; it was renamed to `TRYANGLE_상담_등록_관리`.
+
 Recommended tabs:
 
 ```text
@@ -445,3 +453,21 @@ memo
 ```
 
 `Summary` can be built later after real data exists.
+
+Applied sheet structure:
+
+- Tabs confirmed: `LEADS`, `CAMPAIGNS`, `CLASSES`, `SUMMARY`
+- Header row frozen on all tabs.
+- Basic filters added to `LEADS`, `CAMPAIGNS`, and `CLASSES`.
+- Header rows styled with dark navy background and white bold text.
+- `CAMPAIGNS` includes an initial `class_2026_09` row.
+- `CLASSES` includes an initial `8기` class row.
+- `LEADS` is ready for real lead entries.
+
+`LEADS` dropdowns:
+
+```text
+lead_status: new, contacted, consulting, registered, lost
+consult_status: not_started, scheduled, completed, no_show, cancelled
+registered: yes, no
+```
