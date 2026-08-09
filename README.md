@@ -134,7 +134,7 @@ Example:
 
 ## Step Status
 
-1. Google Tag Manager account/container: pending owner action
+1. Google Tag Manager account/container: done
 2. GTM installation in homepage code: done
 3. GA4 property and GTM connection: pending
 4. Microsoft Clarity project and GTM connection: pending
@@ -159,25 +159,18 @@ Prepared the homepage code for Google Tag Manager.
 Current code expects:
 
 ```text
-NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
+NEXT_PUBLIC_GTM_ID=GTM-WP798468
 ```
+
+Google Tag Manager container:
+
+- Container ID: `GTM-WP798468`
+- Website: `https://tryangle-official.co.kr`
+- Status: container created by owner, production environment variable still needs to be added and deployed.
 
 ## Next Owner Action
 
-Create the GTM container:
-
-1. Go to `https://tagmanager.google.com/`.
-2. Sign in with the Google account that will own Tryangle analytics.
-3. Click `Create Account`.
-4. Account name: `Tryangle`.
-5. Country: `South Korea`.
-6. Container name: `tryangle-official.co.kr`.
-7. Target platform: `Web`.
-8. Click `Create`.
-9. Accept the terms.
-10. Copy the GTM container ID, for example `GTM-XXXXXXX`.
-
-After the GTM ID exists:
+Add the GTM ID to the production deployment:
 
 1. Add it to Vercel environment variables as `NEXT_PUBLIC_GTM_ID`.
 2. Redeploy the homepage.
@@ -206,4 +199,3 @@ class_round
 payment_amount
 memo
 ```
-
