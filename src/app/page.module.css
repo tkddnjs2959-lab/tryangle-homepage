@@ -213,6 +213,10 @@
 }
 .calloutSub { font-size: 12.5px; color: var(--sub); line-height: 1.7; margin: 10px 0 0; }
 .calloutTitle { font-size: 16px; font-weight: 800; color: var(--navy); margin: 0 0 10px; }
+
+/* 모바일 화면에서만 줄바꿈 (데스크톱에서는 이어서 표시) */
+.brMobile { display: none; }
+@media (max-width: 560px) { .brMobile { display: block; content: ''; } }
 .schedule { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
 .schedule td { padding: 8px 4px; border-bottom: 1px solid var(--sky-line); }
 .schedule td:first-child { font-weight: 700; color: var(--navy); width: 110px; }

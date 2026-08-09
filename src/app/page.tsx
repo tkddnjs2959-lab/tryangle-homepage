@@ -8,12 +8,12 @@ const PROCESS = [
   {
     n: '01',
     title: '이미지 심층 분석',
-    body: '퍼스널 리서치를 바탕으로 배우의 내·외적 이미지를 객관적으로 분석합니다.',
+    body: '퍼스널 리서치를 바탕으로 배우의 현재 외적 이미지를 객관적으로 분석합니다.',
   },
   {
     n: '02',
     title: '캐릭터 포지션 적합도 분석',
-    body: '이미지 심층 분석 결과와 클래스 진행 과정에서 확인한 배우의 특성(보이스 컬러, 매력, 개성 등)을 바탕으로 배우에게 가장 적합한 캐릭터 포지션을 탐색합니다.',
+    body: '이미지 심층 분석 결과와 클래스 진행 과정에서 확인한 배우의 특성, 보이스 컬러, 매력, 개성 등을 바탕으로 배우에게 가장 적합한 캐릭터 포지션을 탐색합니다.',
   },
   {
     n: '03',
@@ -36,7 +36,7 @@ const CAREER = [
   '세종대학교 대학원 예술학 박사 수료 (연기 전공)',
   '세종대학교 대학원 예술학 석사 (연기 전공)',
   '배우 브랜딩 전문기업 TRY앵글 CEO',
-  '도서 『퍼스널브랜딩 바이블』 저자',
+  '전 퍼스널브랜딩바이블 대표',
   '한국퍼스널브랜딩연구소 콘텐츠개발본부 책임연구원',
   'SM엔터테인먼트 소속생 연기 지도',
   '본스타트레이닝센터 연기트레이너',
@@ -45,7 +45,6 @@ const CAREER = [
 export default function Home() {
   return (
     <>
-      {/* ---------- 헤더 ---------- */}
       <header className={styles.nav}>
         <div className={styles.navInner}>
           <div className={styles.logo}>
@@ -59,7 +58,6 @@ export default function Home() {
       </header>
 
       <main className={styles.page}>
-        {/* ---------- 히어로 ---------- */}
         <section className={styles.hero}>
           <Image
             src="/logo.jpg"
@@ -83,29 +81,34 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- 소개 ---------- */}
         <section className={styles.sheet}>
           <h2 className={styles.h2}>캐릭터 포지셔닝 클래스란</h2>
           <p className={styles.body}>
-            TRY앵글 &lsquo;캐릭터 포지셔닝 클래스&rsquo;는
+            TRY앵글 ‘캐릭터 포지셔닝 클래스’는
             <br />
-            배우의 내·외적 이미지를 객관적으로 분석하고,
+            <br />
+            배우의 내·외적 이미지를 객관적으로 분석하고
             <br />
             클래스 진행 과정에서 확인한 보이스 컬러와
             <br />
             매력, 개성까지 종합적으로 고려하여
+            <br />
             <br />
             <strong>배우에게 가장 경쟁력 있는</strong>
             <br />
             <strong>캐릭터 포지션을 도출합니다.</strong>
           </p>
           <p className={styles.body}>
-            <strong>이후, 해당 캐릭터 포지션이</strong>
+            이후,
+            <br />
+            <br />
+            <strong>해당 캐릭터 포지션이</strong>
             <br />
             <strong>프로필과 연기영상에 일관되게 반영되어</strong>
             <br />
             <strong>캐스팅 디렉터에게 명확하게 전달될 수 있도록</strong>
-            <br />
+          </p>
+          <p className={styles.body}>
             <strong>배우와 함께 전략을 수립하고,</strong>
             <br />
             <strong>최적의 결과물을 만들어가는 프로그램입니다.</strong>
@@ -113,44 +116,46 @@ export default function Home() {
           <p className={styles.body}>
             이 과정을 이끄는 <strong>캐릭터 포지셔닝 멘토 이주아는</strong>
             <br />
-            <strong>&lsquo;브랜딩&rsquo;과 &lsquo;연기&rsquo; 두 분야의 전문 지식을 바탕</strong>으로
+            <strong>‘브랜딩’과 ‘연기’ 두 분야의 전문 지식을 바탕으로</strong>
             <br />
             감이 아닌, 근거 있는 캐릭터 포지셔닝을 진행합니다.
           </p>
           <p className={styles.body}>
             그 결과,
             <br />
-            TRY앵글과 함께
+            <br />
+            TRY앵글에서
             <br />
             캐릭터 포지셔닝을 진행한 배우지망생들은
             <br />
-            <strong>오디션 기회가 눈에 띄게 증가</strong>했고,
-            <br />
-            <strong>주·조연급 배역에 캐스팅</strong>되었으며,
-            <br />
-            <strong>&lsquo;현장 진출&rsquo;과 &lsquo;데뷔&rsquo;라는 성과</strong>를 얻었습니다.
           </p>
 
           <div className={styles.stats}>
             <div className={styles.stat}>
-              <b>눈에 띄는 증가</b>
+              <b>눈에 띄는 오디션 기회 증가</b>
               <span>오디션 기회</span>
             </div>
             <div className={styles.stat}>
-              <b>주 · 조연급 캐스팅</b>
+              <b>주·조연급 배역에 캐스팅</b>
               <span>배역 캐스팅</span>
             </div>
             <div className={styles.stat}>
-              <b>현장 진출 · 데뷔</b>
+              <b>‘현장 진출’과 ‘데뷔’라는 성과</b>
               <span>커리어 성과</span>
             </div>
           </div>
+          <p className={styles.body} style={{ marginTop: 18 }}>
+            를 얻었습니다.
+          </p>
         </section>
 
-        {/* ---------- 프로세스 ---------- */}
         <section className={styles.sheet}>
-          <h2 className={styles.h2}>&lsquo;캐릭터 포지셔닝&rsquo;은 어떻게 진행될까요?</h2>
-          <p className={styles.bodyMuted}>TRY앵글 캐릭터 포지셔닝 프로세스는 크게 5단계로 구성되어 있습니다.</p>
+          <h2 className={styles.h2}>‘캐릭터 포지셔닝’은 어떻게 진행될까요?</h2>
+          <p className={styles.bodyMuted}>
+            TRY앵글 캐릭터 포지셔닝 프로세스는
+            <br className={styles.brMobile} />
+            {' '}크게 5단계로 구성되어 있습니다.
+          </p>
 
           <ol className={styles.steps}>
             {PROCESS.map((p) => (
@@ -165,14 +170,9 @@ export default function Home() {
           </ol>
 
           <div className={styles.callout}>
-            💡 본 프로그램은 소수 정예로 운영됩니다.
-            <br />
-            <br />
             배우 한 분 한 분을 깊이 있게 분석하고,
             <br />
-            <br />
             완성도 높은 캐릭터 포지셔닝을 제공하기 위해
-            <br />
             <br />
             모집 인원에 제한을 두고 있습니다.
             <br />
@@ -181,7 +181,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- 진행 방식 · 일정 ---------- */}
         <section className={styles.sheet}>
           <h2 className={styles.h2}>진행 방식</h2>
           <div className={styles.stats}>
@@ -191,7 +190,7 @@ export default function Home() {
             </div>
             <div className={styles.stat}>
               <b>주 1회 · 90분</b>
-              <span>월 4회 진행</span>
+              <span>총 4회 진행</span>
             </div>
             <div className={styles.stat}>
               <b>최대 4명</b>
@@ -232,24 +231,27 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- 비용 ---------- */}
         <section className={styles.sheet}>
           <h2 className={styles.h2}>비용 안내</h2>
           <div className={styles.priceBox}>
-            <div className={styles.priceOld}>정가 · 월 65만원</div>
+            <div className={styles.priceOld}>정가 · 65만원</div>
             <div className={styles.priceNew}>
-              8기 특별가 · <b>월 45만원</b>
+              8기 한정가 · <b>45만원</b>
               <em>8기 모집 기간 한정</em>
             </div>
           </div>
           <p className={styles.bodyMuted}>
-            현재 TRY앵글 캐릭터 포지셔닝 클래스 8기 상담 및 신청이 진행 중입니다.
+            현재 TRY앵글 캐릭터 포지셔닝 클래스는
+            <br className={styles.brMobile} />
+            {' '}8기 상담 및 신청이 진행 중입니다.
             <br />
-            정원 마감 시 모집이 조기 종료될 수 있으니, 상담을 원하시는 경우 미리 신청해주세요.
+            <br className={styles.brMobile} />
+            정원 마감 시 모집이 조기 종료될 수 있으니,
+            <br className={styles.brMobile} />
+            {' '}상담을 원하시는 경우 미리 신청해주세요.
           </p>
         </section>
 
-        {/* ---------- 1:1 맞춤형 ---------- */}
         <section className={`${styles.sheet} ${styles.privateSheet}`}>
           <span className={styles.privateTag}>1:1 맞춤형</span>
           <h2 className={styles.h2}>1:1 캐릭터 포지셔닝</h2>
@@ -259,9 +261,9 @@ export default function Home() {
           <p className={styles.body}>
             1:1 캐릭터 포지셔닝은 브랜딩 어드바이저가 배우와 1:1로 전 과정을 함께 설계하는 프리미엄 프로그램입니다.
             <br />
-            배우의 내·외적 이미지를 객관적으로 분석하고,
+            배우의 현재 외적 이미지를 객관적으로 분석하고,
             <br />
-            과정 전반에서 확인한 보이스 컬러와 매력, 개성까지 종합적으로 고려하여
+            과정 전반에서 확인한 보이스 컬러, 매력, 개성까지 종합적으로 고려하여
             <br />
             배우에게 가장 경쟁력 있는 캐릭터 포지션을 도출합니다.
             <br />
@@ -276,7 +278,7 @@ export default function Home() {
           <div className={styles.stats}>
             <div className={styles.stat}>
               <b>주 1회 · 45분</b>
-              <span>월 4회 진행</span>
+              <span>총 4회 진행</span>
             </div>
             <div className={styles.stat}>
               <b>100%</b>
@@ -289,7 +291,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- 멘토 소개 ---------- */}
         <section id="mentor" className={styles.sheet}>
           <div className={styles.mentorHead}>
             <Image
@@ -304,8 +305,8 @@ export default function Home() {
               <h2 className={styles.h2}>이주아</h2>
               <p className={styles.bodyMuted}>TRY앵글 대표 브랜딩 어드바이저</p>
               <p className={styles.body}>
-                &lsquo;브랜딩&rsquo;과 &lsquo;연기&rsquo; 두 분야의 전문 지식을 바탕으로 최적의 캐릭터
-                포지션을 확립할 수 있도록 돕습니다.
+                ‘브랜딩’과 ‘연기’ 두 분야의 전문 지식을 바탕으로 최적의 캐릭터
+                포지션을 정립할 수 있도록 돕습니다.
               </p>
             </div>
           </div>
@@ -332,6 +333,42 @@ export default function Home() {
           </ul>
         </section>
 
+        <section className={styles.sheet}>
+          <h2 className={styles.h2}>상담 및 신청 안내</h2>
+          <p className={styles.body}>
+            1:1 방문상담에서는
+            <br />
+            배우님이 현재 가지고 계신 고민을 함께 나누고,
+            <br />
+            TRY앵글의 캐릭터 포지셔닝 클래스가
+            <br />
+            어떤 방식으로 도움이 될 수 있는지 안내해드립니다.
+          </p>
+          <p className={styles.body}>
+            또한,
+            <br />
+            <br />
+            캐릭터 포지셔닝 클래스 세부 프로세스와
+            <br />
+            실제 수강생들의 변화 사례까지
+            <br />
+            함께 확인하실 수 있습니다.
+          </p>
+          <p className={styles.body}>
+            클래스 문의 및 방문상담 예약은
+            <br />
+            TRY앵글 카카오톡 채널을 이용해주세요.
+          </p>
+
+          <a
+            className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
+            href={KAKAO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            TRY앵글 공식 카카오톡 채널 바로가기
+          </a>
+        </section>
       </main>
 
       <footer className={styles.footer}>
