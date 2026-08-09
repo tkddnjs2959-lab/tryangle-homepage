@@ -1,0 +1,47 @@
+/* 메인 페이지 page.module.css 위에 이 페이지에만 필요한 것만 얹는다. */
+
+.exclusiveTag {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fff;
+  background: var(--navy);
+  border-radius: 20px;
+  padding: 5px 13px;
+  margin-bottom: 14px;
+}
+
+.priceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 8px;
+}
+@media (max-width: 560px) {
+  .priceGrid { grid-template-columns: 1fr; }
+}
+.priceCard {
+  background: var(--sky-bg);
+  border: 1px solid var(--sky-line);
+  border-radius: 12px;
+  padding: 20px 18px;
+  text-align: center;
+}
+.priceCard span {
+  display: block;
+  font-size: 13px;
+  color: var(--sub);
+  margin-bottom: 6px;
+}
+.priceCard b {
+  display: block;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.faqItem { border-top: 1px solid var(--sky-line); padding: 16px 0; }
+.faqItem:first-child { border-top: none; padding-top: 0; }
+.faqQ { font-size: 14.5px; font-weight: 800; color: var(--ink); margin: 0 0 6px; }
+.faqA { font-size: 13.5px; line-height: 1.7; color: var(--sub); margin: 0; }

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { NEWS } from './newsData';
 import styles from './page.module.css';
 
 const KAKAO_URL = 'http://pf.kakao.com/_mWxcMb/chat';
@@ -39,16 +40,6 @@ const CAREER = [
   '한국퍼스널브랜딩연구소 콘텐츠개발본부 책임연구원',
   'SM엔터테인먼트 소속생 연기 지도',
   '본스타트레이닝센터 연기트레이너',
-];
-
-const NEWS = [
-  { media: '텐아시아', title: '아티스트 브랜딩 컴퍼니 TRY앵글, 배우 브랜딩 시스템 고도화 추진', url: 'https://www.tenasia.co.kr/article/2023050398274' },
-  { media: 'MK스포츠', title: '배우 컨설팅 기업 ‘TRY앵글’, 아티스트 브랜딩 컴퍼니로 새 출발', url: 'https://www.mksports.co.kr/news/entertain/10622411' },
-  { media: '텐아시아', title: '배우 컨설팅 전문기업 ‘트라이앵글’, 신인배우 4인 라인업 추가 공개', url: 'https://www.tenasia.co.kr/article/2022070104014' },
-  { media: '이데일리', title: '이주아 트라이앵글 CEO, 본격 배우 컨설팅 돌입', url: 'https://www.edaily.co.kr/news/read?newsId=01266086632262008&mediaCodeNo=258' },
-  { media: 'MK스포츠', title: '‘트라이앵글’ CEO 배우 이주아 “연예계 새로운 신인배우 양성 시스템 도입할 것”', url: 'https://www.mksports.co.kr/news/entertain/10175753' },
-  { media: '이데일리', title: '캐스팅디렉터 김용곤, 배우컨설팅 기업 \'트라이앵글\' 합류', url: 'https://www.edaily.co.kr/news/read?newsId=01125046629279176&mediaCodeNo=258' },
-  { media: '텐아시아', title: '배우 이주아 사업가 변신, 배우 컨설팅 전문기업 ‘트라이앵글’ 설립 추진', url: 'https://www.tenasia.co.kr/article/2021112662554' },
 ];
 
 export default function Home() {
@@ -239,7 +230,7 @@ export default function Home() {
         </section>
 
         {/* ---------- 멘토 소개 ---------- */}
-        <section className={styles.sheet}>
+        <section id="mentor" className={styles.sheet}>
           <div className={styles.mentorHead}>
             <Image
               src="/mentor.jpg"
