@@ -136,13 +136,14 @@ Example:
 
 1. Google Tag Manager account/container: done
 2. GTM installation in homepage code: done
-3. GA4 property and GTM connection: pending
-4. Microsoft Clarity project and GTM connection: pending
-5. Event tracking: pending
-6. UTM operating rules: drafted
-7. Looker Studio dashboard: pending
-8. Consultation/registration data sheet: pending
-9. TRYANGLE ADMIN analytics integration: later
+3. GA4 property created: done
+4. GA4 GTM connection: pending
+5. Microsoft Clarity project and GTM connection: pending
+6. Event tracking: pending
+7. UTM operating rules: drafted
+8. Looker Studio dashboard: pending
+9. Consultation/registration data sheet: pending
+10. TRYANGLE ADMIN analytics integration: later
 
 ## Codebase Notes
 
@@ -235,6 +236,12 @@ Deployment note:
 - Owner reported redeploy was completed.
 - GTM Preview / Tag Assistant verification: owner reported `Connected`.
 
+Google Analytics 4:
+
+- Measurement ID: `G-1Z0PL2VZHX`
+- Status: GA4 property/web stream created by owner. GTM Google tag still needs to be added and published.
+- Troubleshooting note: during GA4 setup, GTM Preview later reported that `GTM-WP798468` could not be found. Code still contains the GTM loader, so the likely issue is Vercel environment variable scope/value or a deployment that was built without `NEXT_PUBLIC_GTM_ID`.
+
 ---
 
 Adjusted the coaching page copy and spacing for mobile.
@@ -282,10 +289,9 @@ Centered the trainer profile header on the coaching page.
 
 Add the GTM ID to the production deployment:
 
-1. Create the GA4 property and web data stream.
-2. Add the GA4 Google tag in GTM.
-3. Publish the GTM container.
-4. Verify GA4 Realtime.
+1. Add the GA4 Google tag in GTM.
+2. Publish the GTM container.
+3. Verify GA4 Realtime.
 
 ## Future Lead Sheet
 
