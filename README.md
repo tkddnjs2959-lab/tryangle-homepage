@@ -137,7 +137,7 @@ Example:
 1. Google Tag Manager account/container: done
 2. GTM installation in homepage code: done
 3. GA4 property created: done
-4. GA4 GTM connection: pending
+4. GA4 GTM connection: done
 5. Microsoft Clarity project and GTM connection: pending
 6. Event tracking: pending
 7. UTM operating rules: drafted
@@ -239,10 +239,11 @@ Deployment note:
 Google Analytics 4:
 
 - Measurement ID: `G-1Z0PL2VZHX`
-- Status: GA4 property/web stream created by owner. GTM Google tag still needs to be added and published.
+- Status: GA4 property/web stream created by owner, connected through GTM, and verified in GA4 Realtime.
 - Troubleshooting note: during GA4 setup, GTM Preview later reported that `GTM-WP798468` could not be found. Code still contains the GTM loader, so the likely issue is Vercel environment variable scope/value or a deployment that was built without `NEXT_PUBLIC_GTM_ID`.
 - Follow-up troubleshooting: owner found the Vercel environment variable had been created with `GMT` instead of `GTM`. Owner corrected it, but `GTM-WP798468` still was not visible afterward. Next checks: confirm the corrected variable exists under Production, redeploy the latest Production deployment after the correction, and verify with Tag Assistant rather than relying only on page source.
 - Resolution: after correcting the environment variable name and redeploying, owner reported that `GTM-WP798468` is now visible on the live site.
+- GA4 verification: owner reported GA4 Realtime visitor count increased by 1.
 
 ---
 
@@ -291,9 +292,9 @@ Centered the trainer profile header on the coaching page.
 
 Add the GTM ID to the production deployment:
 
-1. Add the GA4 Google tag in GTM.
-2. Publish the GTM container.
-3. Verify GA4 Realtime.
+1. Create the Microsoft Clarity project.
+2. Connect Microsoft Clarity through GTM.
+3. Verify Clarity starts collecting visits.
 
 ## Future Lead Sheet
 
