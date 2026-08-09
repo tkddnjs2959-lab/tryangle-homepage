@@ -251,6 +251,20 @@ Section by section:
   compared the resulting line structure.
 - Commit: `코칭 페이지 모바일 문구·간격 정리`
 
+---
+
+Centered the trainer profile header on the coaching page.
+
+- Files: `src/app/coaching/page.tsx`, `coaching.module.css`
+- The eyebrow `이주아 대표 | 연기트레이너 프로필` is centered at every width; the photo
+  and the `이주아` heading are now centered on desktop too (mobile already stacked them).
+- `.eyebrowSm` and `.mentorHead` in `page.module.css` are **shared with the main page's
+  mentor section**, so they were left alone. The coaching page adds its own
+  `.profileEyebrow` / `.mentorHeadCenter` on top instead. Keep it that way — editing the
+  shared classes would move the main page's mentor block as well.
+- Verification: measured the elements' center against the section center at 1280px and
+  375px in a browser; all aligned.
+
 ## Next Owner Action
 
 Add the GTM ID to the production deployment:

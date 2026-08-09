@@ -135,9 +135,11 @@ export default function CoachingPage() {
 
         {/* ---------- 코치 소개 (이 페이지 전용 · 연기트레이너 이력 중심) ---------- */}
         <section className={pageStyles.sheet}>
-          <span className={pageStyles.eyebrowSm}>이주아 대표 | 연기트레이너 프로필</span>
+          <div className={styles.profileEyebrow}>
+            <span className={pageStyles.eyebrowSm}>이주아 대표 | 연기트레이너 프로필</span>
+          </div>
 
-          <div className={pageStyles.mentorHead}>
+          <div className={`${pageStyles.mentorHead} ${styles.mentorHeadCenter}`}>
             <Image
               src="/mentor.jpg"
               alt="이주아 · TRY앵글 대표"
