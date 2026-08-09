@@ -537,3 +537,226 @@ Creation status:
 
 - Dashboard design drafted.
 - Owner still needs to create the Looker Studio report and connect GA4 + Google Sheets data sources.
+
+---
+
+## Handoff For Next PC / Next AI
+
+Last updated: 2026-08-09 Asia/Seoul.
+
+Use this repository and this `README.md` as the source of truth for the official homepage analytics work.
+
+Repository:
+
+```text
+https://github.com/tkddnjs2959-lab/tryangle-homepage.git
+```
+
+Production site:
+
+```text
+https://tryangle-official.co.kr
+```
+
+Related Google Sheet:
+
+```text
+https://docs.google.com/spreadsheets/d/1uYwRYGfa-mMs-jlmI75ADoAKTaDAqiaJQ_runu2UJ90/edit
+```
+
+Do not use the local-only file below as the primary handoff document:
+
+```text
+C:\Users\juaju\Desktop\AI\CLAUDE\TRYANGLE\PROJECT_STATUS.md
+```
+
+That file may exist locally, but it is not part of the `tryangle-homepage` Git repository.
+
+### Completed
+
+1. GTM container created.
+
+```text
+GTM-WP798468
+```
+
+2. Homepage code loads GTM through Vercel env var.
+
+```text
+NEXT_PUBLIC_GTM_ID=GTM-WP798468
+```
+
+3. GTM was verified on the live site after fixing a Vercel env var typo.
+
+Issue found and fixed:
+
+```text
+Wrong: GMT
+Correct: GTM
+```
+
+4. GA4 property/web stream created and connected.
+
+```text
+G-1Z0PL2VZHX
+```
+
+5. GA4 Realtime was verified. Owner reported visitor count increased by 1.
+
+6. Microsoft Clarity was installed through GTM. Clarity screen said data should appear within a few hours.
+
+7. First website event was implemented in code:
+
+```text
+click_kakao_consult
+```
+
+Files changed:
+
+```text
+src/app/TrackedLink.tsx
+src/app/page.tsx
+src/app/coaching/page.tsx
+```
+
+The event is pushed to `window.dataLayer` with a `placement` parameter.
+
+8. UTM operating rules were drafted.
+
+Starter links:
+
+```text
+Instagram profile:
+https://tryangle-official.co.kr/?utm_source=instagram&utm_medium=profile&utm_campaign=always_on&utm_content=profile_link
+
+Instagram paid ad:
+https://tryangle-official.co.kr/?utm_source=instagram&utm_medium=paid&utm_campaign=class_2026_09&utm_content=character_ad_01
+
+Naver blog:
+https://tryangle-official.co.kr/?utm_source=naver&utm_medium=blog&utm_campaign=class_2026_09&utm_content=blog_cta_01
+
+Kakao manual share:
+https://tryangle-official.co.kr/?utm_source=kakao&utm_medium=dm&utm_campaign=class_2026_09&utm_content=manual_reply
+
+Offline QR:
+https://tryangle-official.co.kr/?utm_source=offline&utm_medium=qr&utm_campaign=class_2026_09&utm_content=studio_poster
+```
+
+9. Google Sheet for manual lead/registration/revenue tracking was created and structured.
+
+Sheet tabs:
+
+```text
+LEADS
+CAMPAIGNS
+CLASSES
+SUMMARY
+```
+
+Important: this Sheet is not an automatic Kakao import. It is a manual sales/lead ledger for actual identifiable leads after Kakao inquiry, application, phone, or DM.
+
+### Pending / Verify Next
+
+1. Verify `click_kakao_consult` in GTM Preview and GA4 Realtime or DebugView.
+
+GTM setup that should exist or should be created:
+
+```text
+Trigger:
+CE - click_kakao_consult
+Type: Custom Event
+Event name: click_kakao_consult
+
+Tag:
+GA4 Event - click_kakao_consult
+Event name: click_kakao_consult
+Trigger: CE - click_kakao_consult
+```
+
+After setting this up, click a Kakao button on the live site and check:
+
+```text
+GTM Preview -> event list includes click_kakao_consult
+GA4 Realtime/DebugView -> event appears
+```
+
+2. Check Microsoft Clarity after some time.
+
+Verify:
+
+```text
+Dashboard has data
+Recordings appear
+Heatmaps begin collecting
+```
+
+3. Create Looker Studio report.
+
+Recommended report name:
+
+```text
+TRYANGLE_홈페이지_마케팅_대시보드
+```
+
+Data sources:
+
+```text
+GA4: Tryangle Official Website
+Google Sheets: TRYANGLE_상담_등록_관리
+```
+
+Initial report pages:
+
+```text
+Overview
+Acquisition
+Campaigns
+Kakao Consult Funnel
+Leads & Revenue
+```
+
+Start with these GA4 scorecards:
+
+```text
+Active users
+New users
+Views
+Sessions
+```
+
+Then add tables:
+
+```text
+Session source / medium
+Session campaign
+```
+
+4. Later, connect the Google Sheet to Looker Studio for manual lead, registration, ad cost, and revenue reporting.
+
+### Git Notes
+
+Before working on another PC:
+
+```powershell
+git clone https://github.com/tkddnjs2959-lab/tryangle-homepage.git
+cd tryangle-homepage
+npm install
+```
+
+Before editing:
+
+```powershell
+git pull
+```
+
+After editing:
+
+```powershell
+npm.cmd run build
+git status
+git add README.md path/to/changed/files
+git commit -m "message"
+git push
+```
+
+There may be an untracked local `.claude/` folder on the original PC. Do not commit it unless explicitly needed.
