@@ -139,8 +139,8 @@ Example:
 3. GA4 property created: done
 4. GA4 GTM connection: done
 5. Microsoft Clarity project and GTM connection: done, waiting for data
-6. Event tracking: first event implemented in code, GTM event tag pending
-7. UTM operating rules: drafted
+6. Event tracking: first event implemented and GTM setup in progress, GA4 verification pending
+7. UTM operating rules: drafted and ready to use
 8. Looker Studio dashboard: pending
 9. Consultation/registration data sheet: pending
 10. TRYANGLE ADMIN analytics integration: later
@@ -274,6 +274,59 @@ Event tracking:
   - `coaching_footer`
 - Verification: `npm.cmd run build` passed after code changes.
 - GTM setup still needed: create a Custom Event trigger for `click_kakao_consult`, then create a GA4 Event tag that sends the same event name to GA4.
+- Owner proceeded with GTM setup guidance for:
+  - Custom Event trigger: `CE - click_kakao_consult`
+  - GA4 event tag: `GA4 Event - click_kakao_consult`
+- GA4 Analytics event visibility has not been confirmed yet.
+
+UTM operating rules:
+
+- Use UTM links for every external link to `https://tryangle-official.co.kr`.
+- Keep names lowercase where possible.
+- Use underscores instead of spaces.
+- Use `utm_campaign` to represent a recruitment round or always-on channel.
+- Use `utm_content` to distinguish individual creatives, posts, or link positions.
+
+UTM field definitions:
+
+| Field | Use | Examples |
+| --- | --- | --- |
+| `utm_source` | Platform or source | `instagram`, `naver`, `google`, `kakao`, `direct_manual` |
+| `utm_medium` | Traffic type | `profile`, `paid`, `blog`, `organic`, `dm`, `qr` |
+| `utm_campaign` | Recruitment round or campaign | `always_on`, `class_2026_09`, `round_2026_04` |
+| `utm_content` | Creative or placement | `character_ad_01`, `profile_link`, `blog_cta_01` |
+
+Approved starter links:
+
+Instagram profile:
+
+```text
+https://tryangle-official.co.kr/?utm_source=instagram&utm_medium=profile&utm_campaign=always_on&utm_content=profile_link
+```
+
+Instagram paid ad:
+
+```text
+https://tryangle-official.co.kr/?utm_source=instagram&utm_medium=paid&utm_campaign=class_2026_09&utm_content=character_ad_01
+```
+
+Naver blog:
+
+```text
+https://tryangle-official.co.kr/?utm_source=naver&utm_medium=blog&utm_campaign=class_2026_09&utm_content=blog_cta_01
+```
+
+Kakao message or manual share:
+
+```text
+https://tryangle-official.co.kr/?utm_source=kakao&utm_medium=dm&utm_campaign=class_2026_09&utm_content=manual_reply
+```
+
+QR code for offline use:
+
+```text
+https://tryangle-official.co.kr/?utm_source=offline&utm_medium=qr&utm_campaign=class_2026_09&utm_content=studio_poster
+```
 
 ---
 
@@ -322,11 +375,10 @@ Centered the trainer profile header on the coaching page.
 
 Add the GTM ID to the production deployment:
 
-1. In GTM, create a Custom Event trigger named `CE - click_kakao_consult`.
-2. In GTM, create a GA4 Event tag named `GA4 Event - click_kakao_consult`.
-3. Publish GTM.
-4. Verify the event in GTM Preview and GA4 Realtime/DebugView.
-5. Wait for Microsoft Clarity data to appear and verify Recordings/Heatmaps.
+1. Verify `click_kakao_consult` in GTM Preview and GA4 Realtime/DebugView.
+2. Start using the approved UTM links for Instagram profile, Instagram ads, Naver blog, Kakao manual replies, and offline QR codes.
+3. Wait for Microsoft Clarity data to appear and verify Recordings/Heatmaps.
+4. Next build step: create the consultation/registration tracking sheet structure.
 
 ## Future Lead Sheet
 
