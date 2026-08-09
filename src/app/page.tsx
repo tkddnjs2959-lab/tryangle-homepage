@@ -126,7 +126,7 @@ export default function Home() {
             <br />
             TRY앵글에서
             <br />
-            캐릭터 포지셔닝을 진행한 배우지망생들은
+            캐릭터 포지셔닝을 진행한 배우지망생들은 아래와 같은 성과를 얻었습니다.
             <br />
           </p>
 
@@ -140,13 +140,14 @@ export default function Home() {
               <span>배역 캐스팅</span>
             </div>
             <div className={styles.stat}>
-              <b>‘현장 진출’과 ‘데뷔’라는 성과</b>
+              <b>
+                ‘현장 진출’과
+                <br />
+                ‘데뷔’
+              </b>
               <span>커리어 성과</span>
             </div>
           </div>
-          <p className={styles.body} style={{ marginTop: 18 }}>
-            를 얻었습니다.
-          </p>
         </section>
 
         <section className={styles.sheet}>
@@ -170,6 +171,9 @@ export default function Home() {
           </ol>
 
           <div className={styles.callout}>
+            💡본 프로그램은 소수 정예로 운영됩니다.
+            <br />
+            <br />
             배우 한 분 한 분을 깊이 있게 분석하고,
             <br />
             완성도 높은 캐릭터 포지셔닝을 제공하기 위해
