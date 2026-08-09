@@ -220,7 +220,19 @@ Google Tag Manager container:
 
 - Container ID: `GTM-WP798468`
 - Website: `https://tryangle-official.co.kr`
-- Status: container created by owner, production environment variable still needs to be added and deployed.
+- Status: container created by owner. `NEXT_PUBLIC_GTM_ID` was added in Vercel environments and a new deployment was triggered by owner.
+
+Vercel environment variable:
+
+```text
+NEXT_PUBLIC_GTM_ID=GTM-WP798468
+```
+
+Deployment note:
+
+- Owner first saw the Vercel message: `A more recent Production Deployment has been created, so the one you are looking at cannot be redeployed anymore.`
+- Resolution: use the most recent Production deployment from the Deployments list, then redeploy that deployment.
+- Owner reported redeploy was completed.
 
 ---
 
@@ -269,10 +281,8 @@ Centered the trainer profile header on the coaching page.
 
 Add the GTM ID to the production deployment:
 
-1. Add it to Vercel environment variables as `NEXT_PUBLIC_GTM_ID`.
-2. Redeploy the homepage.
-3. Verify with GTM Preview or Google Tag Assistant.
-4. Move to GA4 setup.
+1. Verify GTM installation with GTM Preview or Google Tag Assistant.
+2. Move to GA4 setup.
 
 ## Future Lead Sheet
 
