@@ -141,7 +141,7 @@ Example:
 5. Microsoft Clarity project and GTM connection: done, waiting for data
 6. Event tracking: first event implemented and GTM setup in progress, GA4 verification pending
 7. UTM operating rules: drafted and ready to use
-8. Looker Studio dashboard: pending
+8. Looker Studio dashboard: design drafted, creation pending
 9. Consultation/registration data sheet: created and structured
 10. TRYANGLE ADMIN analytics integration: later
 
@@ -489,3 +489,51 @@ content: unknown
 
 - `payment_amount` should be the actual paid amount. Use `0` or blank before registration.
 - `SUMMARY` tab includes the field guide and operating rules.
+
+## Looker Studio Dashboard Plan
+
+Recommended dashboard name:
+
+```text
+TRYANGLE_홈페이지_마케팅_대시보드
+```
+
+Initial data sources:
+
+```text
+GA4: Tryangle Official Website
+Google Sheets: TRYANGLE_상담_등록_관리
+```
+
+Initial pages:
+
+```text
+1. Overview
+2. Acquisition
+3. Campaigns
+4. Kakao Consult Funnel
+5. Leads & Revenue
+```
+
+Initial Overview KPIs:
+
+```text
+Active users
+New users
+Views
+Sessions
+Engagement rate
+Kakao consultation clicks
+Top source / medium
+Top campaign
+```
+
+Recruitment-round analysis:
+
+- Use `utm_campaign` and the Sheet `campaign` column as the bridge between website performance and actual lead/registration results.
+- Monthly reporting is secondary. Primary review should be by recruitment round, for example `class_2026_09`.
+
+Creation status:
+
+- Dashboard design drafted.
+- Owner still needs to create the Looker Studio report and connect GA4 + Google Sheets data sources.
