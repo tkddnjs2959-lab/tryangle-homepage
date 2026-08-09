@@ -70,7 +70,9 @@ export default function Home() {
           <p className={styles.eyebrow}>TRY앵글 시그니처 클래스</p>
           <h1 className={styles.h1}>캐릭터 포지셔닝 클래스</h1>
           <p className={styles.heroLead}>
-            배우의 캐릭터 포지션이 캐스팅 디렉터에게 명확하게 전달될 때,
+            배우의 캐릭터 포지션이
+            <br className={styles.brMobile} />
+            {' '}캐스팅 디렉터에게 명확하게 전달될 때,
             <br />
             오디션 기회로 이어질 가능성은 더욱 높아집니다.
           </p>
