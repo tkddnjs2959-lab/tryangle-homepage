@@ -195,7 +195,7 @@
   width: 40px;
   font-size: 17px;
   font-weight: 800;
-  color: var(--sky-dot);
+  color: var(--ink);
 }
 .stepTitle { font-size: 15px; font-weight: 800; margin: 0 0 6px; color: var(--ink); }
 .stepBody { font-size: 13.5px; line-height: 1.7; color: var(--sub); margin: 0; }

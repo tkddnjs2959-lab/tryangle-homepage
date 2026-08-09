@@ -41,6 +41,8 @@ export default function CoachingPage() {
           <span className={styles.exclusiveTag}>캐릭터 포지셔닝 클래스 수료생 전용</span>
           <h1 className={pageStyles.h1}>1:1 매체연기 코칭</h1>
           <p className={pageStyles.heroLead}>
+            TRY앵글 1:1 매체연기 코칭은
+            <br />
             &lsquo;캐릭터 포지셔닝 클래스&rsquo;를 이수한 배우만 신청 가능한 후속 케어 프로그램입니다.
           </p>
           <p className={pageStyles.heroLead} style={{ marginTop: -18 }}>
@@ -59,8 +61,11 @@ export default function CoachingPage() {
         <section className={pageStyles.sheet}>
           <h2 className={pageStyles.h2}>1:1 매체연기 코칭이란</h2>
           <p className={pageStyles.body}>
-            TRY앵글의 1:1 매체연기 코칭은 배우가 오디션 기회를 &lsquo;캐스팅&rsquo;이라는 결과로 연결할 수
-            있도록, 연기의 완성도를 높이는 데 집중합니다.
+            TRY앵글의 1:1 매체연기 코칭은
+            <br />
+            배우가 오디션 기회를 &lsquo;캐스팅&rsquo;이라는 결과로 연결할 수 있도록,
+            <br />
+            연기의 완성도를 높이는 데 집중합니다.
           </p>
         </section>
 
@@ -68,15 +73,22 @@ export default function CoachingPage() {
         <section className={pageStyles.sheet}>
           <h2 className={pageStyles.h2}>왜 1:1 코칭인가요?</h2>
           <p className={pageStyles.body}>
-            배우마다 강점과 보완해야 할 부분, 그리고 목표는 모두 다릅니다. 그렇기 때문에 모든
-            배우에게 같은 방식으로 진행되는 수업보다, 배우 개개인에게 필요한 훈련을 맞춤형으로
-            설계하는 것이 더욱 중요합니다.
+            배우마다 강점과 보완해야 할 부분, 그리고 목표는 모두 다릅니다.
+            <br />
+            그렇기 때문에 모든 배우에게 같은 방식으로 진행되는 수업보다,
+            <br />
+            배우 개개인에게 필요한 훈련을 맞춤형으로 설계하는 것이 더욱 중요합니다.
           </p>
           <p className={pageStyles.body}>
-            TRY앵글은 배우의 현재 역량과 목표를 면밀히 분석한 뒤, 가장 필요한 훈련을 바탕으로
-            밀도 높은 1:1 맞춤형 코칭을 제공합니다. 매체연기 심화 훈련부터 오디션 준비, 연기
-            스펙트럼 확장까지 배우의 성장 단계에 맞는 체계적인 코칭으로 실질적인 변화를
-            만들어갑니다.
+            TRY앵글은 배우의 현재 역량과 목표를 면밀히 분석한 뒤,
+            <br />
+            가장 필요한 훈련을 바탕으로 밀도 높은 1:1 맞춤형 코칭을 제공합니다.
+            <br />
+            매체연기 심화 훈련부터 오디션 준비,
+            <br />
+            연기 스펙트럼 확장까지 배우의 성장 단계에 맞는
+            <br />
+            체계적인 코칭으로 실질적인 변화를 만들어갑니다.
           </p>
         </section>
 
@@ -176,8 +188,9 @@ export default function CoachingPage() {
             ))}
           </div>
           <div className={pageStyles.callout} style={{ marginTop: 20 }}>
-            💡 본 프로그램은 소수 인원으로 운영되며, 보다 밀도 높은 코칭을 위해 정원에 제한을
-            두고 있습니다.
+            💡 본 프로그램은 소수 인원으로 운영되며,
+            <br />
+            보다 밀도 높은 코칭을 위해 정원에 제한을 두고 있습니다.
           </div>
         </section>
 
@@ -210,12 +223,14 @@ export default function CoachingPage() {
         <section className={pageStyles.sheet}>
           <h2 className={pageStyles.h2}>신청 방법</h2>
           <p className={pageStyles.body}>
-            1:1 매체연기 코칭에 관심 있으신 분들은 카카오톡 채널을 통해 &lsquo;개인 레슨 신청
-            희망&rsquo;이라고 메시지를 남겨주세요.
+            1:1 매체연기 코칭에 관심 있으신 분들은 카카오톡 채널을 통해
+            <br />
+            &lsquo;개인 레슨 신청 희망&rsquo;이라고 메시지를 남겨주세요.
           </p>
           <p className={pageStyles.body}>
-            신청해주신 배우분들에 한해 개별 상담을 진행하며, 현재 연기 역량과 목표를 바탕으로
-            코칭 방향 및 일정을 함께 조율합니다.
+            신청해주신 배우분들에 한해 개별 상담을 진행하며,
+            <br />
+            현재 연기 역량과 목표를 바탕으로 코칭 방향 및 일정을 함께 조율합니다.
           </p>
 
           <a

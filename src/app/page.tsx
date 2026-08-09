@@ -87,32 +87,62 @@ export default function Home() {
         <section className={styles.sheet}>
           <h2 className={styles.h2}>캐릭터 포지셔닝 클래스란</h2>
           <p className={styles.body}>
-            TRY앵글 &lsquo;캐릭터 포지셔닝 클래스&rsquo;는 배우의 내·외적 이미지를 객관적으로 분석하고,
-            클래스 진행 과정에서 확인한 보이스 컬러와 매력, 개성까지 종합적으로 고려하여 배우에게
-            가장 경쟁력 있는 캐릭터 포지션을 도출합니다.
+            TRY앵글 &lsquo;캐릭터 포지셔닝 클래스&rsquo;는
+            <br />
+            배우의 내·외적 이미지를 객관적으로 분석하고,
+            <br />
+            클래스 진행 과정에서 확인한 보이스 컬러와
+            <br />
+            매력, 개성까지 종합적으로 고려하여
+            <br />
+            <strong>배우에게 가장 경쟁력 있는</strong>
+            <br />
+            <strong>캐릭터 포지션을 도출합니다.</strong>
           </p>
           <p className={styles.body}>
-            이후, 해당 캐릭터 포지션이 프로필과 연기영상에 일관되게 반영되어 캐스팅 디렉터에게
-            명확하게 전달될 수 있도록 배우와 함께 전략을 수립하고, 최적의 결과물을 만들어가는
-            프로그램입니다.
+            <strong>이후, 해당 캐릭터 포지션이</strong>
+            <br />
+            <strong>프로필과 연기영상에 일관되게 반영되어</strong>
+            <br />
+            <strong>캐스팅 디렉터에게 명확하게 전달될 수 있도록</strong>
+            <br />
+            <strong>배우와 함께 전략을 수립하고,</strong>
+            <br />
+            <strong>최적의 결과물을 만들어가는 프로그램입니다.</strong>
           </p>
           <p className={styles.body}>
-            이 과정을 이끄는 캐릭터 포지셔닝 멘토 이주아는 &lsquo;브랜딩&rsquo;과 &lsquo;연기&rsquo; 두 분야의
-            전문 지식을 바탕으로 감이 아닌, 근거 있는 캐릭터 포지셔닝을 진행합니다.
+            이 과정을 이끄는 <strong>캐릭터 포지셔닝 멘토 이주아는</strong>
+            <br />
+            <strong>&lsquo;브랜딩&rsquo;과 &lsquo;연기&rsquo; 두 분야의 전문 지식을 바탕</strong>으로
+            <br />
+            감이 아닌, 근거 있는 캐릭터 포지셔닝을 진행합니다.
+          </p>
+          <p className={styles.body}>
+            그 결과,
+            <br />
+            TRY앵글과 함께
+            <br />
+            캐릭터 포지셔닝을 진행한 배우지망생들은
+            <br />
+            <strong>오디션 기회가 눈에 띄게 증가</strong>했고,
+            <br />
+            <strong>주·조연급 배역에 캐스팅</strong>되었으며,
+            <br />
+            <strong>&lsquo;현장 진출&rsquo;과 &lsquo;데뷔&rsquo;라는 성과</strong>를 얻었습니다.
           </p>
 
           <div className={styles.stats}>
             <div className={styles.stat}>
-              <b>오디션 기회</b>
-              <span>눈에 띄는 증가</span>
+              <b>눈에 띄는 증가</b>
+              <span>오디션 기회</span>
             </div>
             <div className={styles.stat}>
-              <b>배역 캐스팅</b>
-              <span>주 · 조연급 캐스팅</span>
+              <b>주 · 조연급 캐스팅</b>
+              <span>배역 캐스팅</span>
             </div>
             <div className={styles.stat}>
-              <b>커리어 성과</b>
-              <span>현장 진출 · 데뷔</span>
+              <b>현장 진출 · 데뷔</b>
+              <span>커리어 성과</span>
             </div>
           </div>
         </section>
@@ -135,8 +165,19 @@ export default function Home() {
           </ol>
 
           <div className={styles.callout}>
-            💡 1:1 방문상담에서는 보다 상세한 캐릭터 포지셔닝 프로세스와 실제 수강생들의 변화
-            과정을 확인하실 수 있습니다.
+            💡 본 프로그램은 소수 정예로 운영됩니다.
+            <br />
+            <br />
+            배우 한 분 한 분을 깊이 있게 분석하고,
+            <br />
+            <br />
+            완성도 높은 캐릭터 포지셔닝을 제공하기 위해
+            <br />
+            <br />
+            모집 인원에 제한을 두고 있습니다.
+            <br />
+            <br />
+            정원 마감 시 신청이 조기 마감될 수 있습니다.
           </div>
         </section>
 
@@ -190,8 +231,9 @@ export default function Home() {
             </div>
           </div>
           <p className={styles.bodyMuted}>
-            현재 TRY앵글 캐릭터 포지셔닝 클래스 8기 상담 및 신청이 진행 중입니다. 정원 마감 시
-            모집이 조기 종료될 수 있으니, 상담을 원하시는 경우 미리 신청해주세요.
+            현재 TRY앵글 캐릭터 포지셔닝 클래스 8기 상담 및 신청이 진행 중입니다.
+            <br />
+            정원 마감 시 모집이 조기 종료될 수 있으니, 상담을 원하시는 경우 미리 신청해주세요.
           </p>
         </section>
 
@@ -203,11 +245,17 @@ export default function Home() {
             그룹 클래스가 아닌, 1:1 맞춤형 캐릭터 포지셔닝을 희망하신다면 아래 내용을 확인해주세요.
           </p>
           <p className={styles.body}>
-            1:1 캐릭터 포지셔닝은 브랜딩 어드바이저가 배우와 1:1로 전 과정을 함께 설계하는 프리미엄
-            프로그램입니다. 배우의 내·외적 이미지를 객관적으로 분석하고, 과정 전반에서 확인한
-            보이스 컬러와 매력, 개성까지 종합적으로 고려하여 배우에게 가장 경쟁력 있는 캐릭터
-            포지션을 도출합니다. 이후, 해당 캐릭터 포지션이 프로필과 연기영상에 일관되게 반영될 수
-            있도록 배우 개인에게 최적화된 전략을 수립합니다.
+            1:1 캐릭터 포지셔닝은 브랜딩 어드바이저가 배우와 1:1로 전 과정을 함께 설계하는 프리미엄 프로그램입니다.
+            <br />
+            배우의 내·외적 이미지를 객관적으로 분석하고,
+            <br />
+            과정 전반에서 확인한 보이스 컬러와 매력, 개성까지 종합적으로 고려하여
+            <br />
+            배우에게 가장 경쟁력 있는 캐릭터 포지션을 도출합니다.
+            <br />
+            이후, 해당 캐릭터 포지션이 프로필과 연기영상에 일관되게 반영될 수 있도록
+            <br />
+            배우 개인에게 최적화된 전략을 수립합니다.
           </p>
           <p className={styles.bodyMuted}>
             1:1 캐릭터 포지셔닝은 그룹 클래스와 달리 상시 신청이 가능합니다.
