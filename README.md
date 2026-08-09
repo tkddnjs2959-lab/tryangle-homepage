@@ -142,7 +142,7 @@ Example:
 6. Event tracking: first event implemented and GTM setup in progress, GA4 verification pending
 7. UTM operating rules: drafted and ready to use
 8. Looker Studio dashboard: pending
-9. Consultation/registration data sheet: pending
+9. Consultation/registration data sheet: design drafted, creation pending
 10. TRYANGLE ADMIN analytics integration: later
 
 ## Codebase Notes
@@ -384,9 +384,25 @@ Add the GTM ID to the production deployment:
 
 Use Google Sheets first.
 
-Suggested columns:
+Recommended first file name:
 
 ```text
+TRYANGLE_상담_등록_관리
+```
+
+Recommended tabs:
+
+```text
+Leads
+Campaigns
+Classes
+Summary
+```
+
+`Leads` columns:
+
+```text
+lead_id
 created_at
 name
 phone
@@ -395,6 +411,7 @@ source
 medium
 campaign
 content
+landing_page
 lead_status
 consult_status
 registered
@@ -402,3 +419,29 @@ class_round
 payment_amount
 memo
 ```
+
+`Campaigns` columns:
+
+```text
+campaign
+campaign_name
+start_date
+end_date
+channel
+ad_cost
+memo
+```
+
+`Classes` columns:
+
+```text
+class_round
+class_name
+start_date
+end_date
+price
+capacity
+memo
+```
+
+`Summary` can be built later after real data exists.
