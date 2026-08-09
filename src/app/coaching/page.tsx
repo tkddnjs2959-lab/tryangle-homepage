@@ -218,7 +218,6 @@ export default function CoachingPage() {
             코칭 방향 및 일정을 함께 조율합니다.
           </p>
 
-          <div className={pageStyles.callout}>📌 TRY앵글 공식 카카오톡 채널 바로가기</div>
           <a
             className={`${pageStyles.kakaoBtn} ${pageStyles.kakaoBtnWide}`}
             href={KAKAO_URL}
