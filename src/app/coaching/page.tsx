@@ -6,6 +6,21 @@ import { BENEFITS, COACHING_AREAS, DIFFERENCE_FROM_GROUP_CLASS, FAQ, PRICING, TR
 
 const KAKAO_URL = 'http://pf.kakao.com/_mWxcMb/chat';
 
+/** 콘텐츠 문자열의 '\n' 을 모바일에서만 줄바꿈으로 바꾼다 (데스크톱은 한 줄로 이어짐). */
+function mobileLines(text: string) {
+  return text.split('\n').map((part, i) =>
+    i === 0 ? (
+      <span key={part}>{part}</span>
+    ) : (
+      <span key={part}>
+        {' '}
+        <br className={styles.brM} />
+        {part}
+      </span>
+    ),
+  );
+}
+
 /**
  * 수강생 전용 숨김 랜딩페이지.
  *
@@ -43,12 +58,17 @@ export default function CoachingPage() {
           <p className={pageStyles.heroLead}>
             TRY앵글 1:1 매체연기 코칭은
             <br />
-            &lsquo;캐릭터 포지셔닝 클래스&rsquo;를 이수한 배우만 신청 가능한 후속 케어 프로그램입니다.
+            &lsquo;캐릭터 포지셔닝 클래스&rsquo;를 이수한 배우만{' '}
+            <br className={styles.brM} />
+            신청 가능한 후속 케어 프로그램입니다.
           </p>
           <p className={pageStyles.heroLead} style={{ marginTop: -18 }}>
-            캐릭터와의 어울림이 오디션 기회를 만든다면,
-            <br />
-            연기력은 그 기회를 캐스팅이라는 결과로 만드는 힘입니다.
+            캐릭터와의 어울림이 &lsquo;오디션 기회&rsquo;를 만든다면,
+            <span className={styles.gapM} aria-hidden="true" />
+            <br className={styles.brD} />
+            연기력은 그 기회를{' '}
+            <br className={styles.brM} />
+            &lsquo;캐스팅&rsquo;이라는 결과로 만드는 힘입니다.
           </p>
           <div className={pageStyles.heroActions}>
             <a className={pageStyles.kakaoBtn} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">
@@ -61,9 +81,12 @@ export default function CoachingPage() {
         <section className={pageStyles.sheet}>
           <h2 className={pageStyles.h2}>1:1 매체연기 코칭이란</h2>
           <p className={pageStyles.body}>
-            TRY앵글의 1:1 매체연기 코칭은
-            <br />
-            배우가 오디션 기회를 &lsquo;캐스팅&rsquo;이라는 결과로 연결할 수 있도록,
+            <span className={styles.leadStrong}>TRY앵글의 1:1 매체연기 코칭은</span>
+            <span className={styles.gapM} aria-hidden="true" />
+            <br className={styles.brD} />
+            배우가 오디션 기회를{' '}
+            <br className={styles.brM} />
+            &lsquo;캐스팅&rsquo;이라는 결과로 연결할 수 있도록,
             <br />
             연기의 완성도를 높이는 데 집중합니다.
           </p>
@@ -74,19 +97,19 @@ export default function CoachingPage() {
           <h2 className={pageStyles.h2}>왜 1:1 코칭인가요?</h2>
           <p className={pageStyles.body}>
             배우마다 강점과 보완해야 할 부분, 그리고 목표는 모두 다릅니다.
-            <br />
-            그렇기 때문에 모든 배우에게 같은 방식으로 진행되는 수업보다,
-            <br />
-            배우 개개인에게 필요한 훈련을 맞춤형으로 설계하는 것이 더욱 중요합니다.
+            <br className={styles.brD} /> 그렇기 때문에 모든 배우에게 같은 방식으로 진행되는 수업보다,
+            <br className={styles.brD} /> 배우 개개인에게 필요한 훈련을 맞춤형으로 설계하는 것이 더욱 중요합니다.
           </p>
           <p className={pageStyles.body}>
             TRY앵글은 배우의 현재 역량과 목표를 면밀히 분석한 뒤,
-            <br />
-            가장 필요한 훈련을 바탕으로 밀도 높은 1:1 맞춤형 코칭을 제공합니다.
-            <br />
+            <br className={styles.brD} /> 가장 필요한 훈련을 바탕으로 밀도 높은 1:1 맞춤형 코칭을 제공합니다.
+            <span className={styles.gapM} aria-hidden="true" />
+            <br className={styles.brD} />
             매체연기 심화 훈련부터 오디션 준비,
             <br />
-            연기 스펙트럼 확장까지 배우의 성장 단계에 맞는
+            연기 스펙트럼 확장까지{' '}
+            <span className={styles.gapM} aria-hidden="true" />
+            배우의 성장 단계에 맞는
             <br />
             체계적인 코칭으로 실질적인 변화를 만들어갑니다.
           </p>
@@ -105,7 +128,7 @@ export default function CoachingPage() {
           <h2 className={pageStyles.h2}>코칭 분야</h2>
           <ul className={pageStyles.list}>
             {COACHING_AREAS.map((a) => (
-              <li key={a}>{a}</li>
+              <li key={a}>{mobileLines(a)}</li>
             ))}
           </ul>
         </section>
@@ -138,7 +161,7 @@ export default function CoachingPage() {
           <h3 className={pageStyles.h3}>연기트레이너 대표 이력</h3>
           <ul className={pageStyles.list}>
             {TRAINER.trainerCareer.map((c) => (
-              <li key={c}>{c}</li>
+              <li key={c}>{mobileLines(c)}</li>
             ))}
           </ul>
 
@@ -190,7 +213,11 @@ export default function CoachingPage() {
           <div className={pageStyles.callout} style={{ marginTop: 20 }}>
             💡 본 프로그램은 소수 인원으로 운영되며,
             <br />
-            보다 밀도 높은 코칭을 위해 정원에 제한을 두고 있습니다.
+            <span className={styles.calloutIndent}>
+              보다 밀도 높은 코칭을 위해{' '}
+              <br className={styles.brM} />
+              정원에 제한을 두고 있습니다.
+            </span>
           </div>
         </section>
 
@@ -223,7 +250,9 @@ export default function CoachingPage() {
         <section className={pageStyles.sheet}>
           <h2 className={pageStyles.h2}>신청 방법</h2>
           <p className={pageStyles.body}>
-            1:1 매체연기 코칭에 관심 있으신 분들은 카카오톡 채널을 통해
+            1:1 매체연기 코칭에 관심 있으신 분들은{' '}
+            <br className={styles.brM} />
+            카카오톡 채널을 통해
             <br />
             &lsquo;개인 레슨 신청 희망&rsquo;이라고 메시지를 남겨주세요.
           </p>

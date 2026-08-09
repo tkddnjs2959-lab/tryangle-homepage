@@ -1,5 +1,18 @@
 /* 메인 페이지 page.module.css 위에 이 페이지에만 필요한 것만 얹는다. */
 
+/* 모바일 전용 줄바꿈·여백 유틸.
+   데스크톱 레이아웃은 그대로 두고 좁은 화면에서만 문장을 끊는다. */
+.brM { display: none; }
+.brD { display: inline; }
+.gapM { display: none; }
+@media (max-width: 560px) {
+  .brM { display: block; }
+  .brD { display: none; }
+  .gapM { display: block; height: 0.85em; }
+  .leadStrong { font-weight: 800; font-size: 16.5px; color: var(--navy); }
+  .calloutIndent { display: block; padding-left: 1.55em; }
+}
+
 .exclusiveTag {
   display: inline-block;
   font-size: 11.5px;

@@ -144,6 +144,60 @@ Example:
 8. Consultation/registration data sheet: pending
 9. TRYANGLE ADMIN analytics integration: later
 
+## Codebase Notes
+
+### Local run
+
+```bash
+npm install
+npm run dev
+```
+
+Port **3100** (`http://localhost:3100`). Copy `.env.local.example` to `.env.local` and
+fill it in — it drives the inquiry form (Supabase), mail alerts (Resend), and Kakao
+alerts. The Supabase project is **shared with `tryangle-research`**.
+
+### Layout
+
+| Path | Contents |
+| --- | --- |
+| `src/app/page.tsx` · `page.module.css` | Main page. **The CSS module is shared with the coaching page** |
+| `src/app/coaching/` | `/coaching` — hidden landing page for enrolled actors (`noindex`, not linked from any menu) |
+| `src/app/coaching/content.ts` | Coaching page copy and pricing. Prefer editing text here |
+| `src/app/ContactForm.tsx` | Main inquiry form |
+| `src/app/api/inquiry/` | Inquiry intake → Supabase + notifications |
+| `src/app/api/kakao/` | Kakao "send to me" alerts (needs a one-time authorize) |
+| `src/app/newsData.ts` | Press links, shared by both pages |
+
+### Line-break rules (important)
+
+Line breaks in the Korean copy are placed by hand, and mobile needs different breaks
+than desktop. A plain `<br />` breaks on both. Use these utilities instead — mobile
+means **≤560px** everywhere.
+
+Main page (`page.module.css`)
+
+| Class | Role |
+| --- | --- |
+| `.brMobile` | Breaks on mobile only |
+
+Coaching page (`coaching/coaching.module.css`)
+
+| Class | Role |
+| --- | --- |
+| `.brM` | `<br>` that breaks on mobile only |
+| `.brD` | `<br>` that breaks on desktop only (hidden on mobile) |
+| `.gapM` | Blank line on mobile only (`<span>`, 0.85em tall) |
+| `.leadStrong` | Bold and larger on mobile only (same as body text on desktop) |
+| `.calloutIndent` | Indents the callout's second line on mobile |
+
+A `\n` inside a list string in `content.ts` is turned into a mobile-only break by the
+`mobileLines()` helper in `page.tsx`; on desktop it renders as a single space.
+
+When a request is mobile-only, add `.brM` / `.gapM` and convert any existing shared
+`<br />` that desktop still needs into `.brD`. Always check both 375px and desktop
+widths afterwards.
+
 ## Completed Work
 
 ### 2026-08-09
@@ -167,6 +221,35 @@ Google Tag Manager container:
 - Container ID: `GTM-WP798468`
 - Website: `https://tryangle-official.co.kr`
 - Status: container created by owner, production environment variable still needs to be added and deployed.
+
+---
+
+Adjusted the coaching page copy and spacing for mobile.
+
+- Files: `src/app/coaching/page.tsx`, `coaching.module.css`, `content.ts`
+- Scope: `/coaching` only, mobile (≤560px) only. Desktop rendering is unchanged
+  except for the two copy edits noted below.
+- Added the `.brM` / `.brD` / `.gapM` / `.leadStrong` / `.calloutIndent` utilities and
+  the `mobileLines()` helper described under [Line-break rules](#line-break-rules-important).
+
+Section by section:
+
+1. Hero — break after `…이수한 배우만`, blank line after `…오디션 기회를 만든다면,`.
+   Added single quotes around `오디션 기회` and `캐스팅` (**applies to desktop too**).
+2. `1:1 매체연기 코칭이란` — first line `TRY앵글의 1:1 매체연기 코칭은` is bold and larger
+   on mobile, followed by a blank line.
+3. `왜 1:1 코칭인가요?` — the first two paragraphs now flow without forced breaks on
+   mobile; blank lines around `매체연기 심화 훈련부터…` split it into three blocks.
+4. `코칭 분야` — the parenthetical in the audition-training item moves to its own line.
+5. `연기트레이너 대표 이력` — reworded to `연기 지도 수강생 소속사 다수 합격 /
+   (9아토엔터테인먼트, 모드하우스 등)` (**applies to desktop too**; the agency name had
+   been missing its leading `9`). The graduate-coaching parenthetical also breaks on mobile.
+6. `비용` callout — break before `정원에 제한을 두고 있습니다.` plus an indent.
+7. `신청 방법` — break after `…관심 있으신 분들은`.
+
+- Verification: rendered `/coaching` at 375px and desktop width in a browser and
+  compared the resulting line structure.
+- Commit: `코칭 페이지 모바일 문구·간격 정리`
 
 ## Next Owner Action
 
