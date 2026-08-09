@@ -1,0 +1,36 @@
+/* tryangle-research 와 동일한 톤 — 네이비 + 연한 스카이블루 */
+:root {
+  --navy: #12224f;
+  --navy2: #1c3568;
+  --ink: #1a1f2e;
+  --sub: #4f5b69;
+  --line: #d3e4f0;
+
+  --bg: #ffffff;
+  --card: #ffffff;
+
+  --sky-bg: #f2f8fd;
+  --sky-line: #dbebf7;
+  --sky-dot: #3d87b8;
+
+  --ok: #1a6b43;
+  --danger: #a83232;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕',
+    system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  min-height: 100dvh;
+}
+
+button, input, textarea { font-family: inherit; }
+a { color: inherit; }

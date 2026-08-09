@@ -1,0 +1,19 @@
+node_modules/
+.next/
+out/
+build/
+
+# 환경변수 — service key 가 들어있다. 절대 커밋하지 말 것.
+.env
+.env.local
+.env*.local
+
+npm-debug.log*
+yarn-error.log*
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# 원본 이미지 — public/ 에 이미 복사해 넣었다. 중복이라 커밋하지 않는다.
+/try앵글 로고.jpg
+/이주아대표 이미지.jpg
