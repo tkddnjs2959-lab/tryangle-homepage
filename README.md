@@ -471,3 +471,21 @@ lead_status: new, contacted, consulting, registered, lost
 consult_status: not_started, scheduled, completed, no_show, cancelled
 registered: yes, no
 ```
+
+Lead entry operating rules:
+
+- Only record people who actually contact Tryangle through Kakao, application, phone, DM, or another identifiable lead channel.
+- Do not manually record anonymous visitors who only viewed the website or clicked the Kakao button. Those remain in GA4/Clarity.
+- Suggested `lead_id` format: `L-YYYY-0001`, for example `L-2026-0001`.
+- Copy UTM values into `source`, `medium`, `campaign`, and `content` when the source is known.
+- If the source is unknown, use:
+
+```text
+source: unknown
+medium: unknown
+campaign: unknown
+content: unknown
+```
+
+- `payment_amount` should be the actual paid amount. Use `0` or blank before registration.
+- `SUMMARY` tab includes the field guide and operating rules.
