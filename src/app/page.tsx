@@ -128,7 +128,9 @@ export default function Home() {
             <br />
             TRY앵글에서
             <br />
-            캐릭터 포지셔닝을 진행한 배우지망생들은 아래와 같은 성과를 얻었습니다.
+            캐릭터 포지셔닝을 진행한 배우지망생들은
+            <br className={styles.brMobile} />
+            {' '}아래와 같은 성과를 얻었습니다.
             <br />
           </p>
 
