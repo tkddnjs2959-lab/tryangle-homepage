@@ -233,6 +233,7 @@ Deployment note:
 - Owner first saw the Vercel message: `A more recent Production Deployment has been created, so the one you are looking at cannot be redeployed anymore.`
 - Resolution: use the most recent Production deployment from the Deployments list, then redeploy that deployment.
 - Owner reported redeploy was completed.
+- GTM Preview / Tag Assistant verification: owner reported `Connected`.
 
 ---
 
@@ -281,8 +282,10 @@ Centered the trainer profile header on the coaching page.
 
 Add the GTM ID to the production deployment:
 
-1. Verify GTM installation with GTM Preview or Google Tag Assistant.
-2. Move to GA4 setup.
+1. Create the GA4 property and web data stream.
+2. Add the GA4 Google tag in GTM.
+3. Publish the GTM container.
+4. Verify GA4 Realtime.
 
 ## Future Lead Sheet
 
