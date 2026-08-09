@@ -140,11 +140,7 @@ export default function Home() {
               <span>배역 캐스팅</span>
             </div>
             <div className={styles.stat}>
-              <b>
-                ‘현장 진출’과
-                <br />
-                ‘데뷔’
-              </b>
+              <b>‘현장 진출’과 ‘데뷔’</b>
               <span>커리어 성과</span>
             </div>
           </div>
