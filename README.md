@@ -138,7 +138,7 @@ Example:
 2. GTM installation in homepage code: done
 3. GA4 property created: done
 4. GA4 GTM connection: done
-5. Microsoft Clarity project and GTM connection: pending
+5. Microsoft Clarity project and GTM connection: done, waiting for data
 6. Event tracking: pending
 7. UTM operating rules: drafted
 8. Looker Studio dashboard: pending
@@ -246,6 +246,13 @@ Google Analytics 4:
 - Resolution: after correcting the environment variable name and redeploying, owner reported that `GTM-WP798468` is now visible on the live site.
 - GA4 verification: owner reported GA4 Realtime visitor count increased by 1.
 
+Microsoft Clarity:
+
+- Project name shown in Clarity: `TRYGANLE` (as displayed in screenshot; may be a typo of TRYANGLE).
+- Installation method: Google Tag Manager.
+- Status screen says Clarity was installed using Google Tag Manager and data should start appearing within a few hours.
+- Screenshot status: Clarity tour shows 1/7 completed.
+
 ---
 
 Adjusted the coaching page copy and spacing for mobile.
@@ -293,9 +300,9 @@ Centered the trainer profile header on the coaching page.
 
 Add the GTM ID to the production deployment:
 
-1. Create the Microsoft Clarity project.
-2. Connect Microsoft Clarity through GTM.
-3. Verify Clarity starts collecting visits.
+1. Wait for Microsoft Clarity data to appear.
+2. Verify Recordings and Heatmaps after visits are collected.
+3. Move to first custom event tracking: `click_kakao_consult`.
 
 ## Future Lead Sheet
 
