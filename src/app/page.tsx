@@ -200,6 +200,7 @@ export default function Home() {
           </div>
 
           <div className={styles.callout}>
+            <p className={styles.calloutTitle}>클래스 운영 스케줄</p>
             💡 캐릭터 포지셔닝 클래스(그룹)는 연 4회만 오픈하는 클래스입니다.
             <table className={styles.schedule}>
               <tbody>
@@ -213,10 +214,21 @@ export default function Home() {
                 </tr>
               </tbody>
             </table>
-            <p className={styles.calloutSub}>
-              캐릭터 포지셔닝 클래스 8기 개강일 — 화요일 26.09.08(화) · 토요일 26.09.12(토)
-              <br />※ 9기는 12월 중순 개강 예정입니다.
-            </p>
+
+            <p className={styles.calloutTitle} style={{ marginTop: 20 }}>캐릭터 포지셔닝 클래스 8기 개강일</p>
+            <table className={styles.schedule}>
+              <tbody>
+                <tr>
+                  <td>화요일반</td>
+                  <td>2026.09.08 (화)</td>
+                </tr>
+                <tr>
+                  <td>토요일반</td>
+                  <td>2026.09.12 (토)</td>
+                </tr>
+              </tbody>
+            </table>
+            <p className={styles.calloutSub}>※ 9기는 12월 중순 개강 예정입니다.</p>
           </div>
         </section>
 
