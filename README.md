@@ -76,6 +76,7 @@ Important:
 | `click_kakao_consult` | Kakao consultation link clicked on the website |
 | `view_insight` | An individual insight article was opened |
 | `click_insight_article` | An insight card or related article was clicked |
+| `share_insight` | An insight article share button was clicked |
 | `click_instagram` | Instagram outbound link clicked |
 | `start_application` | Application flow started |
 | `complete_application` | Application completed |
@@ -90,6 +91,7 @@ Insight event parameters:
 | `click_insight_article` | `source` | `insights_index` or `related_article` |
 | `click_insight_article` | `article` | Destination article slug |
 | `click_insight_article` | `from_article` | Previous article slug, only for related links |
+| `share_insight` | `article` | Shared article slug |
 
 GTM setup for each new custom event:
 
@@ -881,3 +883,25 @@ git push
 ```
 
 There may be an untracked local `.claude/` folder on the original PC. Do not commit it unless explicitly needed.
+
+## 2026-08-10 Share-Link UTM Automation
+
+- Added an article share button to each `/insights/[slug]` page.
+- The button uses the browser-native share sheet when available, or copies the article URL to the clipboard.
+- Shared URLs automatically include:
+
+```text
+utm_source=insight
+utm_medium=share
+utm_campaign=always_on
+utm_content={article_slug}
+```
+
+- Added the `share_insight` dataLayer event with the `article` parameter.
+- This is client-side only. It does not call OpenAI, DeepSeek, or any other AI API.
+
+API clarification:
+
+- Current content growth features such as sitemap, robots, RSS, insight pages, related links, and share links do not require an AI API.
+- Existing API routes are for site operations only: inquiry submission, Kakao authorization/callback, Supabase inquiry storage, and optional email/Kakao alerts.
+- DeepSeek has not been integrated. If AI drafting or summarization is needed later, connect it explicitly and keep human review before publishing.

@@ -4,6 +4,7 @@ import TrackedLink from '../../TrackedLink';
 import { getInsight, INSIGHTS } from '../content';
 import styles from './page.module.css';
 import InsightViewTracker from './InsightViewTracker';
+import ShareButton from './ShareButton';
 
 export function generateStaticParams() {
   return INSIGHTS.map(({ slug }) => ({ slug }));
@@ -28,6 +29,9 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
         <p className={styles.eyebrow}>TRYANGLE INSIGHT</p>
         <h1>{item.title}</h1>
         <p className={styles.summary}>{item.summary}</p>
+        <div className={styles.shareRow}>
+          <ShareButton title={item.title} slug={item.slug} />
+        </div>
         {item.sections.map((section) => (
           <section key={section.heading}>
             <h2>{section.heading}</h2>

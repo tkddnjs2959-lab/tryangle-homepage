@@ -3,6 +3,9 @@
 .eyebrow { color: #5687a6; font-size: 12px; letter-spacing: .12em; font-weight: 700; }
 .article h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.18; margin: 18px 0 24px; }
 .summary { font-size: 19px; line-height: 1.7; color: #52616c; padding-bottom: 28px; border-bottom: 1px solid #e7edf0; }
+.shareRow { display: flex; justify-content: flex-end; margin-top: 18px; }
+.shareRow button { border: 1px solid #cad8df; background: #fff; color: #17222b; border-radius: 999px; padding: 11px 16px; font: inherit; font-weight: 700; cursor: pointer; }
+.shareRow button:hover { border-color: #5687a6; color: #315f7b; }
 .article section { margin-top: 34px; }
 .article h2 { font-size: 23px; margin-bottom: 10px; }
 .article section p { line-height: 1.85; color: #44515a; }
