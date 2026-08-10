@@ -905,3 +905,26 @@ API clarification:
 - Current content growth features such as sitemap, robots, RSS, insight pages, related links, and share links do not require an AI API.
 - Existing API routes are for site operations only: inquiry submission, Kakao authorization/callback, Supabase inquiry storage, and optional email/Kakao alerts.
 - DeepSeek has not been integrated. If AI drafting or summarization is needed later, connect it explicitly and keep human review before publishing.
+
+## 2026-08-10 Insight Content Expansion
+
+- Expanded the public `/insights` content library from 3 articles to 10 articles.
+- Added seven new search-intent articles:
+  - `profile-photo-outfit-guide`
+  - `profile-shoot-preparation-checklist`
+  - `audition-self-introduction`
+  - `casting-profile-core-points`
+  - `acting-entrance-vs-audition`
+  - `new-actor-profile-mistakes`
+  - `actor-portfolio-structure`
+  - `media-acting-audition-routine`
+- Rewrote `src/app/insights/content.ts` with clean Korean copy so article titles, descriptions, summaries, and sections remain readable in source.
+- The `/insights` hub, `/insights/[slug]` pages, `sitemap.xml`, and `/insights/feed.xml` update automatically from the `INSIGHTS` array after deployment.
+- No AI API was added for this step.
+
+## 2026-08-10 Insight Article Detail Pass
+
+- Expanded all 10 insight articles from short outline-style posts into more detailed practical guides.
+- Each article now includes deeper context, concrete preparation criteria, common mistakes, and review questions where relevant.
+- Article structure remains code-driven in `src/app/insights/content.ts`; no CMS, OpenAI API, or DeepSeek API was added.
+- This pass is intended to make the pages more useful for real visitors and stronger for search-intent landing pages.
