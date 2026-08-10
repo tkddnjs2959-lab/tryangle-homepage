@@ -19,10 +19,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: '잘못된 요청입니다.' }, { status: 400 });
   }
 
-  const raw = body as { name?: unknown; contact?: unknown; message?: unknown };
+  const raw = body as { name?: unknown; contact?: unknown; message?: unknown; attribution?: unknown };
   const name = typeof raw.name === 'string' ? raw.name.trim() : '';
   const contact = typeof raw.contact === 'string' ? raw.contact.trim() : '';
   const message = typeof raw.message === 'string' ? raw.message.trim() : '';
+  const attribution = raw.attribution && typeof raw.attribution === 'object' && !Array.isArray(raw.attribution)
+    ? raw.attribution as Record<string, unknown>
+    : {};
+  const source = typeof attribution.utm_source === 'string' ? attribution.utm_source : 'unknown';
+  const medium = typeof attribution.utm_medium === 'string' ? attribution.utm_medium : 'unknown';
+  const campaign = typeof attribution.utm_campaign === 'string' ? attribution.utm_campaign : 'unknown';
+  const content = typeof attribution.utm_content === 'string' ? attribution.utm_content : 'unknown';
 
   if (!name || !contact) {
     return NextResponse.json({ message: '이름과 연락처를 입력해주세요.' }, { status: 400 });
@@ -32,6 +39,10 @@ export async function POST(req: Request) {
     p_name: name,
     p_contact: contact,
     p_message: message || null,
+    p_source: source,
+    p_medium: medium,
+    p_campaign: campaign,
+    p_content: content,
   });
 
   if (error) {

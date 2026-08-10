@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import styles from './page.module.css';
+import { getAttribution } from './AttributionCapture';
 
 /**
  * 현재 page.tsx 에서는 렌더링하지 않는다 (홈페이지 개설과 별개로
@@ -28,7 +29,7 @@ export default function ContactForm() {
       const res = await fetch('/api/inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, contact, message }),
+        body: JSON.stringify({ name, contact, message, attribution: getAttribution() }),
       });
       const json = (await res.json().catch(() => ({}))) as { message?: string };
       if (!res.ok) {

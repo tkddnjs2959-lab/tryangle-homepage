@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { NEWS } from './newsData';
 import styles from './page.module.css';
 import TrackedLink from './TrackedLink';
@@ -397,6 +398,7 @@ export default function Home() {
           <Image src="/logo.jpg" alt="TRY앵글" width={22} height={22} className={styles.footerLogo} />
           ⓒ Artist Branding Company TRY앵글
         </div>
+        <Link href="/insights">배우 인사이트</Link>
         <TrackedLink
           href={KAKAO_URL}
           target="_blank"

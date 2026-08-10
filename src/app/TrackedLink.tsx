@@ -1,6 +1,7 @@
 'use client';
 
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
+import { getAttribution } from './AttributionCapture';
 
 type WindowWithDataLayer = Window & {
   dataLayer?: Array<Record<string, unknown>>;
@@ -27,6 +28,7 @@ export default function TrackedLink({
         win.dataLayer = win.dataLayer || [];
         win.dataLayer.push({
           event: eventName,
+          ...getAttribution(),
           ...eventParams,
         });
         onClick?.(event);

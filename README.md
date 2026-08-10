@@ -74,11 +74,29 @@ Important:
 | `view_class` | Class detail viewed |
 | `view_portfolio` | Portfolio or case section viewed |
 | `click_kakao_consult` | Kakao consultation link clicked on the website |
+| `view_insight` | An individual insight article was opened |
+| `click_insight_article` | An insight card or related article was clicked |
 | `click_instagram` | Instagram outbound link clicked |
 | `start_application` | Application flow started |
 | `complete_application` | Application completed |
 
 Keep event names stable even if button text changes.
+
+Insight event parameters:
+
+| Event | Parameter | Meaning |
+| --- | --- | --- |
+| `view_insight` | `article` | Opened article slug |
+| `click_insight_article` | `source` | `insights_index` or `related_article` |
+| `click_insight_article` | `article` | Destination article slug |
+| `click_insight_article` | `from_article` | Previous article slug, only for related links |
+
+GTM setup for each new custom event:
+
+1. Create a Custom Event trigger with the exact lowercase event name.
+2. Create a GA4 Event tag using the same event name.
+3. Map the listed parameters as event parameters if article-level reporting is needed.
+4. Preview the site and publish the container after confirming the event fires.
 
 ## UTM Rules
 
@@ -144,6 +162,57 @@ Example:
 8. Looker Studio dashboard: design drafted, creation pending
 9. Consultation/registration data sheet: created and structured
 10. TRYANGLE ADMIN analytics integration: later
+
+### 2026-08-10 Attribution and inquiry tracking
+
+- Added `src/app/AttributionCapture.tsx` to persist the first UTM values for the current session.
+- `TrackedLink` now adds the stored UTM values to `window.dataLayer` events.
+- The inquiry form sends attribution data to `/api/inquiry`.
+- Added the shared Supabase migration `tryangle-research/supabase/migrations/20260810000001_inquiry_attribution.sql`.
+- Inquiry records now retain `source`, `medium`, `campaign`, and `content`, defaulting to `unknown` when no UTM exists.
+- This connects anonymous acquisition data to identifiable inquiry records. A Kakao link click is still not treated as an actual inquiry.
+- Verification: `npm.cmd run build` passed in `tryangle-homepage`.
+
+Migration operation:
+
+1. Apply the new migration to the shared Supabase project.
+2. Deploy the homepage after the migration is applied.
+3. Submit a test inquiry using one of the approved UTM links.
+4. Confirm the new attribution columns in the `inquiries` table.
+
+### 2026-08-10 SEO foundation
+
+- Added canonical URL and Open Graph metadata to the root layout.
+- Added `ProfessionalService` JSON-LD structured data.
+- Added generated `sitemap.xml` and `robots.txt`.
+- `/coaching` remains excluded because it is an enrollment-only `noindex` page.
+- `/api/` remains excluded from crawlers.
+- Next content step: create public search-intent pages for actor branding, audition profile strategy, and character analysis.
+
+### 2026-08-10 Search-intent content foundation
+
+- Added a data-driven public insight route at `/insights/[slug]`.
+- Added three initial Korean search-intent articles covering actor profile strategy, audition image checks, and character branding.
+- Each article has page-specific metadata, a canonical URL, and a tracked Kakao consultation CTA.
+- Added `/insights` as the public content hub so search visitors can browse all articles.
+- Added footer links from the main and coaching pages to `/insights` for internal discovery.
+- Each insight page now shows two automatically selected related articles to strengthen internal navigation.
+- Added `click_insight_article` dataLayer events for article cards and related-article links, including source and article slug parameters.
+- Added `view_insight` dataLayer events when an individual insight page is opened, with the article slug as a parameter.
+- Added a tracked consultation CTA to the `/insights` hub with placement `insights_index_cta`.
+- Added RSS feed discovery metadata so compatible readers and automation tools can discover `/insights/feed.xml`.
+- Added a visible `새 글 RSS로 받기` link on `/insights`; the feed is available after the latest deployment.
+- `sitemap.xml` now includes all insight pages automatically.
+- To add a new article, add one object to `src/app/insights/content.ts`; static generation, metadata, and sitemap inclusion follow automatically.
+- Human review is required before publishing new claims or client case studies.
+
+### 2026-08-10 Content distribution automation hook
+
+- Added `/insights/feed.xml`, an RSS feed generated from `src/app/insights/content.ts`.
+- When a new insight is added, the RSS feed updates automatically after deployment.
+- Connect this feed to Make, n8n, or a newsletter tool to create social/newsletter drafts.
+- Recommended workflow: RSS trigger → AI draft caption/summary → human review → scheduled publishing.
+- Do not auto-publish unreviewed client claims, testimonials, or actor images.
 
 ## Codebase Notes
 
@@ -379,6 +448,58 @@ Add the GTM ID to the production deployment:
 2. Start using the approved UTM links for Instagram profile, Instagram ads, Naver blog, Kakao manual replies, and offline QR codes.
 3. Wait for Microsoft Clarity data to appear and verify Recordings/Heatmaps.
 4. Next build step: create the consultation/registration tracking sheet structure.
+
+### 2026-08-09 Event Verification
+
+- Owner reported that the GA4 `click_kakao_consult` event count increased by 2.
+- This confirms that the Kakao consultation click event is being received by Analytics.
+- GTM Preview details and the `placement` parameter were not separately recorded; verify them later if needed.
+
+### 2026-08-09 Looker Studio Preparation
+
+- Dashboard creation started.
+- Confirmed the Google Sheets data source is accessible:
+  - File: `TRYANGLE_상담_등록_관리`
+  - URL: `https://docs.google.com/spreadsheets/d/1uYwRYGfa-mMs-jlmI75ADoAKTaDAqiaJQ_runu2UJ90`
+- Planned data sources: GA4 property `Tryangle Official Website` and the Google Sheet above.
+- Planned report pages: `Overview`, `Acquisition`, `Campaigns`, `Kakao Consult Funnel`, `Leads & Revenue`.
+- The Looker Studio report itself still needs to be created in the owner's Google account.
+- Owner created the Looker Studio report:
+  - URL: `https://datastudio.google.com/reporting/1d378a8e-1524-4836-bf5e-c7639100abd4/page/Mt05F/edit`
+  - Current stage: report created; data-source connection and page/chart setup pending.
+
+### 2026-08-10 Overview Page Cleanup
+
+- Owner shared a screenshot of the first Looker Studio page.
+- GA4 data source is connected and showing active users, views, and session tables.
+- Current issue: the `이벤트 수` scorecard has no event filter, so it shows `데이터 없음`; the time-series chart and tables need spacing/layout cleanup.
+- Recommended first-page layout:
+  1. Top row: Active users, Views, Sessions, `click_kakao_consult` event count.
+  2. Middle row: Users over time chart.
+  3. Bottom row: Session source/medium table and Session campaign table.
+- Required event scorecard filter: `Event name = click_kakao_consult`.
+- Owner revised the Overview layout: four KPI cards on top, a user time-series chart in the middle, and source/medium plus campaign tables at the bottom.
+- Screenshot review: layout is now acceptable; the Kakao event scorecard still shows `데이터 없음` and needs filter/date-range verification.
+- Follow-up screenshot: removing the filter makes the event scorecard show 59 total events, confirming the GA4 connection and `이벤트 수` metric are working.
+- Diagnosis: the custom filter did not match the GA4 event-name field/value. Recreate it by searching the field list for `이벤트 이름`, selecting that field, and using an exact equals condition for `click_kakao_consult`.
+- Latest screenshot: the filter chip is present but the scorecard still shows no data. Next diagnostic is to add a temporary table with dimension `이벤트 이름` and metric `이벤트 수` to inspect the exact event-name values arriving in Looker Studio before recreating the scorecard filter.
+- Diagnostic table result: GA4 currently contains `page_view` (5), `user_engagement` (3), `click` (2), `session_start` (2), and `first_visit` (1); `click_kakao_consult` is not present.
+- Source code still pushes `event: click_kakao_consult` from `src/app/TrackedLink.tsx`, so the likely issue is the GTM GA4 Event tag is configured with event name `click` instead of `click_kakao_consult`.
+- Next fix: in GTM, edit `GA4 Event - click_kakao_consult`, set Event Name exactly to `click_kakao_consult`, keep the custom-event trigger name `click_kakao_consult`, publish the container, then test again.
+- GTM screenshot review: the existing tag and trigger use uppercase `CLICK_KAKAO_CONSULT`, while `src/app/TrackedLink.tsx` pushes lowercase `click_kakao_consult`. GTM custom-event matching is case-sensitive, so both the trigger event name and GA4 tag event name must be changed to lowercase `click_kakao_consult`.
+- Latest report screenshot still shows only the old `click` event and no `click_kakao_consult`; this means the newly corrected GTM configuration has not yet been confirmed as firing. Next verification must be done in GTM Preview by clicking a Kakao link and checking the custom event and GA4 tag before waiting for Looker Studio refresh.
+- GTM Preview screenshot shows the GA4 tag fires, but GA4/Looker Studio still records `click`. This indicates the tag's GA4 Event Name field is still likely set to `click`; verify the tag configuration itself, not only the trigger, and set Event Name to lowercase `click_kakao_consult`.
+- Owner screenshot confirms the GA4 tag Event Name is now correctly set to `click_kakao_consult` with Measurement ID `G-1Z0PL2VZHX`. The remaining check is the custom-event trigger's internal Event name; its displayed trigger label is uppercase, but the configured event value must be lowercase `click_kakao_consult`.
+- Owner decided not to block dashboard work on renaming the event. The currently observed GA4 event is `click` (2 events), so the Overview scorecard may use `이벤트 이름 = click` for now. Renaming to `click_kakao_consult` remains an optional cleanup for clearer long-term analytics naming.
+- Next dashboard step: finish the Overview event scorecard using `이벤트 이름 = click`, then build the `Acquisition` page with session source/medium, session campaign, active users, and sessions.
+- Owner reported that the `Acquisition` page was created with the planned KPI cards, source/medium table, campaign table, and sessions-over-time chart.
+- Next dashboard step: build the `Campaigns` page using `Session campaign` and the `CAMPAIGNS` Google Sheet tab for campaign cost and recruitment-round comparison.
+- Owner proceeded to the `Campaigns` page. A source/tab mismatch was observed in the Google Sheets table and should be corrected later so `campaign` rows come from the `CAMPAIGNS` tab rather than `CLASSES`-like values.
+- Next dashboard step: build the `Kakao Consult Funnel` page using GA4 active users/sessions and the currently observed `click` event.
+- Owner asked for an easier alternative to building the Looker Studio dashboard. Recommended simplified operation: use GA4's built-in Acquisition/Engagement reports for website analytics, Microsoft Clarity for recordings/heatmaps, and Google Sheets for leads, registrations, ad cost, and revenue. Keep Looker Studio as an optional later layer after enough data accumulates.
+- Strategic transition: the core tracking setup is in place, so the next priority is advertising strategy—campaign objective, target audience, creative/message testing, UTM links, and measuring consultation/registration outcomes rather than adding more dashboard complexity.
+- Content strategy decision: target `배우 지망생 / 오디션 준비생` and promote the `정규 클래스`. Use Instagram for short proof-oriented content and Naver Blog for searchable long-form explanations. AI may draft titles, outlines, captions, and article text, but human review and manual publishing are recommended for Naver Blog.
+- API note: Naver's official blog writing API was discontinued, so direct automatic publishing to Naver Blog should not be planned. Instagram publishing can be automated only through Meta's official publishing tools/API with a professional account and required permissions; start with scheduled/manual publishing before building automation.
 
 ## Future Lead Sheet
 
