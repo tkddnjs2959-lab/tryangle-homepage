@@ -17,3 +17,6 @@ next-env.d.ts
 # 원본 이미지 — public/ 에 이미 복사해 넣었다. 중복이라 커밋하지 않는다.
 /try앵글 로고.jpg
 /이주아대표 이미지.jpg
+
+.vercel
+.env*

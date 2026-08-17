@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { NEWS } from './newsData';
 import styles from './page.module.css';
 import TrackedLink from './TrackedLink';
+import ContactForm from './ContactForm';
 
-const KAKAO_URL = 'http://pf.kakao.com/_mWxcMb/chat';
+const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=homepage_cta&utm_content=main';
 
 const PROCESS = [
   {
@@ -15,7 +15,13 @@ const PROCESS = [
   {
     n: '02',
     title: '캐릭터 포지션 적합도 분석',
-    body: '이미지 심층 분석 결과와 클래스 진행 과정에서 확인한 배우의 특성, 보이스 컬러, 매력, 개성 등을 바탕으로 배우에게 가장 적합한 캐릭터 포지션을 탐색합니다.',
+    body: (
+      <>
+        이미지 심층 분석 결과와 클래스 진행 과정에서 확인한 배우의 특성, 보이스 컬러, 매력, 개성 등을 바탕으로
+        <br className={styles.brDesktop} />
+        배우에게 가장 적합한 캐릭터 포지션을 탐색합니다.
+      </>
+    ),
   },
   {
     n: '03',
@@ -30,18 +36,34 @@ const PROCESS = [
   {
     n: '05',
     title: '캐릭터 R&D',
-    body: '캐릭터 포지션이 연기영상에서도 일관되게 전달될 수 있도록 캐릭터 포지션에 적합한 모놀로그를 선정하고, 배우에게 맞게 디벨롭하여 연기영상을 완성합니다.',
+    body: (
+      <>
+        캐릭터 포지션이 연기영상에서도 일관되게 전달될 수 있도록 캐릭터 포지션에 적합한 모놀로그를
+        <br className={styles.brMobile} />
+        {' '}선정하고, 배우에게 맞게 디벨롭하여 연기영상을 완성합니다.
+      </>
+    ),
   },
 ];
 
 const CAREER = [
-  '세종대학교 대학원 예술학 박사 수료 (연기 전공)',
-  '세종대학교 대학원 예술학 석사 (연기 전공)',
-  '배우 브랜딩 전문기업 TRY앵글 CEO',
-  '전 퍼스널브랜딩바이블 대표',
-  '한국퍼스널브랜딩연구소 콘텐츠개발본부 책임연구원',
-  'SM엔터테인먼트 소속생 연기 지도',
-  '본스타트레이닝센터 연기트레이너',
+  { text: '세종대학교 대학원 예술학 박사 수료 (연기 전공)' },
+  { text: '세종대학교 대학원 예술학 석사 (연기 전공)' },
+  { text: '배우 브랜딩 전문기업 TRY앵글 CEO' },
+  { text: '『퍼스널브랜딩 바이블』 저자' },
+  { text: '한국퍼스널브랜딩연구소 콘텐츠개발본부 책임연구원' },
+  { text: 'SM엔터테인먼트 소속생 연기 지도' },
+  {
+    text: '연기 지도 수강생 소속사 다수 합격',
+    note: '(9아토 엔터테인먼트, MYM 엔터테인먼트, 모드하우스 등)',
+  },
+  {
+    text: '주요 연극영화과 졸업생 매체연기 지도',
+    note: '(중앙대, 한양대, 단국대, 동덕여대, 성신여대, 서울예대 등)',
+  },
+  { text: '경기대학교 학점은행제 출강', note: '(뮤지컬제작실습 드라마 코치)' },
+  { text: '본스타트레이닝센터 연기트레이너' },
+  { text: '티아이연기학원 연기트레이너' },
 ];
 
 export default function Home() {
@@ -53,16 +75,6 @@ export default function Home() {
             <Image src="/logo.jpg" alt="TRY앵글" width={36} height={36} className={styles.logoImg} priority />
             TRY앵글
           </div>
-          <TrackedLink
-            className={styles.navKakao}
-            href={KAKAO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            eventName="click_kakao_consult"
-            eventParams={{ placement: 'main_header' }}
-          >
-            카카오 상담
-          </TrackedLink>
         </div>
       </header>
 
@@ -77,93 +89,32 @@ export default function Home() {
             priority
           />
           <p className={styles.eyebrow}>TRY앵글 시그니처 클래스</p>
-          <h1 className={styles.h1}>캐릭터 포지셔닝 클래스</h1>
+          <h1 className={styles.h1}>
+            캐릭터 포지셔닝 클래스
+          </h1>
           <p className={styles.heroLead}>
             배우의 캐릭터 포지션이
             <br className={styles.brMobile} />
             {' '}캐스팅 디렉터에게 명확하게 전달될 때,
-            <br />
+            <br className={styles.brDesktop} />
+            <br className={styles.brMobile} />
             오디션 기회로 이어질 가능성은 더욱 높아집니다.
           </p>
-          <div className={styles.heroActions}>
-            <TrackedLink
-              className={styles.kakaoBtn}
-              href={KAKAO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              eventName="click_kakao_consult"
-              eventParams={{ placement: 'main_hero' }}
-            >
-              카카오톡으로 상담하기
-            </TrackedLink>
-          </div>
         </section>
 
-        <section className={styles.sheet}>
-          <h2 className={styles.h2}>캐릭터 포지셔닝 클래스란</h2>
+        <section className={`${styles.sheet} ${styles.introSheet}`}>
           <p className={styles.body}>
-            TRY앵글 ‘캐릭터 포지셔닝 클래스’는
-            <br />
-            <br />
-            배우의 내·외적 이미지를 객관적으로 분석하고
-            <br />
-            클래스 진행 과정에서 확인한 보이스 컬러와
-            <br />
-            매력, 개성까지 종합적으로 고려하여
-            <br />
-            <br />
-            <strong>배우에게 가장 경쟁력 있는</strong>
-            <br />
-            <strong>캐릭터 포지션을 도출합니다.</strong>
-          </p>
-          <p className={styles.body}>
-            이후,
-            <br />
-            <br />
-            <strong>해당 캐릭터 포지션이</strong>
-            <br />
-            <strong>프로필과 연기영상에 일관되게 반영되어</strong>
-            <br />
-            <strong>캐스팅 디렉터에게 명확하게 전달될 수 있도록</strong>
-          </p>
-          <p className={styles.body}>
-            <strong>배우와 함께 전략을 수립하고,</strong>
-            <br />
-            <strong>최적의 결과물을 만들어가는 프로그램입니다.</strong>
-          </p>
-          <p className={styles.body}>
-            이 과정을 이끄는 <strong>캐릭터 포지셔닝 멘토 이주아는</strong>
-            <br />
-            <strong>‘브랜딩’과 ‘연기’ 두 분야의 전문 지식을 바탕으로</strong>
-            <br />
-            감이 아닌, 근거 있는 캐릭터 포지셔닝을 진행합니다.
-          </p>
-          <p className={styles.body}>
-            그 결과,
-            <br />
-            <br />
-            TRY앵글에서
-            <br />
-            캐릭터 포지셔닝을 진행한 배우지망생들은
-            <br className={styles.brMobile} />
-            {' '}아래와 같은 성과를 얻었습니다.
-            <br />
+            <strong className={styles.introTitle}>TRY앵글 '캐릭터 포지셔닝 클래스'는</strong>
           </p>
 
-          <div className={styles.stats}>
-            <div className={styles.stat}>
-              <b>눈에 띄는 오디션 기회 증가</b>
-              <span>오디션 기회</span>
-            </div>
-            <div className={styles.stat}>
-              <b>주·조연급 배역에 캐스팅</b>
-              <span>배역 캐스팅</span>
-            </div>
-            <div className={styles.stat}>
-              <b>‘현장 진출’과 ‘데뷔’</b>
-              <span>커리어 성과</span>
-            </div>
-          </div>
+          <p className={styles.body}>
+            배우에게 가장 경쟁력 있는 캐릭터 포지션을 도출하고,
+            <br className={styles.brMobile} />
+            <br className={styles.brDesktop} />
+            {' '}그 포지션이 캐스팅 디렉터에게 명확하게 전달될 수 있도록
+            <br className={styles.brDesktop} />
+            {' '}배우와 함께 전략을 수립해, 최적의 결과물을 만들어가는 프로그램입니다.
+          </p>
         </section>
 
         <section className={styles.sheet}>
@@ -173,7 +124,6 @@ export default function Home() {
             <br className={styles.brMobile} />
             {' '}크게 5단계로 구성되어 있습니다.
           </p>
-
           <ol className={styles.steps}>
             {PROCESS.map((p) => (
               <li key={p.n} className={styles.step}>
@@ -186,19 +136,57 @@ export default function Home() {
             ))}
           </ol>
 
-          <div className={styles.callout}>
-            💡본 프로그램은 소수 정예로 운영됩니다.
-            <br />
-            <br />
-            배우 한 분 한 분을 깊이 있게 분석하고,
-            <br />
-            완성도 높은 캐릭터 포지셔닝을 제공하기 위해
-            <br />
-            모집 인원에 제한을 두고 있습니다.
-            <br />
-            <br />
-            정원 마감 시 신청이 조기 마감될 수 있습니다.
+        </section>
+
+        <section id="mentor" className={styles.sheet}>
+          <p className={styles.body}>
+            이 과정을 이끄는 캐릭터 포지셔닝 멘토 이주아는
+            <br className={styles.brMobile} />
+            <br className={styles.brDesktop} />
+            <strong>‘브랜딩’과 ‘연기’ 두 분야의 전문 지식을 바탕으로</strong>
+            <br className={styles.brMobile} />
+            {' '}감이 아닌, <strong>근거 있는 캐릭터 포지셔닝을 진행</strong>합니다.
+          </p>
+          <div className={styles.sectionDivider} aria-hidden="true" />
+
+          <div className={styles.mentorHead}>
+            <Image
+              src="/mentor.jpg"
+              alt="이주아 · TRY앵글 대표 브랜딩 어드바이저"
+              width={200}
+              height={249}
+              className={styles.mentorPhoto}
+            />
+            <div>
+              <span className={styles.eyebrowSm}>캐릭터 포지셔닝 멘토</span>
+              <h2 className={styles.h2}>이주아</h2>
+              <p className={styles.bodyMuted}>TRY앵글 대표 브랜딩 어드바이저</p>
+            </div>
           </div>
+
+          <h3 className={styles.h3}>주요 전문 분야</h3>
+          <p className={styles.body}>배우 캐릭터 포지셔닝</p>
+
+          <h3 className={styles.h3}>대표 이력</h3>
+          <ul className={styles.list}>
+            {CAREER.map((c) => (
+              <li key={c.text}>
+                <span>{c.text}</span>
+                {c.note && <span className={styles.careerNote}>{c.note}</span>}
+              </li>
+            ))}
+          </ul>
+
+          <h3 className={styles.h3}>관련 뉴스</h3>
+          <ul className={styles.newsList}>
+            {NEWS.map((n) => (
+              <li key={n.url}>
+                <a href={n.url} target="_blank" rel="noopener noreferrer">
+                  <span className={styles.newsMedia}>[{n.media}]</span> {n.title}
+                </a>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section className={styles.sheet}>
@@ -220,7 +208,9 @@ export default function Home() {
 
           <div className={styles.callout}>
             <p className={styles.calloutTitle}>클래스 운영 스케줄</p>
-            💡 캐릭터 포지셔닝 클래스(그룹)는 연 4회만 오픈하는 클래스입니다.
+            💡 캐릭터 포지셔닝 클래스(그룹)는
+            <br className={styles.brMobile} />
+            {' '}연 4회만 오픈하는 클래스입니다.
             <table className={styles.schedule}>
               <tbody>
                 <tr>
@@ -272,124 +262,38 @@ export default function Home() {
           </p>
         </section>
 
-        <section className={`${styles.sheet} ${styles.privateSheet}`}>
-          <span className={styles.privateTag}>1:1 맞춤형</span>
-          <h2 className={styles.h2}>1:1 캐릭터 포지셔닝</h2>
-          <p className={styles.body}>
-            그룹 클래스가 아닌, 1:1 맞춤형 캐릭터 포지셔닝을 희망하신다면 아래 내용을 확인해주세요.
-          </p>
-          <p className={styles.body}>
-            1:1 캐릭터 포지셔닝은 브랜딩 어드바이저가 배우와 1:1로 전 과정을 함께 설계하는 프리미엄 프로그램입니다.
-            <br />
-            배우의 현재 외적 이미지를 객관적으로 분석하고,
-            <br />
-            과정 전반에서 확인한 보이스 컬러, 매력, 개성까지 종합적으로 고려하여
-            <br />
-            배우에게 가장 경쟁력 있는 캐릭터 포지션을 도출합니다.
-            <br />
-            이후, 해당 캐릭터 포지션이 프로필과 연기영상에 일관되게 반영될 수 있도록
-            <br />
-            배우 개인에게 최적화된 전략을 수립합니다.
-          </p>
-          <p className={styles.bodyMuted}>
-            1:1 캐릭터 포지셔닝은 그룹 클래스와 달리 상시 신청이 가능합니다.
-          </p>
-
-          <div className={styles.stats}>
-            <div className={styles.stat}>
-              <b>주 1회 · 45분</b>
-              <span>총 4회 진행</span>
-            </div>
-            <div className={styles.stat}>
-              <b>100%</b>
-              <span>1:1 맞춤 진행</span>
-            </div>
-            <div className={styles.stat}>
-              <b>70만원</b>
-              <span>VAT 포함</span>
-            </div>
-          </div>
-        </section>
-
-        <section id="mentor" className={styles.sheet}>
-          <div className={styles.mentorHead}>
-            <Image
-              src="/mentor.jpg"
-              alt="이주아 · TRY앵글 대표 브랜딩 어드바이저"
-              width={200}
-              height={249}
-              className={styles.mentorPhoto}
-            />
-            <div>
-              <span className={styles.eyebrowSm}>캐릭터 포지셔닝 멘토</span>
-              <h2 className={styles.h2}>이주아</h2>
-              <p className={styles.bodyMuted}>TRY앵글 대표 브랜딩 어드바이저</p>
-              <p className={styles.body}>
-                ‘브랜딩’과 ‘연기’ 두 분야의 전문 지식을 바탕으로 최적의 캐릭터
-                포지션을 정립할 수 있도록 돕습니다.
-              </p>
-            </div>
-          </div>
-
-          <h3 className={styles.h3}>주요 전문 분야</h3>
-          <p className={styles.body}>배우 캐릭터 포지셔닝</p>
-
-          <h3 className={styles.h3}>대표 이력</h3>
-          <ul className={styles.list}>
-            {CAREER.map((c) => (
-              <li key={c}>{c}</li>
-            ))}
-          </ul>
-
-          <h3 className={styles.h3}>관련 뉴스</h3>
-          <ul className={styles.newsList}>
-            {NEWS.map((n) => (
-              <li key={n.url}>
-                <a href={n.url} target="_blank" rel="noopener noreferrer">
-                  <span className={styles.newsMedia}>[{n.media}]</span> {n.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-
         <section className={styles.sheet}>
-          <h2 className={styles.h2}>상담 및 신청 안내</h2>
           <p className={styles.body}>
-            1:1 방문상담에서는
+            오디션 기회는
             <br />
-            배우님이 현재 가지고 계신 고민을 함께 나누고,
-            <br />
-            TRY앵글의 캐릭터 포지셔닝 클래스가
-            <br />
-            어떤 방식으로 도움이 될 수 있는지 안내해드립니다.
-          </p>
-          <p className={styles.body}>
-            또한,
+            무작정 많이 지원한다고 생기지 않습니다.
             <br />
             <br />
-            캐릭터 포지셔닝 클래스 세부 프로세스와
+            배우로서 자신에게 가장 경쟁력 있는
+            <br className={styles.brMobile} />
+            {' '}캐릭터 포지션을 정확히 알고,
             <br />
-            실제 수강생들의 변화 사례까지
+            그 캐릭터를 필요로 하는
             <br />
-            함께 확인하실 수 있습니다.
-          </p>
-          <p className={styles.body}>
-            클래스 문의 및 방문상담 예약은
+            오디션을 전략적으로 공략해야 합니다.
             <br />
-            TRY앵글 카카오톡 채널을 이용해주세요.
+            <br />
+            지금 TRY앵글에서,
+            <br className={styles.brMobile} />
+            {' '}당신의 캐릭터 포지션을 확인해보세요!
           </p>
 
-          <TrackedLink
-            className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
-            href={KAKAO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            eventName="click_kakao_consult"
-            eventParams={{ placement: 'main_consult_section' }}
-          >
-            TRY앵글 공식 카카오톡 채널 바로가기
-          </TrackedLink>
+          <div className={styles.ctaDivider} aria-hidden="true" />
+          <p className={styles.visitNote}>
+            <span className={styles.visitNoteIcon}>💡</span>
+            <span>
+              방문상담을 희망하시는 경우,
+              <br className={styles.brMobile} />
+              아래 내용을 작성하여 메시지를 보내주세요.
+            </span>
+          </p>
+
+          <ContactForm />
         </section>
       </main>
 
@@ -398,7 +302,6 @@ export default function Home() {
           <Image src="/logo.jpg" alt="TRY앵글" width={22} height={22} className={styles.footerLogo} />
           ⓒ Artist Branding Company TRY앵글
         </div>
-        <Link href="/insights">배우 인사이트</Link>
         <TrackedLink
           href={KAKAO_URL}
           target="_blank"

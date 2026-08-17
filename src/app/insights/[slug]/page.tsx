@@ -6,6 +6,8 @@ import styles from './page.module.css';
 import InsightViewTracker from './InsightViewTracker';
 import ShareButton from './ShareButton';
 
+const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=insight_article&utm_content=insight';
+
 export function generateStaticParams() {
   return INSIGHTS.map(({ slug }) => ({ slug }));
 }
@@ -40,7 +42,7 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
         ))}
         <div className={styles.cta}>
           <strong>내 이미지 방향도 점검해보고 싶다면</strong>
-          <TrackedLink href="http://pf.kakao.com/_mWxcMb/chat" target="_blank" rel="noopener noreferrer" eventName="click_kakao_consult" eventParams={{ placement: `insight_${item.slug}` }}>
+          <TrackedLink href={KAKAO_URL} target="_blank" rel="noopener noreferrer" eventName="click_kakao_consult" eventParams={{ placement: `insight_${item.slug}` }}>
             카카오톡으로 상담하기
           </TrackedLink>
         </div>

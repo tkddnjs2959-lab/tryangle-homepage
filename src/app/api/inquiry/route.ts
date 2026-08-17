@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/supabase';
-import { notifyKakao } from '@/lib/kakao';
-import { notifyNewInquiry } from '@/lib/notify';
+import { notifySms } from '@/lib/sms';
 
 export const dynamic = 'force-dynamic';
 
@@ -58,12 +57,19 @@ export async function POST(req: Request) {
     );
   }
 
-  // 둘 다 내부에서 에러를 삼키므로 실패해도 여기서 던지지 않는다.
+  // 알림 함수가 내부에서 에러를 삼키므로 실패해도 여기서 던지지 않는다.
   // await 없이 넘기면 서버리스 환경에서 응답 직후 함수가 종료되며
-  // 발송이 끊길 수 있어 반드시 기다린다. 이메일·카카오는 서로 독립이라
-  // 하나가 설정 안 돼 있거나 실패해도 다른 쪽은 정상 발송된다.
-  const notice = { name, contact, message: message || null };
-  await Promise.all([notifyNewInquiry(notice), notifyKakao(notice)]);
+  // 발송이 끊길 수 있어 반드시 기다린다.
+  const findMessageLine = (label: string) => {
+    const line = message.split('\n').find((item) => item.startsWith(`${label}:`));
+    return line ? line.slice(label.length + 1).trim() : '-';
+  };
+
+  await notifySms({
+    name,
+    age: findMessageLine('나이'),
+    consultationDate: findMessageLine('상담 희망'),
+  });
 
   return NextResponse.json({ ok: true });
 }

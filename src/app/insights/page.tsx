@@ -3,6 +3,8 @@ import { INSIGHTS } from './content';
 import styles from './index.module.css';
 import TrackedLink from '../TrackedLink';
 
+const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=insights_cta&utm_content=insights';
+
 export const metadata: Metadata = {
   title: '배우 이미지·캐릭터 브랜딩 인사이트 | TRYANGLE',
   description: '배우 프로필, 오디션 이미지, 캐릭터 브랜딩을 위한 실전 인사이트를 확인해보세요.',
@@ -33,7 +35,7 @@ export default function InsightsPage() {
           <h2>내 배우 이미지 방향이 궁금하다면</h2>
           <p>인사이트를 읽고도 방향이 선명하지 않다면 현재 이미지와 목표를 함께 점검해보세요.</p>
         </div>
-        <TrackedLink href="http://pf.kakao.com/_mWxcMb/chat" target="_blank" rel="noopener noreferrer" eventName="click_kakao_consult" eventParams={{ placement: 'insights_index_cta' }}>
+        <TrackedLink href={KAKAO_URL} target="_blank" rel="noopener noreferrer" eventName="click_kakao_consult" eventParams={{ placement: 'insights_index_cta' }}>
           카카오톡으로 상담하기
         </TrackedLink>
       </section>

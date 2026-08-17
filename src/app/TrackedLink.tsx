@@ -5,6 +5,7 @@ import { getAttribution } from './AttributionCapture';
 
 type WindowWithDataLayer = Window & {
   dataLayer?: Array<Record<string, unknown>>;
+  clarity?: (...args: unknown[]) => void;
 };
 
 type TrackedLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
@@ -31,6 +32,12 @@ export default function TrackedLink({
           ...getAttribution(),
           ...eventParams,
         });
+        // GTM이 지연되거나 설정되지 않은 환경에서도 Clarity에서 CTA 행동을 식별한다.
+        if (typeof win.clarity === 'function') {
+          win.clarity('event', eventName);
+          const placement = eventParams?.placement;
+          if (placement) win.clarity('set', 'cta_placement', String(placement));
+        }
         onClick?.(event);
       }}
     >

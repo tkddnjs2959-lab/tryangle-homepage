@@ -6,7 +6,7 @@ import TrackedLink from '../TrackedLink';
 import styles from './coaching.module.css';
 import { BENEFITS, COACHING_AREAS, DIFFERENCE_FROM_GROUP_CLASS, FAQ, PRICING, TRAINER } from './content';
 
-const KAKAO_URL = 'http://pf.kakao.com/_mWxcMb/chat';
+const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=coaching_cta&utm_content=coaching';
 
 /** 콘텐츠 문자열의 '\n' 을 모바일에서만 줄바꿈으로 바꾼다 (데스크톱은 한 줄로 이어짐). */
 function mobileLines(text: string) {
