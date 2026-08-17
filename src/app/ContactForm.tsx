@@ -24,6 +24,8 @@ export default function ContactForm() {
   const [preferredSlots, setPreferredSlots] = useState<Record<string, string[]>>({});
   const [major, setMajor] = useState('');
   const [mediaExperience, setMediaExperience] = useState('없음');
+  const [privacyAgreed, setPrivacyAgreed] = useState(false);
+  const [website, setWebsite] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
   const [error, setError] = useState<string | null>(null);
 
@@ -33,6 +35,10 @@ export default function ContactForm() {
     const selectedSlots = selectedDays.flatMap((day) => (preferredSlots[day] ?? []).map((time) => `${day} ${time}`));
     if (!name.trim() || !age || !gender || !contact.trim() || !major || !mediaExperience) {
       setError('필수 항목을 모두 입력해주세요.');
+      return;
+    }
+    if (!privacyAgreed) {
+      setError('개인정보 수집·이용에 동의해주세요.');
       return;
     }
     if (phoneDigits.length < 10 || phoneDigits.length > 11) {
@@ -63,6 +69,7 @@ export default function ContactForm() {
             `연기 전공 여부: ${major}`,
             `매체연기 경력(연극 제외): ${mediaExperience}`,
           ].join('\n'),
+          website,
           attribution: getAttribution(),
         }),
       });
@@ -137,6 +144,16 @@ export default function ContactForm() {
 
   return (
     <form className={styles.form} onSubmit={submit}>
+      <input
+        className={styles.honeypot}
+        type="text"
+        name="website"
+        value={website}
+        onChange={(e) => setWebsite(e.target.value)}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+      />
       <div className={styles.formRow}>
         <input
           className={styles.input}
@@ -220,6 +237,18 @@ export default function ContactForm() {
           <div className={styles.timeGrid}>{renderTimeButtons(AFTERNOON_TIMES)}</div>
         </div>
       </fieldset>
+      <label className={styles.privacyAgree}>
+        <input
+          type="checkbox"
+          checked={privacyAgreed}
+          onChange={(e) => setPrivacyAgreed(e.target.checked)}
+          required
+        />
+        <span>
+          상담 신청을 위한 개인정보 수집·이용에 동의합니다.
+          <small>수집 항목: 이름, 연락처, 나이, 성별, 상담 희망 시간 등 · 이용 목적: 상담 일정 안내 및 연락</small>
+        </span>
+      </label>
       {error && <p className={styles.formError}>{error}</p>}
       <button className={styles.formSubmit} type="submit" disabled={state === 'sending'}>
         {state === 'sending' ? '접수 중…' : '상담 신청하기'}

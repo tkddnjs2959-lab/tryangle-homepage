@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { createHash } from 'node:crypto';
 import { db } from '@/lib/supabase';
 import { notifySms } from '@/lib/sms';
 
@@ -10,6 +11,12 @@ const ERRORS: Record<string, { status: number; message: string }> = {
   TOO_LONG: { status: 400, message: '입력 내용이 너무 깁니다.' },
 };
 
+function requestKey(req: Request) {
+  const forwarded = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
+  const address = req.headers.get('x-real-ip')?.trim() || forwarded || 'unknown';
+  return createHash('sha256').update(`inquiry:${address}`).digest('hex');
+}
+
 export async function POST(req: Request) {
   let body: unknown;
   try {
@@ -18,7 +25,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: '잘못된 요청입니다.' }, { status: 400 });
   }
 
-  const raw = body as { name?: unknown; contact?: unknown; message?: unknown; attribution?: unknown };
+  const raw = body as { name?: unknown; contact?: unknown; message?: unknown; website?: unknown; attribution?: unknown };
+  if (typeof raw.website === 'string' && raw.website.trim()) {
+    return NextResponse.json({ ok: true });
+  }
   const name = typeof raw.name === 'string' ? raw.name.trim() : '';
   const contact = typeof raw.contact === 'string' ? raw.contact.trim() : '';
   const message = typeof raw.message === 'string' ? raw.message.trim() : '';
@@ -32,6 +42,22 @@ export async function POST(req: Request) {
 
   if (!name || !contact) {
     return NextResponse.json({ message: '이름과 연락처를 입력해주세요.' }, { status: 400 });
+  }
+  if (name.length > 40 || contact.length > 30 || message.length > 5000) {
+    return NextResponse.json({ message: '입력 내용이 너무 깁니다.' }, { status: 400 });
+  }
+
+  const { data: allowed, error: rateLimitError } = await db().rpc('consume_inquiry_rate_limit', {
+    p_key: requestKey(req),
+    p_limit: 5,
+    p_window_seconds: 600,
+  });
+  if (rateLimitError) {
+    console.error('상담 신청 요청 제한 확인 실패', rateLimitError);
+    return NextResponse.json({ message: '잠시 후 다시 시도해주세요.' }, { status: 503 });
+  }
+  if (!allowed) {
+    return NextResponse.json({ message: '신청이 너무 많습니다. 잠시 후 다시 시도해주세요.' }, { status: 429, headers: { 'Retry-After': '600' } });
   }
 
   const { error } = await db().rpc('submit_inquiry', {
