@@ -360,6 +360,7 @@
   background: #fff;
 }
 .caseLabel { color: var(--sky-dot); font-size: 11px; font-weight: 900; letter-spacing: 1px; }
+.casePerson { margin-left: 8px; color: var(--sub); font-size: 10px; font-weight: 600; letter-spacing: 0; }
 .changeCard h3 { margin: 10px 0 16px; color: var(--navy); font-size: 15px; line-height: 1.55; word-break: keep-all; }
 .changeCard blockquote { margin: 0; color: var(--ink); font-size: 12.5px; line-height: 1.78; word-break: keep-all; }
 .carouselControls { display: none; align-items: center; justify-content: center; gap: 18px; margin-top: 14px; }
