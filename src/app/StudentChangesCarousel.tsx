@@ -26,22 +26,31 @@ export default function StudentChangesCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [mobileView, setMobileView] = useState(false);
 
   useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const syncPreference = () => setReduceMotion(media.matches);
+    const motionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobileMedia = window.matchMedia('(max-width: 560px)');
+    const syncPreference = () => {
+      setReduceMotion(motionMedia.matches);
+      setMobileView(mobileMedia.matches);
+    };
     syncPreference();
-    media.addEventListener('change', syncPreference);
-    return () => media.removeEventListener('change', syncPreference);
+    motionMedia.addEventListener('change', syncPreference);
+    mobileMedia.addEventListener('change', syncPreference);
+    return () => {
+      motionMedia.removeEventListener('change', syncPreference);
+      mobileMedia.removeEventListener('change', syncPreference);
+    };
   }, []);
 
   useEffect(() => {
-    if (!autoPlay || reduceMotion) return;
+    if (!mobileView || !autoPlay || reduceMotion) return;
     const timer = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % CASES.length);
     }, 10000);
     return () => window.clearInterval(timer);
-  }, [autoPlay, reduceMotion]);
+  }, [autoPlay, mobileView, reduceMotion]);
 
   function move(direction: 'prev' | 'next') {
     setActiveIndex((current) => direction === 'next'
@@ -60,9 +69,9 @@ export default function StudentChangesCarousel() {
       <div className={styles.changeHeading}>
         <div>
           <p className={styles.sectionEyebrow}>REAL CHANGES</p>
-          <h2 id="student-changes-title" className={styles.h2}>캐릭터 포지셔닝 이후, 실제 수강생들의 변화</h2>
+          <h2 id="student-changes-title" className={`${styles.h2} ${styles.changeTitle}`}>캐릭터 포지셔닝 이후, 실제 수강생들의 변화</h2>
         </div>
-        {!reduceMotion ? (
+        {mobileView && !reduceMotion ? (
           <button
             type="button"
             className={styles.autoPlayButton}
@@ -80,7 +89,7 @@ export default function StudentChangesCarousel() {
           style={{ transform: `translateX(-${activeIndex * 100}%)` }}
         >
           {CASES.map((item) => (
-            <article key={item.label} className={styles.changeCard} aria-hidden={CASES[activeIndex] !== item}>
+            <article key={item.label} className={styles.changeCard} aria-hidden={mobileView && CASES[activeIndex] !== item}>
               <span className={styles.caseLabel}>{item.label}</span>
               <h3>{item.title}</h3>
               <blockquote>“{item.quote}”</blockquote>
