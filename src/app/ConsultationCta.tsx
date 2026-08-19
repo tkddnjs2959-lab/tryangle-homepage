@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import ContactForm from './ContactForm';
 import { trackEvent } from './TrackedLink';
@@ -12,18 +12,27 @@ export default function ConsultationCta() {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
-  function openModal() {
+  const openModal = useCallback((placement = 'global_floating') => {
     previousFocusRef.current = document.activeElement as HTMLElement | null;
     setOpen(true);
-    trackEvent('click_consultation_cta', { placement: 'global_floating', page_path: pathname });
-    trackEvent('form_open', { form: 'contact_modal', placement: 'global_floating', page_path: pathname });
-  }
+    trackEvent('click_consultation_cta', { placement, page_path: pathname });
+    trackEvent('form_open', { form: 'contact_modal', placement, page_path: pathname });
+  }, [pathname]);
 
-  function closeModal() {
+  const closeModal = useCallback(() => {
     setOpen(false);
     trackEvent('form_close', { form: 'contact_modal', page_path: pathname });
     window.setTimeout(() => previousFocusRef.current?.focus(), 0);
-  }
+  }, [pathname]);
+
+  useEffect(() => {
+    const onOpen = (event: Event) => {
+      const detail = (event as CustomEvent<{ placement?: string }>).detail;
+      openModal(detail?.placement ?? 'external_consultation_cta');
+    };
+    window.addEventListener('tryangle:open-consultation', onOpen);
+    return () => window.removeEventListener('tryangle:open-consultation', onOpen);
+  }, [openModal]);
 
   useEffect(() => {
     if (!open) return;
@@ -38,16 +47,16 @@ export default function ConsultationCta() {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener('keydown', onKeyDown);
     };
-  }, [open]);
+  }, [closeModal, open]);
 
   return (
     <>
-      <div className={styles.ctaBar}>
+      <div className={`${styles.ctaBar} ${pathname === '/' ? styles.homeCtaBar : ''}`}>
         <div className={styles.ctaCopy}>
           <strong>내 캐릭터 방향이 궁금하다면</strong>
           <span>상담 신청은 약 1분이면 충분해요.</span>
         </div>
-        <button className={styles.ctaButton} type="button" onClick={openModal} aria-haspopup="dialog">
+        <button className={styles.ctaButton} type="button" onClick={() => openModal()} aria-haspopup="dialog">
           상담 신청하기
         </button>
       </div>

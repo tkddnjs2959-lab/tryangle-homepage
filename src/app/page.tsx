@@ -3,6 +3,7 @@ import { NEWS } from './newsData';
 import styles from './page.module.css';
 import TrackedLink from './TrackedLink';
 import ContactForm from './ContactForm';
+import ConsultationSummaryCard from './ConsultationSummaryCard';
 
 const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=homepage_cta&utm_content=main';
 
@@ -78,7 +79,8 @@ export default function Home() {
         </div>
       </header>
 
-      <main className={styles.page}>
+      <main className={styles.homeLayout}>
+        <div className={styles.page}>
         <section className={styles.hero}>
           <Image
             src="/logo.jpg"
@@ -295,6 +297,8 @@ export default function Home() {
 
           <ContactForm />
         </section>
+        </div>
+        <ConsultationSummaryCard />
       </main>
 
       <footer className={styles.footer}>

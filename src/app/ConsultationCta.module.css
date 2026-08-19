@@ -74,6 +74,10 @@
 }
 .formScroll { overflow: auto; padding: 20px 26px 28px; }
 
+@media (min-width: 1160px) {
+  .homeCtaBar { display: none; }
+}
+
 @media (max-width: 560px) {
   .ctaBar {
     right: 0;

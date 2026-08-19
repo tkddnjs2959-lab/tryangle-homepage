@@ -41,12 +41,83 @@
 }
 
 /* ================= 레이아웃 ================= */
-.page {
-  max-width: 860px;
+.homeLayout {
+  width: min(100%, 1180px);
   margin: 0 auto;
-  padding: 0 16px 60px;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 860px) 268px;
+  gap: 24px;
+  align-items: start;
+}
+.page {
+  min-width: 0;
+  padding: 0 0 60px;
   display: grid;
   gap: 16px;
+}
+.sideRail {
+  position: sticky;
+  top: 84px;
+  margin-top: 52px;
+}
+.sideCard {
+  padding: 22px 20px;
+  border: 1px solid var(--sky-line);
+  border-radius: 16px;
+  background: var(--sky-bg);
+  box-shadow: 0 12px 30px rgba(18, 34, 79, .1);
+}
+.sideStatus {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 8px;
+  color: var(--ok);
+  font-size: 11px;
+  font-weight: 800;
+}
+.sideStatus span { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
+.sideCard h2 { margin: 0 0 16px; color: var(--navy); font-size: 19px; }
+.sideFacts { margin: 0; }
+.sideFacts > div {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 8px;
+  padding: 11px 0;
+  border-top: 1px solid var(--line);
+}
+.sideFacts dt { color: var(--sky-dot); font-size: 11px; font-weight: 800; }
+.sideFacts dd { margin: 0; color: var(--navy); font-size: 12px; font-weight: 800; line-height: 1.45; }
+.sidePrice {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+.sidePrice > span { color: var(--sky-dot); font-size: 11px; font-weight: 800; }
+.sidePrice div { display: grid; justify-items: end; }
+.sidePrice del { color: var(--sub); font-size: 10px; }
+.sidePrice strong { color: var(--navy); font-size: 22px; line-height: 1.2; }
+.sideButton {
+  width: 100%;
+  border: 0;
+  border-radius: 9px;
+  padding: 13px 10px;
+  background: var(--navy);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.sideButton:focus-visible { outline: 3px solid rgba(61, 135, 184, .45); outline-offset: 2px; }
+.sideNote { margin: 10px 0 0; color: var(--sub); font-size: 10px; text-align: center; line-height: 1.45; }
+@media (max-width: 1159px) {
+  .homeLayout { max-width: 892px; grid-template-columns: minmax(0, 860px); justify-content: center; }
+  .sideRail { display: none; }
 }
 /*
  * 소제목이 들어간 콘텐츠 카드 — 연한 그레이 테마.
