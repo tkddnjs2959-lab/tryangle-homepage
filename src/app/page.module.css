@@ -405,8 +405,8 @@
   .resultList li {
     grid-template-columns: 30px 1fr;
     grid-template-areas:
-      "number outcome"
-      ". prefix";
+      "number prefix"
+      "number outcome";
     padding: 13px 14px;
     font-size: 13px;
   }
@@ -414,14 +414,13 @@
   .resultList strong { font-size: 13.5px; }
   .changeHeading { display: grid; gap: 4px; }
   .changeTitle { font-size: 22px; line-height: 1.45; }
-  .autoPlayButton { justify-self: start; margin-bottom: 8px; }
+  .autoPlayButton { display: none; }
   .carouselViewport { margin-top: 6px; }
-  .carouselTrack { display: flex; gap: 0; transform: translateX(0); }
-  .changeCard { flex: 0 0 100%; }
-  .changeCard { min-height: 410px; padding: 21px 18px; }
+  .carouselTrack { display: grid; grid-template-columns: 1fr; gap: 12px; transform: none !important; }
+  .changeCard { min-height: auto; padding: 21px 18px; }
   .changeCard h3 { font-size: 16px; }
   .changeCard blockquote { font-size: 13px; line-height: 1.8; }
-  .carouselControls { display: flex; }
+  .carouselControls { display: none; }
 }
 .introTitle {
   display: inline-block;

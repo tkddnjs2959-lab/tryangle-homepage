@@ -7,6 +7,7 @@ import { getAttribution } from './AttributionCapture';
 type WindowWithDataLayer = Window & {
   dataLayer?: Array<Record<string, unknown>>;
   clarity?: (...args: unknown[]) => void;
+  fbq?: (...args: unknown[]) => void;
 };
 
 /** GTM과 Microsoft Clarity에 같은 행동 이벤트를 함께 보낸다. */
@@ -27,6 +28,10 @@ export function trackEvent(eventName: string, eventParams?: Record<string, unkno
     })
   );
   track(eventName, analyticsProperties);
+
+  if (eventName === 'form_submit_success' && typeof win.fbq === 'function') {
+    win.fbq('track', 'Lead', { content_name: 'consultation_form' });
+  }
 
   if (typeof win.clarity === 'function') {
     const clarityTags: Record<string, unknown> = {

@@ -1,7 +1,3 @@
-'use client';
-
-import { useEffect, useRef, useState } from 'react';
-import { trackEvent } from './TrackedLink';
 import styles from './page.module.css';
 
 const CASES = [
@@ -23,58 +19,6 @@ const CASES = [
 ] as const;
 
 export default function StudentChangesCarousel() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [autoPlay, setAutoPlay] = useState(true);
-  const [reduceMotion, setReduceMotion] = useState(false);
-  const [mobileView, setMobileView] = useState(false);
-  const [pageVisible, setPageVisible] = useState(true);
-  const pointerStartX = useRef<number | null>(null);
-
-  useEffect(() => {
-    const motionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const mobileMedia = window.matchMedia('(max-width: 560px)');
-    const syncPreference = () => {
-      setReduceMotion(motionMedia.matches);
-      setMobileView(mobileMedia.matches);
-    };
-    syncPreference();
-    motionMedia.addEventListener('change', syncPreference);
-    mobileMedia.addEventListener('change', syncPreference);
-    return () => {
-      motionMedia.removeEventListener('change', syncPreference);
-      mobileMedia.removeEventListener('change', syncPreference);
-    };
-  }, []);
-
-  useEffect(() => {
-    const syncVisibility = () => setPageVisible(!document.hidden);
-    syncVisibility();
-    document.addEventListener('visibilitychange', syncVisibility);
-    return () => document.removeEventListener('visibilitychange', syncVisibility);
-  }, []);
-
-  useEffect(() => {
-    if (!mobileView || !autoPlay || reduceMotion || !pageVisible) return;
-    const timer = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % CASES.length);
-    }, 10000);
-    return () => window.clearInterval(timer);
-  }, [autoPlay, mobileView, pageVisible, reduceMotion]);
-
-  function move(direction: 'prev' | 'next') {
-    setAutoPlay(false);
-    setActiveIndex((current) => direction === 'next'
-      ? (current + 1) % CASES.length
-      : (current - 1 + CASES.length) % CASES.length);
-    trackEvent('student_case_navigate', { direction });
-  }
-
-  function select(index: number) {
-    setAutoPlay(false);
-    setActiveIndex(index);
-    trackEvent('student_case_navigate', { direction: 'dot', case_number: index + 1 });
-  }
-
   return (
     <section className={`${styles.sheet} ${styles.changeSection}`} aria-labelledby="student-changes-title" data-motion="changes">
       <div className={styles.changeHeading}>
@@ -82,39 +26,12 @@ export default function StudentChangesCarousel() {
           <p className={styles.sectionEyebrow}>REAL CHANGES</p>
           <h2 id="student-changes-title" className={`${styles.h2} ${styles.changeTitle}`}>캐릭터 포지셔닝 이후, 실제 수강생들의 변화</h2>
         </div>
-        {mobileView && !reduceMotion ? (
-          <button
-            type="button"
-            className={styles.autoPlayButton}
-            onClick={() => setAutoPlay((playing) => !playing)}
-            aria-pressed={!autoPlay}
-          >
-            {autoPlay ? '자동 넘김 일시정지' : '자동 넘김 재생'}
-          </button>
-        ) : null}
       </div>
 
-      <div
-        className={styles.carouselViewport}
-        onPointerDown={(event) => {
-          if (mobileView) pointerStartX.current = event.clientX;
-        }}
-        onPointerUp={(event) => {
-          if (!mobileView) return;
-          if (pointerStartX.current === null) return;
-          const distance = event.clientX - pointerStartX.current;
-          pointerStartX.current = null;
-          if (Math.abs(distance) < 40) return;
-          move(distance < 0 ? 'next' : 'prev');
-        }}
-        onPointerCancel={() => { pointerStartX.current = null; }}
-      >
-        <div
-          className={styles.carouselTrack}
-          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
-        >
+      <div className={styles.carouselViewport}>
+        <div className={styles.carouselTrack}>
           {CASES.map((item) => (
-            <article key={item.label} className={styles.changeCard} aria-hidden={mobileView && CASES[activeIndex] !== item}>
+            <article key={item.label} className={styles.changeCard}>
               <span className={styles.caseLabel}>{item.label}</span>
               <h3>{item.title}</h3>
               <blockquote>“{item.quote}”</blockquote>
@@ -123,22 +40,6 @@ export default function StudentChangesCarousel() {
         </div>
       </div>
 
-      <div className={styles.carouselControls}>
-        <button type="button" onClick={() => move('prev')} aria-label="이전 수강생 사례">←</button>
-        <div className={styles.carouselDots} aria-label="수강생 사례 선택">
-          {CASES.map((item, index) => (
-            <button
-              key={item.label}
-              type="button"
-              className={index === activeIndex ? styles.carouselDotActive : ''}
-              onClick={() => select(index)}
-              aria-label={`${index + 1}번 사례 보기`}
-              aria-current={index === activeIndex ? 'true' : undefined}
-            />
-          ))}
-        </div>
-        <button type="button" onClick={() => move('next')} aria-label="다음 수강생 사례">→</button>
-      </div>
     </section>
   );
 }
