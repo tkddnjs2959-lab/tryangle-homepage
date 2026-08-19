@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styles from './page.module.css';
 import { getAttribution } from './AttributionCapture';
+import TrackedLink, { trackEvent } from './TrackedLink';
 
 const DAYS = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
 const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=inquiry_complete&utm_content=contact_form';
@@ -28,6 +29,13 @@ export default function ContactForm() {
   const [website, setWebsite] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
   const [error, setError] = useState<string | null>(null);
+  const formStarted = useRef(false);
+
+  function trackFormStart() {
+    if (formStarted.current) return;
+    formStarted.current = true;
+    trackEvent('form_start', { form: 'contact_form' });
+  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -79,6 +87,7 @@ export default function ContactForm() {
         setState('idle');
         return;
       }
+      trackEvent('form_submit_success', { form: 'contact_form' });
       setState('done');
     } catch {
       setError('네트워크 오류입니다. 연결을 확인하고 다시 시도해주세요.');
@@ -128,22 +137,28 @@ export default function ContactForm() {
           아래 버튼을 눌러 카카오톡에서<br />
           “상담 신청했어요”라고 메시지를 남겨주세요.
           <br />
-          확인 후 상담 가능 일정과 진행 방법을 안내해드리겠습니다.
+          확인 후
+          <br />
+          상담 가능 일정과
+          <br />
+          진행 방법을 안내해드리겠습니다.
         </strong>
-        <a
+        <TrackedLink
           className={styles.formDoneButton}
           href={KAKAO_URL}
           target="_blank"
           rel="noopener noreferrer"
+          eventName="click_kakao_consult"
+          eventParams={{ placement: 'contact_form_success' }}
         >
           TRY앵글 카카오톡 채널 바로가기
-        </a>
+        </TrackedLink>
       </div>
     );
   }
 
   return (
-    <form className={styles.form} onSubmit={submit}>
+    <form className={styles.form} onSubmit={submit} onFocusCapture={trackFormStart}>
       <input
         className={styles.honeypot}
         type="text"
@@ -165,7 +180,7 @@ export default function ContactForm() {
         <input
           className={styles.input}
           type="number"
-          placeholder="ex)27"
+          placeholder="나이 ex)27"
           value={age}
           onChange={(e) => setAge(e.target.value)}
           min={13}
@@ -246,21 +261,31 @@ export default function ContactForm() {
         />
         <span>
           상담 신청을 위한 개인정보 수집·이용에 동의합니다.
-          <small>수집 항목: 이름, 연락처, 나이, 성별, 상담 희망 시간 등 · 이용 목적: 상담 일정 안내 및 연락</small>
+          <small>
+            수집 항목: 이름, 연락처, 나이, 성별, 상담 희망 시간 등 ·
+            <br className={styles.brMobile} /> 이용 목적: 상담 일정 안내 및 연락
+          </small>
         </span>
       </label>
       {error && <p className={styles.formError}>{error}</p>}
-      <button className={styles.formSubmit} type="submit" disabled={state === 'sending'}>
+      <button
+        className={styles.formSubmit}
+        type="submit"
+        disabled={state === 'sending'}
+        onClick={() => trackEvent('click_consultation_submit', { form: 'contact_form' })}
+      >
         {state === 'sending' ? '접수 중…' : '상담 신청하기'}
       </button>
-      <a
+      <TrackedLink
         className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
         href={KAKAO_URL}
         target="_blank"
         rel="noopener noreferrer"
+        eventName="click_kakao_consult"
+        eventParams={{ placement: 'contact_form' }}
       >
         카카오톡으로 문의하기
-      </a>
+      </TrackedLink>
     </form>
   );
 }
