@@ -63,9 +63,9 @@
 }
 .sideCard {
   padding: 22px 20px;
-  border: 1px solid var(--sky-line);
+  border: 1px solid #dfe3e8;
   border-radius: 16px;
-  background: var(--sky-bg);
+  background: #f1f3f6;
   box-shadow: 0 12px 30px rgba(18, 34, 79, .1);
 }
 .sideStatus {
@@ -217,8 +217,8 @@
   overflow-wrap: break-word;
 }
 .hookSection {
-  background: #f2f8fd;
-  border: 1px solid #dbebf7;
+  background: #edeff2;
+  border: 1px solid #e3e6ea;
 }
 .hookGrid {
   display: grid;
@@ -251,6 +251,7 @@
 .hookBodyMobile > span {
   display: block;
 }
+.hookTitle > span:nth-child(2) { color: var(--sky-dot); }
 .hookBody {
   margin: 0;
   color: var(--ink);
@@ -305,7 +306,7 @@
 /* ================= 수강생 변화 ================= */
 .changeSection {
   overflow: hidden;
-  background: #eef2f6;
+  background: #edeff2;
 }
 .changeHeading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
 .changeTitle {
@@ -490,25 +491,7 @@
 .stat span { display: block; font-size: 12px; color: var(--sub); margin-top: 4px; }
 
 /* ================= 프로세스 ================= */
-.steps { position: relative; list-style: none; margin: 22px 0 0; padding: 0; }
-.steps::before, .steps::after {
-  content: '';
-  position: absolute;
-  left: 19px;
-  top: 16px;
-  bottom: 16px;
-  width: 1px;
-  pointer-events: none;
-}
-.steps::before { background: var(--sky-line); }
-.steps::after {
-  bottom: auto;
-  height: calc(100% - 32px);
-  background: var(--sky-dot);
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform .9s ease-out .2s;
-}
+.steps { list-style: none; margin: 22px 0 0; padding: 0; }
 .step {
   display: flex;
   gap: 16px;
@@ -517,14 +500,11 @@
 }
 .step:first-child { border-top: none; padding-top: 0; }
 .stepNum {
-  position: relative;
-  z-index: 1;
   flex: none;
   width: 40px;
-  background: var(--card);
   font-size: 17px;
   font-weight: 800;
-  color: var(--ink);
+  color: var(--sky-dot);
 }
 .stepTitle { font-size: 15px; font-weight: 800; margin: 0 0 6px; color: var(--ink); word-break: keep-all; overflow-wrap: break-word; }
 .stepBody { font-size: 13.5px; line-height: 1.7; color: var(--sub); margin: 0; word-break: keep-all; overflow-wrap: break-word; }
@@ -789,7 +769,6 @@
   .stat b { font-size: 16px; }
   .stat span { margin: 0; font-size: 12.5px; }
   .step { gap: 13px; padding: 16px 0; }
-  .steps::before, .steps::after { left: 16px; }
   .stepNum { width: 34px; font-size: 16px; }
   .stepTitle { font-size: 15px; }
   .stepBody { font-size: 13.5px; line-height: 1.75; }
@@ -849,7 +828,6 @@
 .sheet[data-motion='process'][data-motion-state='visible'] .step:nth-child(3) { animation-delay: .22s; }
 .sheet[data-motion='process'][data-motion-state='visible'] .step:nth-child(4) { animation-delay: .29s; }
 .sheet[data-motion='process'][data-motion-state='visible'] .step:nth-child(5) { animation-delay: .36s; }
-.sheet[data-motion='process'][data-motion-state='visible'] .steps::after { transform: scaleY(1); }
 .sheet[data-motion='mentor'][data-motion-state='visible'] .mentorPhoto { animation: motion-from-left .5s both ease-out; }
 .sheet[data-motion='mentor'][data-motion-state='visible'] .mentorHead > div { animation: motion-from-right .5s .1s both ease-out; }
 .sheet[data-motion='mentor'][data-motion-state='visible'] > .body,
