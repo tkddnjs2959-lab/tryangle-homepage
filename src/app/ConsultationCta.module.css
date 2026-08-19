@@ -16,6 +16,7 @@
 }
 .ctaCopy { display: grid; gap: 1px; color: var(--navy); white-space: nowrap; }
 .mobileCtaCopy { display: none !important; }
+.mobileCtaPrimary { color: var(--ok) !important; }
 .ctaCopy strong { font-size: 13px; }
 .ctaCopy span { color: var(--sub); font-size: 11px; }
 .ctaButton {

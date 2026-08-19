@@ -158,7 +158,6 @@ export default function Home() {
         </section>
 
         <StudentChangesCarousel />
-        <div data-motion="summary"><ConsultationSummaryCard variant="mobile" /></div>
 
         <section className={styles.sheet} data-motion="process">
           <h2 className={styles.h2}>‘캐릭터 포지셔닝’은 어떻게 진행될까요?</h2>
