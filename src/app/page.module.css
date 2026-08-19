@@ -246,6 +246,11 @@
   letter-spacing: -.5px;
   word-break: keep-all;
 }
+.hookTitle > span,
+.hookBodyDesktop > span,
+.hookBodyMobile > span {
+  display: block;
+}
 .hookBody {
   margin: 0;
   color: var(--ink);
@@ -253,6 +258,8 @@
   line-height: 1.8;
   word-break: keep-all;
 }
+.hookBodyDesktop { display: block; }
+.hookBodyMobile { display: none; }
 .resultTitle {
   margin: 0 0 12px;
   color: var(--navy);
@@ -269,8 +276,12 @@
 .resultList li {
   display: grid;
   grid-template-columns: 30px 1fr;
+  grid-template-areas:
+    "number prefix"
+    "number outcome";
   align-items: center;
-  gap: 8px;
+  column-gap: 8px;
+  row-gap: 2px;
   padding: 13px 14px;
   border: 1px solid var(--sky-line);
   border-radius: 10px;
@@ -279,7 +290,17 @@
   font-size: 12.5px;
   line-height: 1.55;
 }
-.resultList li span { color: var(--sky-dot); font-size: 10.5px; font-weight: 900; letter-spacing: .4px; }
+.resultNum {
+  grid-area: number;
+  align-self: center;
+  color: var(--sky-dot);
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: .4px;
+}
+.resultCopy { display: contents; }
+.resultPrefix { grid-area: prefix; color: var(--sub); font-size: 11.5px; }
+.resultList strong { grid-area: outcome; color: var(--navy); font-size: 13px; }
 
 /* ================= 수강생 변화 ================= */
 .changeSection {
@@ -359,8 +380,20 @@
   .hookQuestion { padding: 0 0 22px; border-right: 0; border-bottom: 1px solid #d4e5f1; }
   .hookTitle { font-size: 23px; line-height: 1.48; }
   .hookBody { font-size: 14px; line-height: 1.78; }
+  .hookBodyDesktop { display: none; }
+  .hookBodyMobile { display: block; }
+  .hookBodyParagraph { margin-top: 12px; }
   .resultTitle { font-size: 16px; line-height: 1.5; }
-  .resultList li { padding: 13px 14px; font-size: 13px; }
+  .resultList li {
+    grid-template-columns: 30px 1fr;
+    grid-template-areas:
+      "number outcome"
+      ". prefix";
+    padding: 13px 14px;
+    font-size: 13px;
+  }
+  .resultPrefix { font-size: 12px; }
+  .resultList strong { font-size: 13.5px; }
   .changeHeading { display: grid; gap: 4px; }
   .changeTitle { font-size: 22px; line-height: 1.45; }
   .autoPlayButton { justify-self: start; margin-bottom: 8px; }

@@ -102,22 +102,52 @@ export default function Home() {
             <div className={styles.hookQuestion}>
               <p className={styles.sectionEyebrow}>WHY POSITIONING MATTERS</p>
               <h2 className={styles.hookTitle}>
-                왜 어떤 배우는 오디션 기회를 얻고,
-                <br className={styles.brDesktop} /> 어떤 배우는 얻지 못할까요?
+                <span>왜 어떤 배우는</span>
+                <span>오디션 기회를 얻고,</span>
+                <span>어떤 배우는 얻지 못할까요?</span>
               </h2>
               <p className={styles.hookBody}>
-                오디션 기회는 무작정 많이 지원한다고 생기지 않습니다.
-                <br className={styles.brDesktop} /> 배우로서 자신에게 가장 경쟁력 있는 캐릭터 포지션을 정확히 알고,
-                <br className={styles.brDesktop} /> 그 포지션을 필요로 하는 작품의 오디션을 전략적으로 공략해야 합니다.
+                <span className={styles.hookBodyDesktop}>
+                  <span>오디션 기회는 무작정 많이 지원한다고 생기지 않습니다.</span>
+                  <span>배우로서 자신에게 가장 경쟁력 있는</span>
+                  <span>캐릭터 포지션을 정확히 알고, 그 포지션을</span>
+                  <span>필요로 하는 작품의 오디션을 전략적으로 공략해야 합니다.</span>
+                </span>
+                <span className={styles.hookBodyMobile}>
+                  <span>오디션 기회는 무작정 많이 지원한다고</span>
+                  <span>생기지 않습니다.</span>
+                  <span className={styles.hookBodyParagraph}>배우로서 자신에게 가장 경쟁력 있는</span>
+                  <span>캐릭터 포지션을 정확히 알고,</span>
+                  <span>그 포지션을 필요로 하는 작품의 오디션을</span>
+                  <span>전략적으로 공략해야 합니다.</span>
+                </span>
               </p>
             </div>
 
             <div className={styles.hookResults}>
               <h3 className={styles.resultTitle}>캐릭터 포지셔닝을 통해 얻게 되는 3가지 결과</h3>
               <ol className={styles.resultList}>
-                <li><span aria-hidden="true">01</span><strong>오디션 기회로 연결될 수 있는 나만의 캐릭터 포지션 도출</strong></li>
-                <li><span aria-hidden="true">02</span><strong>자신의 캐릭터 포지션을 필요로 하는 오디션 선별 기준 정립</strong></li>
-                <li><span aria-hidden="true">03</span><strong>오디션 실물미팅 가능성을 높이는 프로필·연기영상 구축</strong></li>
+                <li>
+                  <span className={styles.resultNum} aria-hidden="true">01</span>
+                  <span className={styles.resultCopy}>
+                    <span className={styles.resultPrefix}>오디션 기회로 연결될 수 있는</span>
+                    <strong>나만의 캐릭터 포지션 도출</strong>
+                  </span>
+                </li>
+                <li>
+                  <span className={styles.resultNum} aria-hidden="true">02</span>
+                  <span className={styles.resultCopy}>
+                    <span className={styles.resultPrefix}>자신의 캐릭터 포지션을 필요로 하는</span>
+                    <strong>오디션 선별 기준 정립</strong>
+                  </span>
+                </li>
+                <li>
+                  <span className={styles.resultNum} aria-hidden="true">03</span>
+                  <span className={styles.resultCopy}>
+                    <span className={styles.resultPrefix}>오디션 실물미팅 가능성을 높이는</span>
+                    <strong>프로필·연기영상 구축</strong>
+                  </span>
+                </li>
               </ol>
             </div>
           </div>
