@@ -4,6 +4,7 @@ import styles from './page.module.css';
 import TrackedLink from './TrackedLink';
 import ContactForm from './ContactForm';
 import ConsultationSummaryCard from './ConsultationSummaryCard';
+import StudentChangesCarousel from './StudentChangesCarousel';
 
 const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=homepage_cta&utm_content=main';
 
@@ -94,30 +95,30 @@ export default function Home() {
           <h1 className={styles.h1}>
             캐릭터 포지셔닝 클래스
           </h1>
-          <p className={styles.heroLead}>
-            배우의 캐릭터 포지션이
-            <br className={styles.brMobile} />
-            {' '}캐스팅 디렉터에게 명확하게 전달될 때,
-            <br className={styles.brDesktop} />
-            <br className={styles.brMobile} />
-            오디션 기회로 이어질 가능성은 더욱 높아집니다.
-          </p>
         </section>
 
-        <section className={`${styles.sheet} ${styles.introSheet}`}>
-          <p className={styles.body}>
-            <strong className={styles.introTitle}>TRY앵글 '캐릭터 포지셔닝 클래스'는</strong>
+        <section className={`${styles.sheet} ${styles.hookSection}`}>
+          <p className={styles.sectionEyebrow}>WHY POSITIONING MATTERS</p>
+          <h2 className={styles.hookTitle}>
+            왜 어떤 배우는 오디션 기회를 얻고,
+            <br className={styles.brDesktop} /> 어떤 배우는 얻지 못할까요?
+          </h2>
+          <p className={styles.hookBody}>
+            오디션 기회는 무작정 많이 지원한다고 생기지 않습니다.
+            <br className={styles.brDesktop} /> 배우로서 자신에게 가장 경쟁력 있는 캐릭터 포지션을 정확히 알고,
+            <br className={styles.brDesktop} /> 그 포지션을 필요로 하는 작품의 오디션을 전략적으로 공략해야 합니다.
           </p>
 
-          <p className={styles.body}>
-            배우에게 가장 경쟁력 있는 캐릭터 포지션을 도출하고,
-            <br className={styles.brMobile} />
-            <br className={styles.brDesktop} />
-            {' '}그 포지션이 캐스팅 디렉터에게 명확하게 전달될 수 있도록
-            <br className={styles.brDesktop} />
-            {' '}배우와 함께 전략을 수립해, 최적의 결과물을 만들어가는 프로그램입니다.
-          </p>
+          <h3 className={styles.resultTitle}>캐릭터 포지셔닝을 통해 얻게 되는 3가지 결과</h3>
+          <ul className={styles.resultList}>
+            <li><span aria-hidden="true">✓</span><strong>오디션 기회로 연결될 수 있는 나만의 캐릭터 포지션 도출</strong></li>
+            <li><span aria-hidden="true">✓</span><strong>자신의 캐릭터 포지션을 필요로 하는 오디션 선별 기준 정립</strong></li>
+            <li><span aria-hidden="true">✓</span><strong>오디션 실물미팅 가능성을 높이는 프로필·연기영상 구축</strong></li>
+          </ul>
         </section>
+
+        <StudentChangesCarousel />
+        <ConsultationSummaryCard variant="mobile" />
 
         <section className={styles.sheet}>
           <h2 className={styles.h2}>‘캐릭터 포지셔닝’은 어떻게 진행될까요?</h2>
@@ -265,25 +266,8 @@ export default function Home() {
         </section>
 
         <section className={styles.sheet}>
-          <p className={styles.body}>
-            오디션 기회는
-            <br />
-            무작정 많이 지원한다고 생기지 않습니다.
-            <br />
-            <br />
-            배우로서 자신에게 가장 경쟁력 있는
-            <br className={styles.brMobile} />
-            {' '}캐릭터 포지션을 정확히 알고,
-            <br />
-            그 캐릭터를 필요로 하는
-            <br />
-            오디션을 전략적으로 공략해야 합니다.
-            <br />
-            <br />
-            지금 TRY앵글에서,
-            <br className={styles.brMobile} />
-            {' '}당신의 캐릭터 포지션을 확인해보세요!
-          </p>
+          <h2 className={styles.h2}>내 캐릭터 포지션을 확인해보세요</h2>
+          <p className={styles.bodyMuted}>상담 신청 내용을 확인한 뒤, 상담 가능 일정과 진행 방법을 안내해드립니다.</p>
 
           <div className={styles.ctaDivider} aria-hidden="true" />
           <p className={styles.visitNote}>
@@ -298,7 +282,7 @@ export default function Home() {
           <ContactForm />
         </section>
         </div>
-        <ConsultationSummaryCard />
+        <ConsultationSummaryCard variant="desktop" />
       </main>
 
       <footer className={styles.footer}>
