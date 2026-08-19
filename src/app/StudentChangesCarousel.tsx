@@ -105,7 +105,6 @@ export default function StudentChangesCarousel() {
         </div>
         <button type="button" onClick={() => move('next')} aria-label="다음 수강생 사례">→</button>
       </div>
-      <p className={styles.changeNote}>수강생 개인의 경험을 바탕으로 정리했으며, 결과는 개인별로 다를 수 있습니다.</p>
     </section>
   );
 }
