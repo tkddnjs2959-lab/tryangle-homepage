@@ -15,6 +15,7 @@
   backdrop-filter: blur(10px);
 }
 .ctaCopy { display: grid; gap: 1px; color: var(--navy); white-space: nowrap; }
+.mobileCtaCopy { display: none !important; }
 .ctaCopy strong { font-size: 13px; }
 .ctaCopy span { color: var(--sub); font-size: 11px; }
 .ctaButton {
@@ -114,6 +115,8 @@
   }
   .ctaCopy strong { font-size: 12px; }
   .ctaCopy span { font-size: 10.5px; }
+  .desktopCtaCopy { display: none !important; }
+  .mobileCtaCopy { display: block !important; }
   .ctaButton { padding: 12px 15px; }
   .backdrop { align-items: end; padding: 0; }
   .dialog { width: 100%; max-height: 94dvh; border-radius: 18px 18px 0 0; }

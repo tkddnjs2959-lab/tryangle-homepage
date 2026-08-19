@@ -58,8 +58,10 @@ export default function ConsultationCta() {
     <>
       <div className={`${styles.ctaBar} ${pathname === '/' ? styles.homeCtaBar : ''}`}>
         <div className={styles.ctaCopy}>
-          <strong>내 캐릭터 방향이 궁금하다면</strong>
-          <span>상담 신청은 약 1분이면 충분해요.</span>
+          <strong className={styles.desktopCtaCopy}>내 캐릭터 방향이 궁금하다면</strong>
+          <strong className={styles.mobileCtaCopy}>8기 한정가 45만원 / 상담 진행 중</strong>
+          <span className={styles.desktopCtaCopy}>상담 신청은 약 1분이면 충분해요.</span>
+          <span className={styles.mobileCtaCopy}>상담 신청은 약 1분이면 충분해요</span>
         </div>
         <button className={styles.ctaButton} type="button" onClick={() => openModal()} aria-haspopup="dialog">
           상담 신청하기

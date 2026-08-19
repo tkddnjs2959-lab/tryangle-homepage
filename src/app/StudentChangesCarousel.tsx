@@ -24,7 +24,7 @@ export default function StudentChangesCarousel() {
       <div className={styles.changeHeading}>
         <div>
           <p className={styles.sectionEyebrow}>REAL CHANGES</p>
-          <h2 id="student-changes-title" className={`${styles.h2} ${styles.changeTitle}`}>캐릭터 포지셔닝 이후, 실제 수강생들의 변화</h2>
+          <h2 id="student-changes-title" className={`${styles.h2} ${styles.changeTitle}`}>캐릭터 포지셔닝 이후,<br className={styles.brMobile} />실제 수강생들의 변화</h2>
         </div>
       </div>
 
