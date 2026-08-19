@@ -15,7 +15,12 @@ const TIMES = Array.from({ length: 12 }, (_, index) => {
 const MORNING_TIMES = TIMES.filter((time) => Number(time.slice(0, 2)) < 12);
 const AFTERNOON_TIMES = TIMES.filter((time) => Number(time.slice(0, 2)) >= 12);
 
-export default function ContactForm() {
+type ContactFormProps = {
+  formName?: string;
+  successPlacement?: string;
+};
+
+export default function ContactForm({ formName = 'contact_form', successPlacement = 'contact_form_success' }: ContactFormProps) {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
@@ -34,7 +39,7 @@ export default function ContactForm() {
   function trackFormStart() {
     if (formStarted.current) return;
     formStarted.current = true;
-    trackEvent('form_start', { form: 'contact_form' });
+    trackEvent('form_start', { form: formName });
   }
 
   async function submit(e: React.FormEvent) {
@@ -87,7 +92,7 @@ export default function ContactForm() {
         setState('idle');
         return;
       }
-      trackEvent('form_submit_success', { form: 'contact_form' });
+      trackEvent('form_submit_success', { form: formName });
       setState('done');
     } catch {
       setError('네트워크 오류입니다. 연결을 확인하고 다시 시도해주세요.');
@@ -149,7 +154,7 @@ export default function ContactForm() {
           target="_blank"
           rel="noopener noreferrer"
           eventName="click_kakao_consult"
-          eventParams={{ placement: 'contact_form_success' }}
+          eventParams={{ placement: successPlacement }}
         >
           TRY앵글 카카오톡 채널 바로가기
         </TrackedLink>
@@ -272,7 +277,7 @@ export default function ContactForm() {
         className={styles.formSubmit}
         type="submit"
         disabled={state === 'sending'}
-        onClick={() => trackEvent('click_consultation_submit', { form: 'contact_form' })}
+        onClick={() => trackEvent('click_consultation_submit', { form: formName })}
       >
         {state === 'sending' ? '접수 중…' : '상담 신청하기'}
       </button>

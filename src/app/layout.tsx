@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import './globals.css';
 import AttributionCapture from './AttributionCapture';
+import ConsultationCta from './ConsultationCta';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://tryangle-official.co.kr'),
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </noscript>
         ) : null}
         {children}
+        <ConsultationCta />
       </body>
     </html>
   );
