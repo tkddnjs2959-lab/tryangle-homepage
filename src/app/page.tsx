@@ -84,17 +84,19 @@ export default function Home() {
 
       <main className={styles.homeLayout}>
         <div className={styles.page}>
-        <section className={styles.hero} data-motion="hero">
-          <Image
-            src="/logo.jpg"
-            alt="TRY앵글"
-            width={72}
-            height={72}
-            className={styles.heroLogo}
-            priority
-          />
-          <p className={styles.eyebrow}>TRY앵글 시그니처 클래스</p>
-          <h1 className={styles.h1}>
+        <section className={`${styles.hero} ${styles.homeHero}`} data-motion="hero">
+          <div className={styles.heroBrand}>
+            <Image
+              src="/logo.jpg"
+              alt="TRY앵글"
+              width={48}
+              height={48}
+              className={styles.heroLogo}
+              priority
+            />
+            <p className={styles.eyebrow}>TRY앵글 시그니처 클래스</p>
+          </div>
+          <h1 className={`${styles.h1} ${styles.homeHeroTitle}`}>
             캐릭터 포지셔닝 클래스
           </h1>
         </section>
