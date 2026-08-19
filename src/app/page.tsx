@@ -305,7 +305,7 @@ export default function Home() {
         </section>
 
         <section className={styles.sheet} data-motion="consultation">
-          <h2 className={styles.h2}>지금부터 정확히 알고, 전략적으로 공략하세요!</h2>
+          <h2 className={styles.h2}>지금부터 정확히 알고,<br className={styles.brMobile} />전략적으로 공략하세요!</h2>
           <p className={styles.bodyMuted}>상담 신청 내용을 확인한 뒤, 상담 가능 일정과 진행 방법을 안내해드립니다.</p>
 
           <div className={styles.ctaDivider} aria-hidden="true" />
