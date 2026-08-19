@@ -200,7 +200,7 @@ export default function Home() {
             </div>
             <div className={styles.stat}>
               <b>주 1회 · 90분</b>
-              <span>총 4회 진행</span>
+              <span>월 4회 진행</span>
             </div>
             <div className={styles.stat}>
               <b>최대 4명</b>

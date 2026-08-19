@@ -26,7 +26,7 @@ export default function ConsultationSummaryCard() {
           </div>
           <div>
             <dt>구성</dt>
-            <dd>12주 · 총 4회 · 회당 90분</dd>
+            <dd>12주 · 월 4회 · 회당 90분</dd>
           </div>
           <div>
             <dt>정원</dt>
