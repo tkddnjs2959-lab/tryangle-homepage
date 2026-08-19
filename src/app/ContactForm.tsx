@@ -42,30 +42,36 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
     trackEvent('form_start', { form: formName });
   }
 
+  function showValidationError(reason: string, message: string) {
+    setError(message);
+    trackEvent('form_validation_error', { form: formName, reason });
+  }
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     const phoneDigits = contact.replace(/[^0-9]/g, '');
     const selectedSlots = selectedDays.flatMap((day) => (preferredSlots[day] ?? []).map((time) => `${day} ${time}`));
     if (!name.trim() || !age || !gender || !contact.trim() || !major || !mediaExperience) {
-      setError('필수 항목을 모두 입력해주세요.');
+      showValidationError('required_fields', '필수 항목을 모두 입력해주세요.');
       return;
     }
     if (!privacyAgreed) {
-      setError('개인정보 수집·이용에 동의해주세요.');
+      showValidationError('privacy_consent', '개인정보 수집·이용에 동의해주세요.');
       return;
     }
     if (phoneDigits.length < 10 || phoneDigits.length > 11) {
-      setError('연락처는 휴대전화 번호를 정확히 입력해주세요.');
+      showValidationError('phone_number', '연락처는 휴대전화 번호를 정확히 입력해주세요.');
       return;
     }
     if (selectedSlots.length === 0) {
-      setError('상담 희망 요일별로 시간을 한 개 이상 선택해주세요.');
+      showValidationError('consultation_slot_empty', '상담 희망 요일별로 시간을 한 개 이상 선택해주세요.');
       return;
     }
     if (selectedDays.some((day) => (preferredSlots[day] ?? []).length === 0)) {
-      setError('선택한 모든 요일에 상담 시간을 지정해주세요.');
+      showValidationError('consultation_slot_incomplete', '선택한 모든 요일에 상담 시간을 지정해주세요.');
       return;
     }
+    trackEvent('form_submit_attempt', { form: formName });
     setState('sending');
     setError(null);
     try {
@@ -88,6 +94,7 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
       });
       const json = (await res.json().catch(() => ({}))) as { message?: string };
       if (!res.ok) {
+        trackEvent('form_submit_failure', { form: formName, reason: `http_${res.status}` });
         setError(json.message ?? '접수에 실패했습니다. 잠시 후 다시 시도해주세요.');
         setState('idle');
         return;
@@ -95,6 +102,7 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
       trackEvent('form_submit_success', { form: formName });
       setState('done');
     } catch {
+      trackEvent('form_submit_failure', { form: formName, reason: 'network_error' });
       setError('네트워크 오류입니다. 연결을 확인하고 다시 시도해주세요.');
       setState('idle');
     }

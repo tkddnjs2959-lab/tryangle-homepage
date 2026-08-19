@@ -18,6 +18,8 @@ function requestKey(req: Request) {
 }
 
 export async function POST(req: Request) {
+  const startedAt = Date.now();
+  const requestId = req.headers.get('x-vercel-id') ?? 'local';
   let body: unknown;
   try {
     body = await req.json();
@@ -53,7 +55,7 @@ export async function POST(req: Request) {
     p_window_seconds: 600,
   });
   if (rateLimitError) {
-    console.error('상담 신청 요청 제한 확인 실패', rateLimitError);
+    console.error(JSON.stringify({ level: 'error', message: 'inquiry_rate_limit_failed', requestId, duration_ms: Date.now() - startedAt, error: rateLimitError.message }));
     return NextResponse.json({ message: '잠시 후 다시 시도해주세요.' }, { status: 503 });
   }
   if (!allowed) {
@@ -76,7 +78,7 @@ export async function POST(req: Request) {
       const { status, message: msg } = ERRORS[known];
       return NextResponse.json({ message: msg }, { status });
     }
-    console.error('submit_inquiry 실패', error);
+    console.error(JSON.stringify({ level: 'error', message: 'inquiry_submit_failed', requestId, duration_ms: Date.now() - startedAt, error: error.message }));
     return NextResponse.json(
       { message: '접수에 실패했습니다. 잠시 후 다시 시도해주세요.' },
       { status: 500 }
@@ -96,6 +98,8 @@ export async function POST(req: Request) {
     age: findMessageLine('나이'),
     consultationDate: findMessageLine('상담 희망'),
   });
+
+  console.log(JSON.stringify({ level: 'info', message: 'inquiry_submit_succeeded', requestId, duration_ms: Date.now() - startedAt, source, medium, campaign }));
 
   return NextResponse.json({ ok: true });
 }
