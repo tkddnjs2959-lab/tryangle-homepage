@@ -75,7 +75,7 @@ export default function ConsultationCta() {
               <div>
                 <p className={styles.dialogEyebrow}>TRY앵글 상담 신청</p>
                 <h2 id="consultation-dialog-title">내 캐릭터 방향을 함께 찾아볼까요?</h2>
-                <p className={styles.dialogHint}>현재 이미지와 목표를 확인한 뒤, 맞는 상담 일정을 안내해드려요.</p>
+                <p className={styles.dialogHint}>작성해주신 내용을 확인한 뒤, 상담 가능 일정과 진행 방법을 안내해드립니다.</p>
               </div>
               <button ref={closeButtonRef} className={styles.closeButton} type="button" onClick={closeModal} aria-label="상담 신청 창 닫기">×</button>
             </div>
