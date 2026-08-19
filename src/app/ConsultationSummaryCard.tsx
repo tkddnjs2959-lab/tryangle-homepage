@@ -60,7 +60,7 @@ export default function ConsultationSummaryCard({ variant }: ConsultationSummary
   }
 
   return (
-    <aside className={styles.sideRail} aria-label="8기 클래스 핵심 안내">
+    <aside className={styles.sideRail} aria-label="8기 클래스 핵심 안내" data-motion="summary">
       <SummaryContents placement="homepage_sticky_summary" />
     </aside>
   );

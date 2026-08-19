@@ -5,6 +5,7 @@ import TrackedLink from './TrackedLink';
 import ContactForm from './ContactForm';
 import ConsultationSummaryCard from './ConsultationSummaryCard';
 import StudentChangesCarousel from './StudentChangesCarousel';
+import PageMotion from './PageMotion';
 
 const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=homepage_cta&utm_content=main';
 
@@ -71,6 +72,7 @@ const CAREER = [
 export default function Home() {
   return (
     <>
+      <PageMotion />
       <header className={styles.nav}>
         <div className={styles.navInner}>
           <div className={styles.logo}>
@@ -82,7 +84,7 @@ export default function Home() {
 
       <main className={styles.homeLayout}>
         <div className={styles.page}>
-        <section className={styles.hero}>
+        <section className={styles.hero} data-motion="hero">
           <Image
             src="/logo.jpg"
             alt="TRY앵글"
@@ -97,7 +99,7 @@ export default function Home() {
           </h1>
         </section>
 
-        <section className={`${styles.sheet} ${styles.hookSection}`}>
+        <section className={`${styles.sheet} ${styles.hookSection}`} data-motion="hook">
           <div className={styles.hookGrid}>
             <div className={styles.hookQuestion}>
               <p className={styles.sectionEyebrow}>WHY POSITIONING MATTERS</p>
@@ -154,9 +156,9 @@ export default function Home() {
         </section>
 
         <StudentChangesCarousel />
-        <ConsultationSummaryCard variant="mobile" />
+        <div data-motion="summary"><ConsultationSummaryCard variant="mobile" /></div>
 
-        <section className={styles.sheet}>
+        <section className={styles.sheet} data-motion="process">
           <h2 className={styles.h2}>‘캐릭터 포지셔닝’은 어떻게 진행될까요?</h2>
           <p className={styles.bodyMuted}>
             TRY앵글 캐릭터 포지셔닝 프로세스는
@@ -177,7 +179,7 @@ export default function Home() {
 
         </section>
 
-        <section id="mentor" className={styles.sheet}>
+        <section id="mentor" className={styles.sheet} data-motion="mentor">
           <p className={styles.body}>
             이 과정을 이끄는 캐릭터 포지셔닝 멘토 이주아는
             <br className={styles.brMobile} />
@@ -228,7 +230,7 @@ export default function Home() {
           </ul>
         </section>
 
-        <section className={styles.sheet}>
+        <section className={styles.sheet} data-motion="method">
           <h2 className={styles.h2}>진행 방식</h2>
           <div className={styles.stats}>
             <div className={styles.stat}>
@@ -280,7 +282,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={styles.sheet}>
+        <section className={styles.sheet} data-motion="cost">
           <h2 className={styles.h2}>비용 안내</h2>
           <div className={styles.priceBox}>
             <div className={styles.priceOld}>정가 · 65만원</div>
@@ -301,7 +303,7 @@ export default function Home() {
           </p>
         </section>
 
-        <section className={styles.sheet}>
+        <section className={styles.sheet} data-motion="consultation">
           <h2 className={styles.h2}>내 캐릭터 포지션을 확인해보세요</h2>
           <p className={styles.bodyMuted}>상담 신청 내용을 확인한 뒤, 상담 가능 일정과 진행 방법을 안내해드립니다.</p>
 

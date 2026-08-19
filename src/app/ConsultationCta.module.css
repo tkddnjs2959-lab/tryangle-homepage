@@ -74,6 +74,28 @@
 }
 .formScroll { overflow: auto; padding: 20px 26px 28px; }
 
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes dialog-in {
+  from { opacity: 0; transform: translateY(14px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes dialog-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(14px) scale(.985); }
+}
+.backdrop[data-state='open'] { animation: backdrop-in .2s ease-out both; }
+.backdrop[data-state='open'] .dialog { animation: dialog-in .24s ease-out both; }
+.backdrop[data-state='closing'] { animation: none; opacity: 0; transition: opacity .2s ease; }
+.backdrop[data-state='closing'] .dialog { animation: dialog-out .2s ease-in both; }
+
+@media (hover: hover) and (pointer: fine) {
+  .ctaButton { transition: transform .2s ease, box-shadow .2s ease; }
+  .ctaButton:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(18, 34, 79, .22); }
+}
+
 @media (min-width: 1160px) {
   .homeCtaBar { display: none; }
 }
@@ -99,4 +121,19 @@
   .dialogHeader h2 { font-size: 18px; }
   .dialogHint { font-size: 11.5px; }
   .formScroll { padding: 16px 18px calc(22px + env(safe-area-inset-bottom)); }
+  .backdrop[data-state='open'] .dialog { animation-name: dialog-mobile-in; }
+  .backdrop[data-state='closing'] .dialog { animation-name: dialog-mobile-out; }
+}
+
+@keyframes dialog-mobile-in {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes dialog-mobile-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop, .dialog, .ctaButton { animation: none !important; transition: none !important; }
 }

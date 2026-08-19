@@ -490,7 +490,25 @@
 .stat span { display: block; font-size: 12px; color: var(--sub); margin-top: 4px; }
 
 /* ================= 프로세스 ================= */
-.steps { list-style: none; margin: 22px 0 0; padding: 0; }
+.steps { position: relative; list-style: none; margin: 22px 0 0; padding: 0; }
+.steps::before, .steps::after {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 16px;
+  bottom: 16px;
+  width: 1px;
+  pointer-events: none;
+}
+.steps::before { background: var(--sky-line); }
+.steps::after {
+  bottom: auto;
+  height: calc(100% - 32px);
+  background: var(--sky-dot);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .9s ease-out .2s;
+}
 .step {
   display: flex;
   gap: 16px;
@@ -499,8 +517,11 @@
 }
 .step:first-child { border-top: none; padding-top: 0; }
 .stepNum {
+  position: relative;
+  z-index: 1;
   flex: none;
   width: 40px;
+  background: var(--card);
   font-size: 17px;
   font-weight: 800;
   color: var(--ink);
@@ -738,3 +759,121 @@
 .footer a:hover { color: var(--navy); }
 .footerBrand { display: flex; align-items: center; gap: 8px; }
 .footerLogo { border-radius: 6px; flex: none; }
+
+/* ================= 반응형 밀도 ================= */
+@media (min-width: 561px) and (max-width: 899px) {
+  .hookGrid { grid-template-columns: 1fr; gap: 24px; }
+  .hookQuestion { padding: 0 0 24px; border-right: 0; border-bottom: 1px solid #d4e5f1; }
+  .hookResults { display: grid; grid-template-columns: 190px 1fr; align-items: start; gap: 16px; }
+  .resultTitle { margin: 4px 0 0; }
+  .carouselTrack { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .changeCard:last-child { grid-column: span 2; min-height: auto; }
+}
+
+@media (max-width: 899px) {
+  .homeLayout { padding: 0 14px; }
+  .hero { padding-top: 42px; padding-bottom: 28px; }
+  .page { gap: 14px; }
+}
+
+@media (max-width: 560px) {
+  .homeLayout { padding: 0 10px; }
+  .page { gap: 12px; padding-bottom: 84px; }
+  .hero { padding: 32px 12px 20px; }
+  .heroLogo { width: 58px; height: 58px; margin-bottom: 16px; border-radius: 15px; }
+  .eyebrow { margin-bottom: 9px; font-size: 11px; letter-spacing: 1.2px; }
+  .body { font-size: 15px; line-height: 1.78; }
+  .bodyMuted, .visitNote { font-size: 14px; line-height: 1.72; }
+  .stats { grid-template-columns: 1fr; gap: 8px; }
+  .stat { display: grid; grid-template-columns: minmax(122px, auto) 1fr; align-items: center; gap: 8px; padding: 13px 14px; text-align: left; }
+  .stat b { font-size: 16px; }
+  .stat span { margin: 0; font-size: 12.5px; }
+  .step { gap: 13px; padding: 16px 0; }
+  .steps::before, .steps::after { left: 16px; }
+  .stepNum { width: 34px; font-size: 16px; }
+  .stepTitle { font-size: 15px; }
+  .stepBody { font-size: 13.5px; line-height: 1.75; }
+  .callout { padding: 16px; font-size: 14px; }
+  .schedule { font-size: 12.5px; }
+  .schedule td:first-child { width: 96px; }
+  .footer { padding-bottom: calc(104px + env(safe-area-inset-bottom)); align-items: flex-start; gap: 14px; }
+}
+
+/* ================= 인터랙션 ================= */
+@keyframes motion-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes motion-from-left {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes motion-from-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes motion-status {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(26, 107, 67, .18); }
+  50% { box-shadow: 0 0 0 5px rgba(26, 107, 67, 0); }
+}
+
+.hero[data-motion-state='visible'] .heroLogo { animation: motion-rise .48s both ease-out; }
+.hero[data-motion-state='visible'] .eyebrow { animation: motion-rise .48s .09s both ease-out; }
+.hero[data-motion-state='visible'] .h1 { animation: motion-rise .5s .18s both ease-out; }
+
+.hookSection[data-motion-state='visible'] .sectionEyebrow { animation: motion-rise .42s both ease-out; }
+.hookSection[data-motion-state='visible'] .hookTitle > span { animation: motion-rise .46s both ease-out; }
+.hookSection[data-motion-state='visible'] .hookTitle > span:nth-child(1) { animation-delay: .06s; }
+.hookSection[data-motion-state='visible'] .hookTitle > span:nth-child(2) { animation-delay: .13s; }
+.hookSection[data-motion-state='visible'] .hookTitle > span:nth-child(3) { animation-delay: .2s; }
+.hookSection[data-motion-state='visible'] .hookBody { animation: motion-rise .45s .27s both ease-out; }
+.hookSection[data-motion-state='visible'] .resultTitle { animation: motion-from-right .42s .18s both ease-out; }
+.hookSection[data-motion-state='visible'] .resultList li { animation: motion-from-right .42s both ease-out; }
+.hookSection[data-motion-state='visible'] .resultList li:nth-child(1) { animation-delay: .25s; }
+.hookSection[data-motion-state='visible'] .resultList li:nth-child(2) { animation-delay: .34s; }
+.hookSection[data-motion-state='visible'] .resultList li:nth-child(3) { animation-delay: .43s; }
+
+.changeSection[data-motion-state='visible'] .changeHeading { animation: motion-rise .45s both ease-out; }
+.changeSection[data-motion-state='visible'] .changeCard { animation: motion-rise .46s both ease-out; }
+.changeSection[data-motion-state='visible'] .changeCard:nth-child(1) { animation-delay: .1s; }
+.changeSection[data-motion-state='visible'] .changeCard:nth-child(2) { animation-delay: .18s; }
+.changeSection[data-motion-state='visible'] .changeCard:nth-child(3) { animation-delay: .26s; }
+
+.sheet[data-motion='process'][data-motion-state='visible'],
+.sheet[data-motion='method'][data-motion-state='visible'],
+.sheet[data-motion='cost'][data-motion-state='visible'],
+.sheet[data-motion='consultation'][data-motion-state='visible'] { animation: motion-rise .5s both ease-out; }
+.sheet[data-motion='process'][data-motion-state='visible'] .step { animation: motion-rise .42s both ease-out; }
+.sheet[data-motion='process'][data-motion-state='visible'] .step:nth-child(1) { animation-delay: .08s; }
+.sheet[data-motion='process'][data-motion-state='visible'] .step:nth-child(2) { animation-delay: .15s; }
+.sheet[data-motion='process'][data-motion-state='visible'] .step:nth-child(3) { animation-delay: .22s; }
+.sheet[data-motion='process'][data-motion-state='visible'] .step:nth-child(4) { animation-delay: .29s; }
+.sheet[data-motion='process'][data-motion-state='visible'] .step:nth-child(5) { animation-delay: .36s; }
+.sheet[data-motion='process'][data-motion-state='visible'] .steps::after { transform: scaleY(1); }
+.sheet[data-motion='mentor'][data-motion-state='visible'] .mentorPhoto { animation: motion-from-left .5s both ease-out; }
+.sheet[data-motion='mentor'][data-motion-state='visible'] .mentorHead > div { animation: motion-from-right .5s .1s both ease-out; }
+.sheet[data-motion='mentor'][data-motion-state='visible'] > .body,
+.sheet[data-motion='mentor'][data-motion-state='visible'] > .h3,
+.sheet[data-motion='mentor'][data-motion-state='visible'] > .list,
+.sheet[data-motion='mentor'][data-motion-state='visible'] > .newsList { animation: motion-rise .45s .18s both ease-out; }
+.sheet[data-motion='method'][data-motion-state='visible'] .stat { animation: motion-rise .4s both ease-out; }
+.sheet[data-motion='method'][data-motion-state='visible'] .stat:nth-child(1) { animation-delay: .12s; }
+.sheet[data-motion='method'][data-motion-state='visible'] .stat:nth-child(2) { animation-delay: .2s; }
+.sheet[data-motion='method'][data-motion-state='visible'] .stat:nth-child(3) { animation-delay: .28s; }
+.sheet[data-motion='cost'][data-motion-state='visible'] .priceBox { animation: motion-rise .45s .12s both ease-out; }
+
+[data-motion='summary'][data-motion-state='visible'] .sideCard { animation: motion-from-right .48s both ease-out; }
+.sideStatus span { animation: motion-status 3s ease-in-out infinite; }
+
+@media (hover: hover) and (pointer: fine) {
+  .changeCard, .stat, .sideButton, .formSubmit { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+  .changeCard:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(18, 34, 79, .08); }
+  .stat:hover { transform: translateY(-2px); }
+  .sideButton:hover, .formSubmit:hover { transform: translateY(-2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroLogo, .eyebrow, .h1, .sectionEyebrow, .hookTitle > span, .hookBody, .resultTitle,
+  .resultList li, .changeHeading, .changeCard, .sheet, .step, .mentorPhoto, .mentorHead > div,
+  .priceBox, .sideCard, .sideStatus span { animation: none !important; transition: none !important; }
+}

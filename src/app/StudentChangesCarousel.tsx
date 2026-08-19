@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { trackEvent } from './TrackedLink';
 import styles from './page.module.css';
 
@@ -27,6 +27,8 @@ export default function StudentChangesCarousel() {
   const [autoPlay, setAutoPlay] = useState(true);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [mobileView, setMobileView] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
+  const pointerStartX = useRef<number | null>(null);
 
   useEffect(() => {
     const motionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -45,14 +47,22 @@ export default function StudentChangesCarousel() {
   }, []);
 
   useEffect(() => {
-    if (!mobileView || !autoPlay || reduceMotion) return;
+    const syncVisibility = () => setPageVisible(!document.hidden);
+    syncVisibility();
+    document.addEventListener('visibilitychange', syncVisibility);
+    return () => document.removeEventListener('visibilitychange', syncVisibility);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileView || !autoPlay || reduceMotion || !pageVisible) return;
     const timer = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % CASES.length);
     }, 10000);
     return () => window.clearInterval(timer);
-  }, [autoPlay, mobileView, reduceMotion]);
+  }, [autoPlay, mobileView, pageVisible, reduceMotion]);
 
   function move(direction: 'prev' | 'next') {
+    setAutoPlay(false);
     setActiveIndex((current) => direction === 'next'
       ? (current + 1) % CASES.length
       : (current - 1 + CASES.length) % CASES.length);
@@ -60,12 +70,13 @@ export default function StudentChangesCarousel() {
   }
 
   function select(index: number) {
+    setAutoPlay(false);
     setActiveIndex(index);
     trackEvent('student_case_navigate', { direction: 'dot', case_number: index + 1 });
   }
 
   return (
-    <section className={`${styles.sheet} ${styles.changeSection}`} aria-labelledby="student-changes-title">
+    <section className={`${styles.sheet} ${styles.changeSection}`} aria-labelledby="student-changes-title" data-motion="changes">
       <div className={styles.changeHeading}>
         <div>
           <p className={styles.sectionEyebrow}>REAL CHANGES</p>
@@ -83,7 +94,21 @@ export default function StudentChangesCarousel() {
         ) : null}
       </div>
 
-      <div className={styles.carouselViewport}>
+      <div
+        className={styles.carouselViewport}
+        onPointerDown={(event) => {
+          if (mobileView) pointerStartX.current = event.clientX;
+        }}
+        onPointerUp={(event) => {
+          if (!mobileView) return;
+          if (pointerStartX.current === null) return;
+          const distance = event.clientX - pointerStartX.current;
+          pointerStartX.current = null;
+          if (Math.abs(distance) < 40) return;
+          move(distance < 0 ? 'next' : 'prev');
+        }}
+        onPointerCancel={() => { pointerStartX.current = null; }}
+      >
         <div
           className={styles.carouselTrack}
           style={{ transform: `translateX(-${activeIndex * 100}%)` }}

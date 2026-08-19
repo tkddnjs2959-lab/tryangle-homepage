@@ -8,22 +8,27 @@ import styles from './ConsultationCta.module.css';
 
 export default function ConsultationCta() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const [modalState, setModalState] = useState<'closed' | 'open' | 'closing'>('closed');
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const open = modalState !== 'closed';
 
   const openModal = useCallback((placement = 'global_floating') => {
     previousFocusRef.current = document.activeElement as HTMLElement | null;
-    setOpen(true);
+    setModalState('open');
     trackEvent('click_consultation_cta', { placement, page_path: pathname });
     trackEvent('form_open', { form: 'contact_modal', placement, page_path: pathname });
   }, [pathname]);
 
   const closeModal = useCallback(() => {
-    setOpen(false);
+    if (modalState !== 'open') return;
+    setModalState('closing');
     trackEvent('form_close', { form: 'contact_modal', page_path: pathname });
-    window.setTimeout(() => previousFocusRef.current?.focus(), 0);
-  }, [pathname]);
+    window.setTimeout(() => {
+      setModalState('closed');
+      previousFocusRef.current?.focus();
+    }, 220);
+  }, [modalState, pathname]);
 
   useEffect(() => {
     const onOpen = (event: Event) => {
@@ -62,7 +67,7 @@ export default function ConsultationCta() {
       </div>
 
       {open && (
-        <div className={styles.backdrop} role="presentation" onMouseDown={(event) => {
+        <div className={styles.backdrop} data-state={modalState} role="presentation" onMouseDown={(event) => {
           if (event.target === event.currentTarget) closeModal();
         }}>
           <section className={styles.dialog} role="dialog" aria-modal="true" aria-labelledby="consultation-dialog-title">
