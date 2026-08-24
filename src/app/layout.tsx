@@ -6,6 +6,7 @@ import './globals.css';
 import AttributionCapture from './AttributionCapture';
 import ConsultationCta from './ConsultationCta';
 import FunnelAnalytics from './FunnelAnalytics';
+import AnalyticsBootstrap from './AnalyticsBootstrap';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://tryangle-official.co.kr'),
@@ -29,11 +30,40 @@ export const viewport: Viewport = {
 
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1408099347850769';
+const clarityProjectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || 'xzpk8gu4t8';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
       <head>
+        <Script id="microsoft-clarity-fallback" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i){
+              function ready(){
+                c.__tryangleClarityLoaded=true;
+                c.dispatchEvent(new Event('tryangle-clarity-loaded'));
+              }
+              function ensureClarity(){
+                if(c.__tryangleClarityBootstrapped)return;
+                c.__tryangleClarityBootstrapped=true;
+
+                // GTM의 Clarity가 먼저 준비됐다면 기존 설치를 그대로 사용합니다.
+                if(typeof c[a]==='function'){
+                  ready();
+                  return;
+                }
+
+                // 카카오 인앱 등 GTM이 차단된 환경에서만 직접 설치로 대체합니다.
+                c[a]=function(){(c[a].q=c[a].q||[]).push(arguments)};
+                var t=l.createElement(r),y=l.getElementsByTagName(r)[0];
+                t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                t.onload=ready;
+                y.parentNode.insertBefore(t,y);
+              }
+              c.setTimeout(ensureClarity,2500);
+            })(window,document,"clarity","script","${clarityProjectId}");
+          `}
+        </Script>
         {gtmId ? (
           <Script id="google-tag-manager" strategy="afterInteractive">
             {`
@@ -64,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <AttributionCapture />
+        <AnalyticsBootstrap />
         <FunnelAnalytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           '@context': 'https://schema.org',

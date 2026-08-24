@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import styles from './page.module.css';
 import { getAttribution } from './AttributionCapture';
+import { getAnalyticsSessionId, isClarityReady } from '@/lib/analytics-session';
 import TrackedLink, {
   identifyLeadInClarity,
   retryIdentifyLeadInClarity,
@@ -94,6 +95,8 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
           ].join('\n'),
           website,
           attribution: getAttribution(),
+          sessionId: getAnalyticsSessionId(),
+          clarityReady: isClarityReady(),
         }),
       });
       const json = (await res.json().catch(() => ({}))) as { message?: string; leadRef?: string };

@@ -28,7 +28,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: '잘못된 요청입니다.' }, { status: 400 });
   }
 
-  const raw = body as { name?: unknown; contact?: unknown; message?: unknown; website?: unknown; attribution?: unknown };
+  const raw = body as {
+    name?: unknown;
+    contact?: unknown;
+    message?: unknown;
+    website?: unknown;
+    attribution?: unknown;
+    sessionId?: unknown;
+    clarityReady?: unknown;
+  };
   if (typeof raw.website === 'string' && raw.website.trim()) {
     return NextResponse.json({ ok: true });
   }
@@ -42,6 +50,11 @@ export async function POST(req: Request) {
   const medium = typeof attribution.utm_medium === 'string' ? attribution.utm_medium : 'unknown';
   const campaign = typeof attribution.utm_campaign === 'string' ? attribution.utm_campaign : 'unknown';
   const content = typeof attribution.utm_content === 'string' ? attribution.utm_content : 'unknown';
+  const sessionId = typeof raw.sessionId === 'string'
+    && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(raw.sessionId)
+    ? raw.sessionId
+    : null;
+  const clarityReady = raw.clarityReady === true;
 
   if (!name || !contact) {
     return NextResponse.json({ message: '이름과 연락처를 입력해주세요.' }, { status: 400 });
@@ -71,6 +84,8 @@ export async function POST(req: Request) {
     p_medium: medium,
     p_campaign: campaign,
     p_content: content,
+    p_session_id: sessionId,
+    p_clarity_ready: clarityReady,
   });
 
   if (error) {
@@ -110,7 +125,7 @@ export async function POST(req: Request) {
     consultationDate: findMessageLine('상담 희망'),
   });
 
-  console.log(JSON.stringify({ level: 'info', message: 'inquiry_submit_succeeded', requestId, duration_ms: Date.now() - startedAt, source, medium, campaign, leadRef }));
+  console.log(JSON.stringify({ level: 'info', message: 'inquiry_submit_succeeded', requestId, duration_ms: Date.now() - startedAt, source, medium, campaign, leadRef, sessionId, clarityReady }));
 
   return NextResponse.json({ ok: true, leadRef });
 }

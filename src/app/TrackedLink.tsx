@@ -2,6 +2,7 @@
 
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
 import { track } from '@vercel/analytics';
+import { getAnalyticsSessionId, isClarityReady, sendFirstPartyEvent } from '@/lib/analytics-session';
 import { getAttribution } from './AttributionCapture';
 
 type WindowWithDataLayer = Window & {
@@ -14,11 +15,13 @@ function applyLeadIdentity(leadRef: string, formName: string) {
   const win = window as WindowWithDataLayer;
   if (typeof win.clarity !== 'function') return false;
 
+  const sessionId = getAnalyticsSessionId();
   win.clarity('upgrade', 'consultation_lead');
-  win.clarity('identify', leadRef, undefined, undefined, `상담 ${leadRef.slice(-6)}`);
+  win.clarity('identify', leadRef, sessionId || undefined, window.location.pathname, `상담 ${leadRef.slice(-6)}`);
   win.clarity('set', 'lead_ref', leadRef);
+  if (sessionId) win.clarity('set', 'session_ref', sessionId);
   win.clarity('set', 'form_name', formName);
-  return true;
+  return isClarityReady();
 }
 
 export function identifyLeadInClarity(leadRef: string, formName: string) {
@@ -47,6 +50,7 @@ export function trackEvent(eventName: string, eventParams?: Record<string, unkno
   const win = window as WindowWithDataLayer;
   const attribution = getAttribution();
   const payload = { ...attribution, ...eventParams };
+  sendFirstPartyEvent(eventName, payload);
   win.dataLayer = win.dataLayer || [];
   win.dataLayer.push({
     event: eventName,
