@@ -3,7 +3,11 @@
 import { useRef, useState } from 'react';
 import styles from './page.module.css';
 import { getAttribution } from './AttributionCapture';
-import TrackedLink, { trackEvent } from './TrackedLink';
+import TrackedLink, {
+  identifyLeadInClarity,
+  retryIdentifyLeadInClarity,
+  trackEvent,
+} from './TrackedLink';
 
 const DAYS = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
 const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=inquiry_complete&utm_content=contact_form';
@@ -92,15 +96,24 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
           attribution: getAttribution(),
         }),
       });
-      const json = (await res.json().catch(() => ({}))) as { message?: string };
+      const json = (await res.json().catch(() => ({}))) as { message?: string; leadRef?: string };
       if (!res.ok) {
         trackEvent('form_submit_failure', { form: formName, reason: `http_${res.status}` });
         setError(json.message ?? '접수에 실패했습니다. 잠시 후 다시 시도해주세요.');
         setState('idle');
         return;
       }
-      trackEvent('form_submit_success', { form: formName });
+      const leadRef = typeof json.leadRef === 'string' ? json.leadRef : '';
+      const identified = leadRef ? identifyLeadInClarity(leadRef, formName) : false;
+      const clarityEventSent = trackEvent('form_submit_success', {
+        form: formName,
+        lead_ref: leadRef || 'unavailable',
+      });
       setState('done');
+
+      if (leadRef && (!identified || !clarityEventSent)) {
+        void retryIdentifyLeadInClarity(leadRef, formName, !clarityEventSent);
+      }
     } catch {
       trackEvent('form_submit_failure', { form: formName, reason: 'network_error' });
       setError('네트워크 오류입니다. 연결을 확인하고 다시 시도해주세요.');

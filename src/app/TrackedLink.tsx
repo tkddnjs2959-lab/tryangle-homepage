@@ -10,6 +10,38 @@ type WindowWithDataLayer = Window & {
   fbq?: (...args: unknown[]) => void;
 };
 
+function applyLeadIdentity(leadRef: string, formName: string) {
+  const win = window as WindowWithDataLayer;
+  if (typeof win.clarity !== 'function') return false;
+
+  win.clarity('upgrade', 'consultation_lead');
+  win.clarity('identify', leadRef, undefined, undefined, `상담 ${leadRef.slice(-6)}`);
+  win.clarity('set', 'lead_ref', leadRef);
+  win.clarity('set', 'form_name', formName);
+  return true;
+}
+
+export function identifyLeadInClarity(leadRef: string, formName: string) {
+  return applyLeadIdentity(leadRef, formName);
+}
+
+export async function retryIdentifyLeadInClarity(
+  leadRef: string,
+  formName: string,
+  emitSuccessEvent: boolean
+) {
+  for (let attempt = 0; attempt < 20; attempt += 1) {
+    if (applyLeadIdentity(leadRef, formName)) {
+      if (emitSuccessEvent) {
+        (window as WindowWithDataLayer).clarity?.('event', 'form_submit_success');
+      }
+      return true;
+    }
+    await new Promise((resolve) => window.setTimeout(resolve, 500));
+  }
+  return false;
+}
+
 /** GTM과 Microsoft Clarity에 같은 행동 이벤트를 함께 보낸다. */
 export function trackEvent(eventName: string, eventParams?: Record<string, unknown>) {
   const win = window as WindowWithDataLayer;
@@ -43,6 +75,7 @@ export function trackEvent(eventName: string, eventParams?: Record<string, unkno
       funnel_section: eventParams?.section,
       form_issue: eventParams?.reason,
       page_path: eventParams?.page_path,
+      lead_ref: eventParams?.lead_ref,
     };
 
     Object.entries(clarityTags).forEach(([key, value]) => {
@@ -51,7 +84,10 @@ export function trackEvent(eventName: string, eventParams?: Record<string, unkno
       }
     });
     win.clarity('event', eventName);
+    return true;
   }
+
+  return false;
 }
 
 type TrackedLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {

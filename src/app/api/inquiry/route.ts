@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { createHash } from 'node:crypto';
 import { db } from '@/lib/supabase';
 import { notifySms } from '@/lib/sms';
+import { createLeadReference } from '@/lib/lead-reference';
 
 export const dynamic = 'force-dynamic';
 
@@ -62,7 +63,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: '신청이 너무 많습니다. 잠시 후 다시 시도해주세요.' }, { status: 429, headers: { 'Retry-After': '600' } });
   }
 
-  const { error } = await db().rpc('submit_inquiry', {
+  const { data: inquiryId, error } = await db().rpc('submit_inquiry', {
     p_name: name,
     p_contact: contact,
     p_message: message || null,
@@ -85,6 +86,16 @@ export async function POST(req: Request) {
     );
   }
 
+  if (typeof inquiryId !== 'string' || !inquiryId) {
+    console.error(JSON.stringify({ level: 'error', message: 'inquiry_id_missing', requestId, duration_ms: Date.now() - startedAt }));
+    return NextResponse.json(
+      { message: '접수 확인에 실패했습니다. 잠시 후 다시 시도해주세요.' },
+      { status: 500 }
+    );
+  }
+
+  const leadRef = createLeadReference(inquiryId);
+
   // 알림 함수가 내부에서 에러를 삼키므로 실패해도 여기서 던지지 않는다.
   // await 없이 넘기면 서버리스 환경에서 응답 직후 함수가 종료되며
   // 발송이 끊길 수 있어 반드시 기다린다.
@@ -99,7 +110,7 @@ export async function POST(req: Request) {
     consultationDate: findMessageLine('상담 희망'),
   });
 
-  console.log(JSON.stringify({ level: 'info', message: 'inquiry_submit_succeeded', requestId, duration_ms: Date.now() - startedAt, source, medium, campaign }));
+  console.log(JSON.stringify({ level: 'info', message: 'inquiry_submit_succeeded', requestId, duration_ms: Date.now() - startedAt, source, medium, campaign, leadRef }));
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, leadRef });
 }
