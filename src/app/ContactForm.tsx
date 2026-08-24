@@ -9,6 +9,7 @@ import TrackedLink, {
   retryIdentifyLeadInClarity,
   trackEvent,
 } from './TrackedLink';
+import TurnstileWidget from './TurnstileWidget';
 
 const DAYS = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
 const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=inquiry_complete&utm_content=contact_form';
@@ -19,6 +20,14 @@ const TIMES = Array.from({ length: 12 }, (_, index) => {
 });
 const MORNING_TIMES = TIMES.filter((time) => Number(time.slice(0, 2)) < 12);
 const AFTERNOON_TIMES = TIMES.filter((time) => Number(time.slice(0, 2)) >= 12);
+
+function createSubmissionId() {
+  if (typeof window.crypto?.randomUUID === 'function') return window.crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (token) => {
+    const random = Math.floor(Math.random() * 16);
+    return (token === 'x' ? random : (random & 0x3) | 0x8).toString(16);
+  });
+}
 
 type ContactFormProps = {
   formName?: string;
@@ -39,7 +48,9 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
   const [website, setWebsite] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
   const [error, setError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState('');
   const formStarted = useRef(false);
+  const submissionId = useRef('');
 
   function trackFormStart() {
     if (formStarted.current) return;
@@ -77,6 +88,7 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
       return;
     }
     trackEvent('form_submit_attempt', { form: formName });
+    if (!submissionId.current) submissionId.current = createSubmissionId();
     setState('sending');
     setError(null);
     try {
@@ -95,6 +107,8 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
           ].join('\n'),
           website,
           attribution: getAttribution(),
+          turnstileToken,
+          submissionId: submissionId.current,
           sessionId: getAnalyticsSessionId(),
           clarityReady: isClarityReady(),
         }),
@@ -296,6 +310,7 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
           </small>
         </span>
       </label>
+      <TurnstileWidget onToken={setTurnstileToken} />
       {error && <p className={styles.formError}>{error}</p>}
       <button
         className={styles.formSubmit}

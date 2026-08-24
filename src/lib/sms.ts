@@ -39,7 +39,7 @@ export async function notifySms(input: {
     console.warn(
       'SOLAPI_API_KEY / SOLAPI_API_SECRET / SOLAPI_SENDER_NUMBER / ADMIN_PHONE_NUMBER 미설정 — 문자 알림을 건너뜁니다.'
     );
-    return;
+    return 'skipped_unconfigured' as const;
   }
 
   try {
@@ -58,7 +58,9 @@ export async function notifySms(input: {
       type: 'SMS',
       autoTypeDetect: false,
     });
+    return 'sent' as const;
   } catch (error) {
     console.error('문자 알림 발송 실패', error);
+    return 'failed' as const;
   }
 }
