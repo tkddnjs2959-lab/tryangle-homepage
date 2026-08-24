@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 
   const { data: allowed, error: limitError } = await db().rpc('consume_inquiry_rate_limit', {
     p_key: requestKey(req, sessionId),
-    p_limit: 120,
+    p_limit: 80,
     p_window_seconds: 600,
   });
   if (limitError || !allowed) {
