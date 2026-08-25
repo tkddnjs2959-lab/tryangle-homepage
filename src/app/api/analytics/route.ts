@@ -46,15 +46,15 @@ export async function POST(req: Request) {
   const fingerprints = requestFingerprints(req, 'analytics');
   const trust = requestTrustSignals(req);
   const { data: ipAllowed, error: ipLimitError } = await db().rpc('consume_inquiry_rate_limit', {
-    p_key: `analytics:ip:10m:${fingerprints.ipFingerprint}`,
-    p_limit: 300,
-    p_window_seconds: 600,
+    p_key: `analytics:ip:1m:${fingerprints.ipFingerprint}`,
+    p_limit: 100,
+    p_window_seconds: 60,
   });
   if (ipLimitError || !ipAllowed) {
-    if (!ipLimitError) await logAnalyticsSecurity('ip_10m', fingerprints.ipFingerprint);
+    if (!ipLimitError) await logAnalyticsSecurity('ip_1m', fingerprints.ipFingerprint);
     return NextResponse.json({ message: '요청이 너무 많습니다.' }, {
       status: ipLimitError ? 503 : 429,
-      headers: ipLimitError ? undefined : { 'Retry-After': '600' },
+      headers: ipLimitError ? undefined : { 'Retry-After': '60' },
     });
   }
   if (trust.contentLength > 32_768) {
