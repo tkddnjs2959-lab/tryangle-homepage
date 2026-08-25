@@ -23,6 +23,41 @@ export function requestAddress(req: Request) {
   return req.headers.get('x-real-ip')?.trim() || forwarded || 'unknown';
 }
 
+export function requestTrustSignals(req: Request) {
+  const origin = req.headers.get('origin')?.trim() || null;
+  const secFetchSite = req.headers.get('sec-fetch-site')?.trim().toLowerCase() || null;
+  const contentType = req.headers.get('content-type')?.split(';')[0]?.trim().toLowerCase() || null;
+  const contentLength = Number(req.headers.get('content-length') || 0);
+  const userAgent = (req.headers.get('user-agent') || '').trim().slice(0, 500);
+  let requestOrigin = '';
+  try { requestOrigin = new URL(req.url).origin; } catch { requestOrigin = ''; }
+
+  const configured = (process.env.INQUIRY_ALLOWED_ORIGINS || '')
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean);
+  const allowedOrigins = new Set([
+    'https://tryangle-official.co.kr',
+    'https://www.tryangle-official.co.kr',
+    requestOrigin,
+    ...configured,
+  ].filter(Boolean));
+  if (process.env.NODE_ENV !== 'production') {
+    allowedOrigins.add('http://localhost:3000');
+    allowedOrigins.add('http://127.0.0.1:3000');
+  }
+
+  return {
+    origin,
+    secFetchSite,
+    contentType,
+    contentLength: Number.isFinite(contentLength) && contentLength > 0 ? contentLength : 0,
+    userAgent,
+    originAllowed: !origin || allowedOrigins.has(origin),
+    isCrossSite: secFetchSite === 'cross-site',
+  };
+}
+
 export function requestFingerprints(req: Request, contact: string) {
   const address = requestAddress(req);
   const userAgent = (req.headers.get('user-agent') || 'unknown').slice(0, 500);

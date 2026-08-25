@@ -1,6 +1,7 @@
-import { createHash } from 'node:crypto';
+import { randomUUID } from 'node:crypto';
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/supabase';
+import { requestFingerprints, requestTrustSignals } from '@/lib/inquiry-security';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,28 +25,73 @@ function safeProperties(value: unknown) {
   return result;
 }
 
-function requestKey(req: Request, sessionId: string) {
-  const forwarded = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
-  const address = req.headers.get('x-real-ip')?.trim() || forwarded || 'unknown';
-  return createHash('sha256').update(`analytics:${address}:${sessionId}`).digest('hex');
+async function logAnalyticsSecurity(reason: string, ipFingerprint: string, details: Record<string, string | number | boolean> = {}) {
+  const { data: logAllowed } = await db().rpc('consume_inquiry_rate_limit', {
+    p_key: `security:event:analytics_${reason}:${ipFingerprint}`,
+    p_limit: 10,
+    p_window_seconds: 3600,
+  });
+  if (!logAllowed) return;
+  await db().from('inquiry_security_events').insert({
+    event_type: 'analytics_request',
+    outcome: 'blocked',
+    reason: `analytics_${reason}`,
+    submission_id: randomUUID(),
+    ip_fingerprint: ipFingerprint,
+    details,
+  });
 }
 
 export async function POST(req: Request) {
+  const fingerprints = requestFingerprints(req, 'analytics');
+  const trust = requestTrustSignals(req);
+  const { data: ipAllowed, error: ipLimitError } = await db().rpc('consume_inquiry_rate_limit', {
+    p_key: `analytics:ip:10m:${fingerprints.ipFingerprint}`,
+    p_limit: 300,
+    p_window_seconds: 600,
+  });
+  if (ipLimitError || !ipAllowed) {
+    if (!ipLimitError) await logAnalyticsSecurity('ip_10m', fingerprints.ipFingerprint);
+    return NextResponse.json({ message: '요청이 너무 많습니다.' }, {
+      status: ipLimitError ? 503 : 429,
+      headers: ipLimitError ? undefined : { 'Retry-After': '600' },
+    });
+  }
+  if (trust.contentLength > 32_768) {
+    await logAnalyticsSecurity('request_too_large', fingerprints.ipFingerprint, { contentLength: trust.contentLength });
+    return NextResponse.json({ message: '요청 내용이 너무 큽니다.' }, { status: 413 });
+  }
+  if (trust.contentType !== 'application/json') {
+    await logAnalyticsSecurity('invalid_content_type', fingerprints.ipFingerprint);
+    return NextResponse.json({ message: '지원하지 않는 요청 형식입니다.' }, { status: 415 });
+  }
+  if (!trust.originAllowed || trust.isCrossSite) {
+    await logAnalyticsSecurity(trust.isCrossSite ? 'cross_site_fetch' : 'cross_site_origin', fingerprints.ipFingerprint);
+    return NextResponse.json({ message: '허용되지 않은 요청입니다.' }, { status: 403 });
+  }
+
   let body: Record<string, unknown>;
   try {
-    body = await req.json() as Record<string, unknown>;
+    const bodyText = await req.text();
+    if (bodyText.length > 32_768) {
+      await logAnalyticsSecurity('request_too_large', fingerprints.ipFingerprint, { bodyLength: bodyText.length });
+      return NextResponse.json({ message: '요청 내용이 너무 큽니다.' }, { status: 413 });
+    }
+    body = JSON.parse(bodyText) as Record<string, unknown>;
   } catch {
+    await logAnalyticsSecurity('invalid_json', fingerprints.ipFingerprint);
     return NextResponse.json({ message: '잘못된 요청입니다.' }, { status: 400 });
   }
 
   const sessionId = text(body.sessionId, 36) ?? '';
   const eventName = text(body.eventName, 80) ?? '';
   if (!UUID.test(sessionId) || !EVENT_NAME.test(eventName)) {
+    await logAnalyticsSecurity('invalid_event', fingerprints.ipFingerprint);
     return NextResponse.json({ message: '허용되지 않은 분석 이벤트입니다.' }, { status: 400 });
   }
 
   const { data: allowed, error: limitError } = await db().rpc('consume_inquiry_rate_limit', {
-    p_key: requestKey(req, sessionId),
+    p_key: `analytics:session:10m:${fingerprints.ipFingerprint}:${sessionId}`,
     p_limit: 80,
     p_window_seconds: 600,
   });

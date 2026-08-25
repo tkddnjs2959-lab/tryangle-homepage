@@ -50,12 +50,19 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
   const [error, setError] = useState<string | null>(null);
   const [turnstileToken, setTurnstileToken] = useState('');
   const formStarted = useRef(false);
+  const formStartedAt = useRef(0);
+  const interactionCount = useRef(0);
   const submissionId = useRef('');
 
   function trackFormStart() {
     if (formStarted.current) return;
     formStarted.current = true;
+    formStartedAt.current = Date.now();
     trackEvent('form_start', { form: formName });
+  }
+
+  function trackInteraction() {
+    interactionCount.current = Math.min(interactionCount.current + 1, 100);
   }
 
   function showValidationError(reason: string, message: string) {
@@ -111,6 +118,11 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
           submissionId: submissionId.current,
           sessionId: getAnalyticsSessionId(),
           clarityReady: isClarityReady(),
+          securityContext: {
+            formElapsedMs: formStartedAt.current ? Date.now() - formStartedAt.current : 0,
+            pageElapsedMs: typeof performance === 'undefined' ? 0 : Math.round(performance.now()),
+            interactionCount: interactionCount.current,
+          },
         }),
       });
       const json = (await res.json().catch(() => ({}))) as { message?: string; leadRef?: string };
@@ -201,7 +213,13 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
   }
 
   return (
-    <form className={styles.form} onSubmit={submit} onFocusCapture={trackFormStart}>
+    <form
+      className={styles.form}
+      onSubmit={submit}
+      onFocusCapture={trackFormStart}
+      onChangeCapture={trackInteraction}
+      onClickCapture={trackInteraction}
+    >
       <input
         className={styles.honeypot}
         type="text"
