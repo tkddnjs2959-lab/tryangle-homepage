@@ -159,7 +159,7 @@ export default function CoachingPage() {
           <div className={`${pageStyles.mentorHead} ${styles.mentorHeadCenter}`}>
             <ProtectedMedia>
               <Image
-                src="/mentor.jpg"
+                src="/mentor-protected.webp"
                 alt="이주아 · TRY앵글 대표"
                 width={200}
                 height={249}
