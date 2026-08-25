@@ -7,6 +7,7 @@ import AttributionCapture from './AttributionCapture';
 import ConsultationCta from './ConsultationCta';
 import FunnelAnalytics from './FunnelAnalytics';
 import AnalyticsBootstrap from './AnalyticsBootstrap';
+import ContentProtection from './ContentProtection';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://tryangle-official.co.kr'),
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       </head>
       <body>
+        <ContentProtection />
         <AttributionCapture />
         <AnalyticsBootstrap />
         <FunnelAnalytics />

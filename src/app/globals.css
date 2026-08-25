@@ -30,7 +30,23 @@ html, body {
   line-height: 1.6;
   -webkit-text-size-adjust: 100%;
   min-height: 100dvh;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 button, input, textarea { font-family: inherit; }
 a { color: inherit; }
+
+input,
+textarea,
+select,
+[contenteditable='true'] {
+  user-select: text;
+  -webkit-user-select: text;
+  -webkit-touch-callout: default;
+}
+
+img {
+  -webkit-user-drag: none;
+}

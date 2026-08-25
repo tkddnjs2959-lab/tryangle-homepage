@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import ProtectedMedia from '../ProtectedMedia';
 import Link from 'next/link';
 import { NEWS } from '../newsData';
 import pageStyles from '../page.module.css';
@@ -156,13 +157,16 @@ export default function CoachingPage() {
           </div>
 
           <div className={`${pageStyles.mentorHead} ${styles.mentorHeadCenter}`}>
-            <Image
-              src="/mentor.jpg"
-              alt="이주아 · TRY앵글 대표"
-              width={200}
-              height={249}
-              className={pageStyles.mentorPhoto}
-            />
+            <ProtectedMedia>
+              <Image
+                src="/mentor.jpg"
+                alt="이주아 · TRY앵글 대표"
+                width={200}
+                height={249}
+                className={pageStyles.mentorPhoto}
+                draggable={false}
+              />
+            </ProtectedMedia>
             <div>
               <h2 className={pageStyles.h2}>{TRAINER.name}</h2>
               <p className={pageStyles.bodyMuted}>{TRAINER.title}</p>

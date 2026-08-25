@@ -6,6 +6,7 @@ import ContactForm from './ContactForm';
 import ConsultationSummaryCard from './ConsultationSummaryCard';
 import StudentChangesCarousel from './StudentChangesCarousel';
 import PageMotion from './PageMotion';
+import ProtectedMedia from './ProtectedMedia';
 
 const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=homepage_cta&utm_content=main';
 
@@ -192,13 +193,16 @@ export default function Home() {
           <div className={styles.sectionDivider} aria-hidden="true" />
 
           <div className={styles.mentorHead}>
-            <Image
-              src="/mentor.jpg"
-              alt="이주아 · TRY앵글 대표 브랜딩 어드바이저"
-              width={200}
-              height={249}
-              className={styles.mentorPhoto}
-            />
+            <ProtectedMedia>
+              <Image
+                src="/mentor.jpg"
+                alt="이주아 · TRY앵글 대표 브랜딩 어드바이저"
+                width={200}
+                height={249}
+                className={styles.mentorPhoto}
+                draggable={false}
+              />
+            </ProtectedMedia>
             <div>
               <span className={styles.eyebrowSm}>캐릭터 포지셔닝 멘토</span>
               <h2 className={styles.h2}>이주아</h2>
