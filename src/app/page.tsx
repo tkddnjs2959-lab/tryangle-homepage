@@ -195,7 +195,7 @@ export default function Home() {
           <div className={styles.mentorHead}>
             <ProtectedMedia>
               <Image
-                src="/mentor-protected.webp"
+                src="/mentor.jpg"
                 alt="이주아 · TRY앵글 대표 브랜딩 어드바이저"
                 width={200}
                 height={249}
