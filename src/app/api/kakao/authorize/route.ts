@@ -1,36 +1,85 @@
 import { NextResponse } from 'next/server';
+import { db } from '@/lib/supabase';
+import { requestFingerprints } from '@/lib/inquiry-security';
+import {
+  createKakaoOAuthState,
+  isKakaoLinkingEnabled,
+  KAKAO_LINK_COOKIE,
+  verifyKakaoLinkCode,
+} from '@/lib/kakao-link-security';
 
-/**
- * 카카오 '나에게 보내기' 1회성 연동 시작점.
- *
- * 대표 본인이 딱 한 번 방문해서 본인 카카오 계정으로 동의하면 된다.
- * 링크를 남에게 공유할 이유가 없는 페이지라 어드민 인증을 별도로 걸지
- * 않았다 — 남이 접속해도 자기 카카오 계정 동의만 요구받을 뿐, 우리
- * 시스템에는 그 사람의 refresh_token 이 저장되지 않는다(콜백에서
- * '본인 것'을 저장하는 게 아니라 이 서버가 대신 보관하는 구조이므로,
- * 실제로 이 흐름을 완료하는 사람이 곧 알림을 받는 카카오 계정이 된다).
- * 따라서 실수로 남이 완료하지 않도록 실제 운영 중에는 이 URL을
- * 대표 본인만 사용할 것.
- */
+export const dynamic = 'force-dynamic';
+
+const SECURITY_HEADERS = {
+  'Cache-Control': 'no-store, max-age=0',
+  'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'",
+  'Referrer-Policy': 'no-referrer',
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+};
+
+function page(title: string, body: string, disabled = false) {
+  const form = disabled ? '' : `
+    <form method="post">
+      <label for="code">관리자 연동 코드</label>
+      <input id="code" name="code" type="password" autocomplete="one-time-code" required maxlength="200">
+      <button type="submit">카카오 계정 연동 시작</button>
+    </form>`;
+  return new NextResponse(`<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title><style>body{font-family:system-ui,sans-serif;background:#eef1f4;display:grid;place-items:center;min-height:100vh;margin:0}.box{background:#fff;border-radius:16px;padding:30px 26px;max-width:420px;width:calc(100% - 40px);box-sizing:border-box}h1{font-size:18px;color:#102652;margin:0 0 10px}p,label{font-size:14px;color:#4f5b69;line-height:1.6}label{display:block;margin:18px 0 6px}input{width:100%;box-sizing:border-box;padding:12px;border:1px solid #ccd3dc;border-radius:9px}button{width:100%;margin-top:12px;padding:12px;border:0;border-radius:9px;background:#102652;color:#fff;font-weight:700}</style></head><body><main class="box"><h1>${title}</h1><p>${body}</p>${form}</main></body></html>`, {
+    status: disabled ? 404 : 200,
+    headers: { 'Content-Type': 'text/html; charset=utf-8', ...SECURITY_HEADERS },
+  });
+}
+
 export async function GET() {
-  const restKey = process.env.KAKAO_REST_API_KEY;
-  const redirectUri = process.env.KAKAO_REDIRECT_URI;
+  if (!isKakaoLinkingEnabled()) {
+    return page('카카오 연동 잠김', '관리자만 일시적으로 열 수 있는 연동 화면입니다.', true);
+  }
+  return page('카카오 알림 계정 연동', '대표자 확인을 위해 관리자 연동 코드를 입력해주세요.');
+}
 
-  if (!restKey || !redirectUri) {
-    return NextResponse.json(
-      {
-        message:
-          'KAKAO_REST_API_KEY / KAKAO_REDIRECT_URI 환경변수가 없습니다. .env.local 에 먼저 설정하세요.',
-      },
-      { status: 500 }
-    );
+export async function POST(request: Request) {
+  if (!isKakaoLinkingEnabled()) return page('카카오 연동 잠김', '현재 연동 기능이 비활성화되어 있습니다.', true);
+  const contentType = request.headers.get('content-type')?.split(';')[0]?.trim().toLowerCase();
+  const contentLength = Number(request.headers.get('content-length') || 0);
+  if (contentType !== 'application/x-www-form-urlencoded' || contentLength > 4096) {
+    return new NextResponse('Bad Request', { status: 400, headers: SECURITY_HEADERS });
   }
 
+  const fingerprint = requestFingerprints(request, 'kakao-link').ipFingerprint;
+  const { data: allowed, error } = await db().rpc('consume_inquiry_rate_limit', {
+    p_key: `kakao:link:ip:15m:${fingerprint}`,
+    p_limit: 10,
+    p_window_seconds: 900,
+  });
+  if (error || !allowed) {
+    return new NextResponse('Too Many Requests', { status: error ? 503 : 429, headers: { ...SECURITY_HEADERS, 'Retry-After': '900' } });
+  }
+
+  const body = new URLSearchParams(await request.text());
+  if (!verifyKakaoLinkCode(body.get('code') || '')) {
+    return new NextResponse('연동 코드가 올바르지 않습니다.', { status: 401, headers: { 'Content-Type': 'text/plain; charset=utf-8', ...SECURITY_HEADERS } });
+  }
+
+  const restKey = process.env.KAKAO_REST_API_KEY;
+  const redirectUri = process.env.KAKAO_REDIRECT_URI;
+  if (!restKey || !redirectUri) return new NextResponse('카카오 연동 설정이 완료되지 않았습니다.', { status: 503, headers: SECURITY_HEADERS });
+
+  const state = createKakaoOAuthState();
   const url = new URL('https://kauth.kakao.com/oauth/authorize');
   url.searchParams.set('client_id', restKey);
   url.searchParams.set('redirect_uri', redirectUri);
   url.searchParams.set('response_type', 'code');
   url.searchParams.set('scope', 'talk_message');
+  url.searchParams.set('state', state);
 
-  return NextResponse.redirect(url.toString());
+  const response = NextResponse.redirect(url.toString(), 303);
+  response.cookies.set(KAKAO_LINK_COOKIE, state, {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+    path: '/',
+    maxAge: 10 * 60,
+  });
+  return response;
 }
