@@ -5,8 +5,9 @@ import { getInsight, INSIGHTS } from '../content';
 import styles from './page.module.css';
 import InsightViewTracker from './InsightViewTracker';
 import ShareButton from './ShareButton';
+import { KAKAO_CHANNEL_CHAT_URL } from '@/lib/external-links';
 
-const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=insight_article&utm_content=insight';
+const KAKAO_URL = KAKAO_CHANNEL_CHAT_URL;
 
 export function generateStaticParams() {
   return INSIGHTS.map(({ slug }) => ({ slug }));
@@ -31,19 +32,25 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
         <p className={styles.eyebrow}>TRYANGLE INSIGHT</p>
         <h1>{item.title}</h1>
         <p className={styles.summary}>{item.summary}</p>
+        {(item.readingTime || item.format) && (
+          <div className={styles.articleMeta}>
+            {item.readingTime && <span>읽는 시간 {item.readingTime}</span>}
+            {item.format && <span>{item.format}</span>}
+          </div>
+        )}
         <div className={styles.shareRow}>
           <ShareButton title={item.title} slug={item.slug} />
         </div>
         {item.sections.map((section) => (
-          <section key={section.heading}>
+          <section key={section.heading} className={section.tone ? styles[section.tone] : undefined}>
             <h2>{section.heading}</h2>
             <p>{section.body}</p>
           </section>
         ))}
         <div className={styles.cta}>
-          <strong>내 이미지 방향도 점검해보고 싶다면</strong>
+          <strong>내 이미지 방향이 아직 선명하지 않다면</strong>
           <TrackedLink href={KAKAO_URL} target="_blank" rel="noopener noreferrer" eventName="click_kakao_consult" eventParams={{ placement: `insight_${item.slug}` }}>
-            카카오톡으로 상담하기
+            {item.ctaLabel ?? '카카오톡으로 상담하기'}
           </TrackedLink>
         </div>
         <section className={styles.related}>

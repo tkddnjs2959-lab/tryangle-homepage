@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { getAnalyticsSessionId, isClarityReady } from '@/lib/analytics-session';
+import { getAnalyticsSessionId, isAnalyticsDisabled, isClarityReady } from '@/lib/analytics-session';
 import { trackEvent } from './TrackedLink';
 
 const LANDING_SENT_KEY = 'tryangle_landing_sent';
@@ -25,6 +25,8 @@ export default function AnalyticsBootstrap() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (isAnalyticsDisabled()) return;
+
     getAnalyticsSessionId();
     identifySession(pathname);
 
@@ -46,4 +48,3 @@ export default function AnalyticsBootstrap() {
 
   return null;
 }
-

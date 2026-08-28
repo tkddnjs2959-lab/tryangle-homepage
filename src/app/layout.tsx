@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import AttributionCapture from './AttributionCapture';
 import ConsultationCta from './ConsultationCta';
 import FunnelAnalytics from './FunnelAnalytics';
 import AnalyticsBootstrap from './AnalyticsBootstrap';
 import ContentProtection from './ContentProtection';
+import AnalyticsProviders from './AnalyticsProviders';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://tryangle-official.co.kr'),
@@ -37,9 +36,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <head>
+        <Script id="analytics-privacy" strategy="beforeInteractive">
+          {`
+            (function(w){
+              var key='tryangle_analytics_disabled';
+              var host=w.location.hostname.toLowerCase();
+              var local=host==='localhost'||host==='127.0.0.1'||host==='::1';
+              try {
+                var params=new URLSearchParams(w.location.search);
+                var mode=params.get('analytics');
+                if(mode==='off')w.localStorage.setItem(key,'1');
+                if(mode==='on')w.localStorage.removeItem(key);
+                w.__tryangleAnalyticsDisabled=local||w.localStorage.getItem(key)==='1';
+                if(mode==='off'||mode==='on'){
+                  params.delete('analytics');
+                  var query=params.toString();
+                  w.history.replaceState({},'',w.location.pathname+(query?'?'+query:'')+w.location.hash);
+                }
+              } catch(e) {
+                w.__tryangleAnalyticsDisabled=local;
+              }
+            })(window);
+          `}
+        </Script>
         <Script id="microsoft-clarity-fallback" strategy="afterInteractive">
           {`
             (function(c,l,a,r,i){
+              if(c.__tryangleAnalyticsDisabled)return;
               function ready(){
                 c.__tryangleClarityLoaded=true;
                 c.dispatchEvent(new Event('tryangle-clarity-loaded'));
@@ -68,26 +91,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {gtmId ? (
           <Script id="google-tag-manager" strategy="afterInteractive">
             {`
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','${gtmId}');
+              (function(){
+                if(window.__tryangleAnalyticsDisabled)return;
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','${gtmId}');
+              })();
             `}
           </Script>
         ) : null}
         <Script id="meta-pixel" strategy="afterInteractive">
           {`
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '${metaPixelId}');
-            fbq('track', 'PageView');
+            (function(){
+              if(window.__tryangleAnalyticsDisabled)return;
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '${metaPixelId}');
+              fbq('track', 'PageView');
+            })();
           `}
         </Script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -127,8 +156,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </noscript>
         {children}
         <ConsultationCta />
-        <Analytics />
-        <SpeedInsights />
+        <AnalyticsProviders />
       </body>
     </html>
   );

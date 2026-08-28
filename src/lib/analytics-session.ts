@@ -1,10 +1,27 @@
 'use client';
 
 const SESSION_KEY = 'tryangle_analytics_session';
+const ANALYTICS_DISABLED_KEY = 'tryangle_analytics_disabled';
 
 type AnalyticsWindow = Window & {
   __tryangleClarityLoaded?: boolean;
+  __tryangleAnalyticsDisabled?: boolean;
 };
+
+export function isAnalyticsDisabled() {
+  if (typeof window === 'undefined') return false;
+
+  const hostname = window.location.hostname.toLowerCase();
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') return true;
+
+  const win = window as AnalyticsWindow;
+  if (win.__tryangleAnalyticsDisabled) return true;
+  try {
+    return window.localStorage.getItem(ANALYTICS_DISABLED_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
 
 function fallbackUuid() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (token) => {
@@ -59,7 +76,7 @@ function referrerHost() {
 }
 
 export function sendFirstPartyEvent(eventName: string, properties: Record<string, unknown>) {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined' || isAnalyticsDisabled()) return;
 
   const sessionId = getAnalyticsSessionId();
   if (!sessionId) return;

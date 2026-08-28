@@ -7,8 +7,10 @@ import ConsultationSummaryCard from './ConsultationSummaryCard';
 import StudentChangesCarousel from './StudentChangesCarousel';
 import PageMotion from './PageMotion';
 import ProtectedMedia from './ProtectedMedia';
+import InlineConsultationButton from './InlineConsultationButton';
+import { KAKAO_CHANNEL_CHAT_URL } from '@/lib/external-links';
 
-const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=homepage_cta&utm_content=main';
+const KAKAO_URL = KAKAO_CHANNEL_CHAT_URL;
 
 const PROCESS = [
   {
@@ -76,17 +78,28 @@ export default function Home() {
       <PageMotion />
       <header className={styles.nav}>
         <div className={styles.navInner}>
-          <div className={styles.logo}>
+          <TrackedLink
+            className={styles.logo}
+            href="/"
+            eventName="click_navigation"
+            eventParams={{ placement: 'header_brand', destination: 'home' }}
+          >
             <Image src="/logo.jpg" alt="TRY앵글" width={36} height={36} className={styles.logoImg} priority />
             TRY앵글
-          </div>
+          </TrackedLink>
         </div>
       </header>
 
       <main className={styles.homeLayout}>
         <div className={styles.page}>
         <section className={`${styles.hero} ${styles.homeHero}`} data-motion="hero">
-          <div className={styles.heroBrand}>
+          <TrackedLink
+            className={`${styles.heroBrand} ${styles.heroBrandLink}`}
+            href="#process"
+            eventName="click_navigation"
+            eventParams={{ placement: 'hero_brand', destination: 'process' }}
+            aria-label="캐릭터 포지셔닝 클래스 진행 과정 보기"
+          >
             <Image
               src="/logo.jpg"
               alt="TRY앵글"
@@ -96,9 +109,17 @@ export default function Home() {
               priority
             />
             <p className={styles.eyebrow}>TRY앵글 시그니처 클래스</p>
-          </div>
+          </TrackedLink>
           <h1 className={`${styles.h1} ${styles.homeHeroTitle}`}>
-            캐릭터 포지셔닝 클래스
+            <TrackedLink
+              className={styles.heroTitleLink}
+              href="#consultation"
+              eventName="click_consultation_cta"
+              eventParams={{ placement: 'hero_title' }}
+              aria-label="캐릭터 포지셔닝 클래스 상담 신청으로 이동"
+            >
+              캐릭터 포지셔닝 클래스
+            </TrackedLink>
           </h1>
         </section>
 
@@ -160,7 +181,7 @@ export default function Home() {
 
         <StudentChangesCarousel />
 
-        <section className={styles.sheet} data-motion="process">
+        <section id="process" className={styles.sheet} data-motion="process">
           <h2 className={styles.h2}>‘캐릭터 포지셔닝’은 어떻게 진행될까요?</h2>
           <p className={styles.bodyMuted}>
             TRY앵글 캐릭터 포지셔닝 프로세스는
@@ -178,7 +199,7 @@ export default function Home() {
               </li>
             ))}
           </ol>
-
+          <InlineConsultationButton label="내 진행 방향 상담하기" placement="after_process" />
         </section>
 
         <section id="mentor" className={styles.sheet} data-motion="mentor">
@@ -306,9 +327,10 @@ export default function Home() {
             <br className={styles.brMobile} />
             {' '}상담을 원하시는 경우 미리 신청해주세요.
           </p>
+          <InlineConsultationButton label="8기 상담 일정 확인하기" placement="after_cost" emphasis />
         </section>
 
-        <section className={styles.sheet} data-motion="consultation">
+        <section id="consultation" className={styles.sheet} data-motion="consultation">
           <h2 className={styles.h2}>지금부터 정확히 알고,<br className={styles.brMobile} />전략적으로 공략하세요!</h2>
           <p className={styles.bodyMuted}>상담 신청 내용을 확인한 뒤, 상담 가능 일정과 진행 방법을 안내해드립니다.</p>
 

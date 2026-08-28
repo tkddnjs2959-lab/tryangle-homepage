@@ -10,9 +10,10 @@ import TrackedLink, {
   trackEvent,
 } from './TrackedLink';
 import TurnstileWidget from './TurnstileWidget';
+import { KAKAO_CHANNEL_CHAT_URL } from '@/lib/external-links';
 
 const DAYS = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=inquiry_complete&utm_content=contact_form';
+const KAKAO_URL = KAKAO_CHANNEL_CHAT_URL;
 const TIMES = Array.from({ length: 12 }, (_, index) => {
   const totalMinutes = 10 * 60 + index * 60;
   const hour = String(Math.floor(totalMinutes / 60)).padStart(2, '0');
@@ -134,6 +135,10 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
       }
       const leadRef = typeof json.leadRef === 'string' ? json.leadRef : '';
       const identified = leadRef ? identifyLeadInClarity(leadRef, formName) : false;
+      trackEvent('form_submit', {
+        form: formName,
+        lead_ref: leadRef || 'unavailable',
+      });
       const clarityEventSent = trackEvent('form_submit_success', {
         form: formName,
         lead_ref: leadRef || 'unavailable',
@@ -151,13 +156,23 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
   }
 
   function toggleDay(day: string) {
+    const isSelected = selectedDays.includes(day);
     setActiveDay(day);
     setSelectedDays((current) => current.includes(day)
       ? current.filter((item) => item !== day)
       : [...current, day]);
+    if (!isSelected) {
+      trackEvent('schedule_select', {
+        form: formName,
+        selection_type: 'day',
+        selected_count: Math.min(selectedDays.length + 1, DAYS.length),
+      });
+    }
   }
 
   function toggleTime(time: string) {
+    const selectedTimes = preferredSlots[activeDay] ?? [];
+    const isSelected = selectedTimes.includes(time);
     setSelectedDays((current) => current.includes(activeDay) ? current : [...current, activeDay]);
     setPreferredSlots((current) => {
       const times = current[activeDay] ?? [];
@@ -166,6 +181,13 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
         [activeDay]: times.includes(time) ? times.filter((item) => item !== time) : [...times, time].sort(),
       };
     });
+    if (!isSelected) {
+      trackEvent('schedule_select', {
+        form: formName,
+        selection_type: 'time',
+        selected_count: selectedTimes.length + 1,
+      });
+    }
   }
 
   function renderTimeButtons(times: string[]) {

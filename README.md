@@ -65,6 +65,14 @@ Important:
 
 `click_kakao_consult` means a website visitor clicked the Kakao consultation link. It does not mean the person actually sent a Kakao message or completed a consultation.
 
+### Kakao consultation link policy
+
+- Canonical destination: `https://pf.kakao.com/_mWxcMb/chat`
+- The website and ads must link directly to the Kakao-owned URL. Do not replace it with a TRYANGLE redirect or tracking URL.
+- Website click measurement stays in `TrackedLink` through `click_kakao_consult` and `kakao_click`; it must not be added to the destination URL.
+- All components import `KAKAO_CHANNEL_CHAT_URL` from `src/lib/external-links.ts`.
+- `npm run build` runs `verify:kakao-links` first and fails if an intermediate URL or a separately hardcoded Kakao URL is introduced.
+
 ## Initial GA4 Event Plan
 
 | Event name | Meaning |

@@ -9,6 +9,11 @@ function clipped(value: unknown, length = 500) {
 }
 
 export async function POST(request: Request) {
+  const hostname = new URL(request.url).hostname.toLowerCase();
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') {
+    return new NextResponse(null, { status: 204 });
+  }
+
   const contentLength = Number(request.headers.get('content-length') || 0);
   if (contentLength > 8192) return new NextResponse(null, { status: 413 });
 

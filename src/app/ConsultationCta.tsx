@@ -13,10 +13,12 @@ export default function ConsultationCta() {
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const open = modalState !== 'closed';
 
-  const openModal = useCallback((placement = 'global_floating') => {
+  const openModal = useCallback((placement = 'global_floating', alreadyTracked = false) => {
     previousFocusRef.current = document.activeElement as HTMLElement | null;
     setModalState('open');
-    trackEvent('click_consultation_cta', { placement, page_path: pathname });
+    if (!alreadyTracked) {
+      trackEvent('click_consultation_cta', { placement, page_path: pathname });
+    }
     trackEvent('form_open', { form: 'contact_modal', placement, page_path: pathname });
   }, [pathname]);
 
@@ -32,8 +34,8 @@ export default function ConsultationCta() {
 
   useEffect(() => {
     const onOpen = (event: Event) => {
-      const detail = (event as CustomEvent<{ placement?: string }>).detail;
-      openModal(detail?.placement ?? 'external_consultation_cta');
+      const detail = (event as CustomEvent<{ placement?: string; tracked?: boolean }>).detail;
+      openModal(detail?.placement ?? 'external_consultation_cta', detail?.tracked === true);
     };
     window.addEventListener('tryangle:open-consultation', onOpen);
     return () => window.removeEventListener('tryangle:open-consultation', onOpen);

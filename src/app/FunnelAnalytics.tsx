@@ -2,12 +2,15 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { isAnalyticsDisabled } from '@/lib/analytics-session';
 import { trackEvent } from './TrackedLink';
 
 export default function FunnelAnalytics() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (isAnalyticsDisabled()) return;
+
     const seen = new Set<string>();
     const targets = Array.from(document.querySelectorAll<HTMLElement>('[data-motion]'));
     const observer = new IntersectionObserver((entries) => {

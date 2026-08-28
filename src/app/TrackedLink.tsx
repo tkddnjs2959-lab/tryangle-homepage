@@ -2,7 +2,7 @@
 
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
 import { track } from '@vercel/analytics';
-import { getAnalyticsSessionId, isClarityReady, sendFirstPartyEvent } from '@/lib/analytics-session';
+import { getAnalyticsSessionId, isAnalyticsDisabled, isClarityReady, sendFirstPartyEvent } from '@/lib/analytics-session';
 import { getAttribution } from './AttributionCapture';
 
 type WindowWithDataLayer = Window & {
@@ -47,6 +47,8 @@ export async function retryIdentifyLeadInClarity(
 
 /** GTM과 Microsoft Clarity에 같은 행동 이벤트를 함께 보낸다. */
 export function trackEvent(eventName: string, eventParams?: Record<string, unknown>) {
+  if (isAnalyticsDisabled()) return false;
+
   const win = window as WindowWithDataLayer;
   const attribution = getAttribution();
   const payload = { ...attribution, ...eventParams };
@@ -78,6 +80,7 @@ export function trackEvent(eventName: string, eventParams?: Record<string, unkno
       form_name: eventParams?.form,
       funnel_section: eventParams?.section,
       form_issue: eventParams?.reason,
+      schedule_step: eventParams?.selection_type,
       page_path: eventParams?.page_path,
       lead_ref: eventParams?.lead_ref,
     };
@@ -112,6 +115,9 @@ export default function TrackedLink({
       {...props}
       onClick={(event) => {
         trackEvent(eventName, eventParams);
+        if (eventName === 'click_kakao_consult') {
+          trackEvent('kakao_click', eventParams);
+        }
         onClick?.(event);
       }}
     >

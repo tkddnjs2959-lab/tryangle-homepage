@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3100",
+    "verify:kakao-links": "node scripts/verify-kakao-links.mjs",
+    "prebuild": "npm run verify:kakao-links",
     "build": "next build",
     "start": "next start -p 3100"
   },

@@ -5,7 +5,7 @@ import { requestFingerprints, requestTrustSignals } from '@/lib/inquiry-security
 
 export const dynamic = 'force-dynamic';
 
-const EVENT_NAME = /^(landing_view|page_view|clarity_ready|scroll_(25|50|75|90)|view_section_[a-z0-9_]+|click_[a-z0-9_]+|form_(open|close|start|validation_error|submit_attempt|submit_success|submit_failure))$/;
+const EVENT_NAME = /^(landing_view|page_view|clarity_ready|view_insight|schedule_select|kakao_click|form_submit|scroll_(25|50|75|90)|view_section_[a-z0-9_]+|click_[a-z0-9_]+|form_(open|close|start|validation_error|submit_attempt|submit_success|submit_failure))$/;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 function text(value: unknown, maxLength: number) {
