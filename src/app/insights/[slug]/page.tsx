@@ -31,6 +31,14 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
     <main className={styles.page}>
       <InsightViewTracker slug={item.slug} />
       <article className={styles.article}>
+        <nav className={styles.articleNav} aria-label="인사이트 페이지 이동">
+          <TrackedLink href="/insights" eventName="click_insight_navigation" eventParams={{ placement: 'article_top', destination: 'insights_index', article: item.slug }}>
+            ← 인사이트 목록
+          </TrackedLink>
+          <TrackedLink href="/" eventName="click_insight_to_home" eventParams={{ placement: 'article_top', destination: 'home', article: item.slug }}>
+            TRYANGLE 홈
+          </TrackedLink>
+        </nav>
         <p className={styles.eyebrow}>TRYANGLE INSIGHT</p>
         <h1>{item.title}</h1>
         <p className={styles.summary}>{item.summary}</p>
@@ -77,6 +85,14 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
             ))}
           </div>
         </section>
+        <nav className={styles.articleFooterNav} aria-label="글을 읽은 후 이동">
+          <TrackedLink href="/insights" eventName="click_insight_navigation" eventParams={{ placement: 'article_bottom', destination: 'insights_index', article: item.slug }}>
+            전체 인사이트 보기
+          </TrackedLink>
+          <TrackedLink href="/" eventName="click_insight_to_home" eventParams={{ placement: 'article_bottom', destination: 'home', article: item.slug }}>
+            메인 페이지로 이동 →
+          </TrackedLink>
+        </nav>
       </article>
     </main>
   );
