@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import ContactForm from './ContactForm';
-import { trackEvent } from './TrackedLink';
+import TrackedLink, { trackEvent } from './TrackedLink';
 import styles from './ConsultationCta.module.css';
 
 export default function ConsultationCta() {
@@ -12,6 +12,7 @@ export default function ConsultationCta() {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const open = modalState !== 'closed';
+  const isInsightPage = pathname.startsWith('/insights');
 
   const openModal = useCallback((placement = 'global_floating', alreadyTracked = false) => {
     previousFocusRef.current = document.activeElement as HTMLElement | null;
@@ -65,9 +66,15 @@ export default function ConsultationCta() {
           <span className={styles.desktopCtaCopy}>상담 신청은 약 1분이면 충분해요.</span>
           <span className={styles.mobileCtaCopy}>상담 신청은 약 1분이면 충분해요</span>
         </div>
-        <button className={styles.ctaButton} type="button" onClick={() => openModal()} aria-haspopup="dialog">
-          상담 신청하기
-        </button>
+        {isInsightPage ? (
+          <TrackedLink className={styles.ctaButton} href="/#consultation" eventName="click_insight_to_home" eventParams={{ placement: 'global_floating', destination: 'home_consultation' }}>
+            메인 페이지에서 확인하기
+          </TrackedLink>
+        ) : (
+          <button className={styles.ctaButton} type="button" onClick={() => openModal()} aria-haspopup="dialog">
+            상담 신청하기
+          </button>
+        )}
       </div>
 
       {open && (

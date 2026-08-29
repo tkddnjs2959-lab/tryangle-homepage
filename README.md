@@ -203,13 +203,13 @@ Migration operation:
 
 - Added a data-driven public insight route at `/insights/[slug]`.
 - Added three initial Korean search-intent articles covering actor profile strategy, audition image checks, and character branding.
-- Each article has page-specific metadata, a canonical URL, and a tracked Kakao consultation CTA.
+- Each article has page-specific metadata, a canonical URL, and a tracked link back to the main-page consultation flow.
 - Added `/insights` as the public content hub so search visitors can browse all articles.
 - Added footer links from the main and coaching pages to `/insights` for internal discovery.
 - Each insight page now shows two automatically selected related articles to strengthen internal navigation.
 - Added `click_insight_article` dataLayer events for article cards and related-article links, including source and article slug parameters.
 - Added `view_insight` dataLayer events when an individual insight page is opened, with the article slug as a parameter.
-- Added a tracked consultation CTA to the `/insights` hub with placement `insights_index_cta`.
+- Added a tracked main-page CTA to the `/insights` hub with placement `insights_index_cta`.
 - Added RSS feed discovery metadata so compatible readers and automation tools can discover `/insights/feed.xml`.
 - Added a visible `새 글 RSS로 받기` link on `/insights`; the feed is available after the latest deployment.
 - `sitemap.xml` now includes all insight pages automatically.

@@ -2,16 +2,14 @@ import type { Metadata } from 'next';
 import { INSIGHTS } from './content';
 import styles from './index.module.css';
 import TrackedLink from '../TrackedLink';
-import { KAKAO_CHANNEL_CHAT_URL } from '@/lib/external-links';
 
-const KAKAO_URL = KAKAO_CHANNEL_CHAT_URL;
-const FEATURED_SLUG = 'audition-self-introduction';
+const FEATURED_SLUG = 'profile-audition-response-diagnosis';
 
 const PATHS = [
   { label: '오디션이 잡혔다면', title: '첫 30초와 제출 자료 점검', href: '/insights/audition-image-checklist' },
   { label: '프로필 촬영 전이라면', title: '사진·의상·순서 기준 정리', href: '/insights/profile-shoot-preparation-checklist' },
-  { label: '지원해도 연락이 없다면', title: '프로필에서 놓친 신호 확인', href: '/insights/new-actor-profile-mistakes' },
-  { label: '내 역할 방향이 흐리다면', title: '캐릭터 포지셔닝 기준 잡기', href: '/insights/character-branding-guide' },
+  { label: '지원해도 연락이 없다면', title: '자료 정합성 4단계 진단', href: '/insights/profile-audition-response-diagnosis' },
+  { label: '내 역할 방향이 흐리다면', title: '친근한 이미지를 역할로 바꾸기', href: '/insights/friendly-image-character-positioning' },
 ] as const;
 
 export const metadata: Metadata = {
@@ -77,11 +75,11 @@ export default function InsightsPage() {
       </section>
       <section className={styles.cta}>
         <div>
-          <h2>내 배우 이미지 방향이 궁금하다면</h2>
-          <p>인사이트를 읽고도 방향이 선명하지 않다면 현재 이미지와 목표를 함께 점검해보세요.</p>
+          <h2>인사이트를 실제 내 자료에 적용하려면</h2>
+          <p>메인 페이지에서 캐릭터 포지셔닝 과정과 상담 진행 방식을 먼저 확인해보세요.</p>
         </div>
-        <TrackedLink href={KAKAO_URL} target="_blank" rel="noopener noreferrer" eventName="click_kakao_consult" eventParams={{ placement: 'insights_index_cta' }}>
-          카카오톡으로 상담하기
+        <TrackedLink href="/#consultation" eventName="click_insight_to_home" eventParams={{ placement: 'insights_index_cta', destination: 'home_consultation' }}>
+          메인 페이지에서 확인하기
         </TrackedLink>
       </section>
       <a className={styles.rss} href="/insights/feed.xml">새 글 RSS로 받기 ↗</a>

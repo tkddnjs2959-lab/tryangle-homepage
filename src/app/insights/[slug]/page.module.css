@@ -8,6 +8,11 @@
 .shareRow { display: flex; justify-content: flex-end; margin-top: 18px; }
 .shareRow button { border: 1px solid #cad8df; background: #fff; color: #17222b; border-radius: 999px; padding: 11px 16px; font: inherit; font-weight: 700; cursor: pointer; }
 .shareRow button:hover { border-color: #5687a6; color: #315f7b; }
+.articleOutline { margin-top: 24px; padding: 22px 24px; border: 1px solid #dce6eb; border-radius: 14px; background: #f8fbfc; }
+.articleOutline strong { display: block; margin-bottom: 12px; font-size: 15px; }
+.articleOutline ol { display: grid; gap: 8px; margin: 0; padding-left: 20px; }
+.articleOutline a { color: #52616c; line-height: 1.5; text-decoration: none; }
+.articleOutline a:hover { color: #315f7b; text-decoration: underline; }
 .article section { margin-top: 34px; }
 .article h2 { font-size: 23px; margin-bottom: 10px; }
 .article section p { line-height: 1.85; color: #44515a; white-space: pre-line; }
@@ -21,10 +26,14 @@
 .article section.template h2,
 .article section.checklist h2 { margin-top: 0; }
 .cta { margin-top: 42px; padding: 24px; background: #eaf5fb; border-radius: 14px; display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.cta > div { display: grid; gap: 7px; max-width: 430px; }
+.cta strong { display: block; }
+.cta p { margin: 0; color: #52616c; font-size: 14px; line-height: 1.55; }
 .cta a { background: #17222b; color: white; padding: 12px 18px; border-radius: 999px; text-decoration: none; }
 .related { margin-top: 42px; }
 .related h2 { font-size: 20px; }
-.relatedGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.relatedGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .relatedGrid a { border: 1px solid #dce6eb; border-radius: 12px; padding: 16px; color: inherit; text-decoration: none; display: grid; gap: 10px; }
 .relatedGrid span { color: #5687a6; font-size: 13px; }
-@media (max-width: 600px) { .page { padding: 24px 12px; } .article { padding: 30px 22px; } }
+@media (max-width: 700px) { .relatedGrid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .page { padding: 24px 12px; } .article { padding: 30px 22px; } .articleOutline { padding: 18px; } }
