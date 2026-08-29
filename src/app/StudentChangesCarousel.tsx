@@ -1,5 +1,4 @@
 import styles from './page.module.css';
-import InlineConsultationButton from './InlineConsultationButton';
 
 const CASES = [
   {
@@ -44,7 +43,6 @@ export default function StudentChangesCarousel() {
           ))}
         </div>
       </div>
-      <InlineConsultationButton label="내 캐릭터 방향 확인하기" placement="after_student_changes" />
     </section>
   );
 }

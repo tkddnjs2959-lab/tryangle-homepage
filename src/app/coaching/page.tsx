@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import ProtectedMedia from '../ProtectedMedia';
-import Link from 'next/link';
 import { NEWS } from '../newsData';
 import pageStyles from '../page.module.css';
 import TrackedLink from '../TrackedLink';
@@ -303,7 +302,6 @@ export default function CoachingPage() {
           <Image src="/logo.jpg" alt="TRY앵글" width={22} height={22} className={pageStyles.footerLogo} />
           ⓒ Artist Branding Company TRY앵글
         </div>
-        <Link href="/insights">배우 인사이트</Link>
         <TrackedLink
           href={KAKAO_URL}
           target="_blank"

@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { INSIGHTS } from './content';
 import styles from './index.module.css';
 import TrackedLink from '../TrackedLink';
+import { INSIGHTS_PUBLISHED } from './publishing';
 
 const FEATURED_SLUG = 'profile-audition-response-diagnosis';
 
@@ -12,13 +14,17 @@ const PATHS = [
   { label: '내 역할 방향이 흐리다면', title: '친근한 이미지를 역할로 바꾸기', href: '/insights/friendly-image-character-positioning' },
 ] as const;
 
-export const metadata: Metadata = {
-  title: '배우 이미지·캐릭터 브랜딩 인사이트 | TRYANGLE',
-  description: '배우 프로필, 오디션 이미지, 캐릭터 브랜딩을 위한 실전 인사이트를 확인해보세요.',
-  alternates: { canonical: '/insights' },
-};
+export const metadata: Metadata = INSIGHTS_PUBLISHED
+  ? {
+      title: '배우 이미지·캐릭터 브랜딩 인사이트 | TRYANGLE',
+      description: '배우 프로필, 오디션 이미지, 캐릭터 브랜딩을 위한 실전 인사이트를 확인해보세요.',
+      alternates: { canonical: '/insights' },
+    }
+  : { title: '페이지를 찾을 수 없습니다 | TRYANGLE', robots: { index: false, follow: false } };
 
 export default function InsightsPage() {
+  if (!INSIGHTS_PUBLISHED) notFound();
+
   const featured = INSIGHTS.find((item) => item.slug === FEATURED_SLUG) ?? INSIGHTS[0];
   const articles = INSIGHTS.filter((item) => item.slug !== featured.slug);
 

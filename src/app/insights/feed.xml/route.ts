@@ -1,4 +1,5 @@
 import { INSIGHTS } from '../content';
+import { INSIGHTS_PUBLISHED } from '../publishing';
 
 export const dynamic = 'force-static';
 
@@ -7,6 +8,8 @@ function escapeXml(value: string) {
 }
 
 export function GET() {
+  if (!INSIGHTS_PUBLISHED) return new Response('Not Found', { status: 404 });
+
   const items = INSIGHTS.map((item) => `
     <item>
       <title>${escapeXml(item.title)}</title>

@@ -7,11 +7,12 @@ import FunnelAnalytics from './FunnelAnalytics';
 import AnalyticsBootstrap from './AnalyticsBootstrap';
 import ContentProtection from './ContentProtection';
 import AnalyticsProviders from './AnalyticsProviders';
+import { INSIGHTS_PUBLISHED } from './insights/publishing';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://tryangle-official.co.kr'),
   alternates: { canonical: '/' },
-  other: { 'link:alternate': 'https://tryangle-official.co.kr/insights/feed.xml' },
+  ...(INSIGHTS_PUBLISHED ? { other: { 'link:alternate': 'https://tryangle-official.co.kr/insights/feed.xml' } } : {}),
   openGraph: {
     type: 'website',
     url: 'https://tryangle-official.co.kr',

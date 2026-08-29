@@ -5,12 +5,15 @@ import { getInsight, INSIGHTS } from '../content';
 import styles from './page.module.css';
 import InsightViewTracker from './InsightViewTracker';
 import ShareButton from './ShareButton';
+import { INSIGHTS_PUBLISHED } from '../publishing';
 
 export function generateStaticParams() {
   return INSIGHTS.map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  if (!INSIGHTS_PUBLISHED) return { title: '페이지를 찾을 수 없습니다 | TRYANGLE', robots: { index: false, follow: false } };
+
   const { slug } = await params;
   const item = getInsight(slug);
   if (!item) return {};
@@ -18,6 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function InsightPage({ params }: { params: Promise<{ slug: string }> }) {
+  if (!INSIGHTS_PUBLISHED) notFound();
+
   const item = getInsight((await params).slug);
   if (!item) notFound();
   const relatedCandidates = item.relatedSlugs

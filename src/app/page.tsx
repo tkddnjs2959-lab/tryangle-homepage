@@ -7,7 +7,6 @@ import ConsultationSummaryCard from './ConsultationSummaryCard';
 import StudentChangesCarousel from './StudentChangesCarousel';
 import PageMotion from './PageMotion';
 import ProtectedMedia from './ProtectedMedia';
-import InlineConsultationButton from './InlineConsultationButton';
 import { KAKAO_CHANNEL_CHAT_URL } from '@/lib/external-links';
 
 const KAKAO_URL = KAKAO_CHANNEL_CHAT_URL;
@@ -199,7 +198,6 @@ export default function Home() {
               </li>
             ))}
           </ol>
-          <InlineConsultationButton label="내 진행 방향 상담하기" placement="after_process" />
         </section>
 
         <section id="mentor" className={styles.sheet} data-motion="mentor">
@@ -327,7 +325,6 @@ export default function Home() {
             <br className={styles.brMobile} />
             {' '}상담을 원하시는 경우 미리 신청해주세요.
           </p>
-          <InlineConsultationButton label="8기 상담 일정 확인하기" placement="after_cost" emphasis />
         </section>
 
         <section id="consultation" className={styles.sheet} data-motion="consultation">
