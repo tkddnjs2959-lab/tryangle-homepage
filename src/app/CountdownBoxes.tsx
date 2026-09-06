@@ -11,8 +11,10 @@ export default function CountdownBoxes({ remainingTime }: { remainingTime: Remai
   return (
     <div className={styles.instagramCountdown} role="timer" aria-live="off">
       <span className={styles.instagramTimeGroup}>
-        <span className={styles.instagramDigits}><b>{values.days[0]}</b><b>{values.days[1]}</b></span>
-        <small>일</small>
+        <span className={styles.instagramTimeValue}>
+          <span className={styles.instagramDigits}><b>{values.days[0]}</b><b>{values.days[1]}</b></span>
+          <small>일</small>
+        </span>
       </span>
       {(['hours', 'minutes', 'seconds'] as const).map((key, index) => (
         <span className={styles.instagramTimeGroup} key={key}>
