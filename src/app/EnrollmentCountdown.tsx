@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 
-type RemainingTime = {
+export type RemainingTime = {
   days: number;
   hours: number;
   minutes: number;

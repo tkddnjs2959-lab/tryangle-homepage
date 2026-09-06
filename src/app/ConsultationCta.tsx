@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import ContactForm from './ContactForm';
 import TrackedLink, { trackEvent } from './TrackedLink';
 import { useRemainingTime } from './EnrollmentCountdown';
+import CountdownBoxes from './CountdownBoxes';
 import styles from './ConsultationCta.module.css';
 
 const EIGHTH_COHORT_REGISTRATION_DEADLINE = '2026-09-12T00:00:00+09:00';
@@ -65,9 +66,8 @@ export default function ConsultationCta() {
     <>
       <div className={`${styles.ctaBar} ${pathname === '/' ? styles.homeCtaBar : ''}`}>
         <div className={styles.mobileDeadlineNotice} aria-label="8기 신청 마감 및 9기 신청 안내">
-          <strong>
-            ⏰ 8기 신청 마감까지 {remainingTime === undefined ? '--일 --시간 --분 --초' : remainingTime === null ? '마감' : `${remainingTime.days}일 ${String(remainingTime.hours).padStart(2, '0')}시간 ${String(remainingTime.minutes).padStart(2, '0')}분 ${String(remainingTime.seconds).padStart(2, '0')}초`}
-          </strong>
+          <strong>⏰ 8기 신청 마감까지</strong>
+          <CountdownBoxes remainingTime={remainingTime} />
           <span>이번 기수를 놓치면 9기 신청 가능 시기는 12월입니다.</span>
         </div>
         <div className={styles.ctaCopy}>
