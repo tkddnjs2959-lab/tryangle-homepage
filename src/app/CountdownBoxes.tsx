@@ -10,7 +10,10 @@ export default function CountdownBoxes({ remainingTime }: { remainingTime: Remai
     : { days: String(remainingTime.days).padStart(2, '0'), hours: String(remainingTime.hours).padStart(2, '0'), minutes: String(remainingTime.minutes).padStart(2, '0'), seconds: String(remainingTime.seconds).padStart(2, '0') };
   return (
     <div className={styles.instagramCountdown} role="timer" aria-live="off">
-      <span className={styles.instagramDays}>{values.days}<small>일</small></span>
+      <span className={styles.instagramTimeGroup}>
+        <span className={styles.instagramDigits}><b>{values.days[0]}</b><b>{values.days[1]}</b></span>
+        <small>일</small>
+      </span>
       {(['hours', 'minutes', 'seconds'] as const).map((key, index) => (
         <span className={styles.instagramTimeGroup} key={key}>
           {index > 0 && <i aria-hidden="true">:</i>}

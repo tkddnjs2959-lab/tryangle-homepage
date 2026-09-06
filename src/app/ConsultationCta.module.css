@@ -131,8 +131,12 @@
     font-size: 12.5px;
   }
   .mobileDeadlineNotice .instagramCountdown { justify-content: flex-start; margin-top: 0; }
-  .mobileDeadlineNotice .instagramDays { margin-top: 5px; font-size: 15px; }
-  .mobileDeadlineNotice .instagramDigits b { width: 22px; height: 28px; font-size: 18px; }
+  .mobileDeadlineNotice .instagramCountdown { gap: 1px; }
+  .mobileDeadlineNotice .instagramDigits { gap: 1px; }
+  .mobileDeadlineNotice .instagramDigits b { width: 17px; height: 24px; border-radius: 4px; font-size: 15px; }
+  .mobileDeadlineNotice .instagramTimeGroup { gap: 2px; }
+  .mobileDeadlineNotice .instagramTimeGroup small { font-size: 7px; }
+  .mobileDeadlineNotice .instagramTimeGroup > i { margin-top: 4px; font-size: 13px; }
   .ctaCopy strong { font-size: 11px; }
   .ctaCopy span { font-size: 9.5px; }
   .desktopCtaCopy { display: none !important; }
