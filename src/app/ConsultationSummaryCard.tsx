@@ -24,7 +24,7 @@ function SummaryContents({ placement, deadline }: { placement: string; deadline:
         <span>⏰ 8기 신청 및 등록 마감까지</span>
         <CountdownBoxes remainingTime={remainingTime} />
       </div>
-      <p className={styles.sideNextCohort}>9기 신청 가능 시기는 12월입니다.</p>
+      <p className={styles.sideNextCohort}>9기 개강 예정일은 12월 중순입니다.</p>
 
       <dl className={styles.sideFacts}>
         <div>

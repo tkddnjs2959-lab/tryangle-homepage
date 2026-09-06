@@ -120,10 +120,10 @@
 .instagramTimeGroup > i { margin-top: 6px; color: #34383d; font-size: 15px; font-style: normal; font-weight: 700; }
 .instagramCountdownCompact { justify-content: flex-start; gap: 1px; margin-top: 0; }
 .instagramCountdownCompact .instagramDigits { gap: 1px; }
-.instagramCountdownCompact .instagramDigits b { width: 17px; height: 25px; border-radius: 4px; font-size: 16px; }
+.instagramCountdownCompact .instagramDigits b { width: 19px; height: 28px; border-radius: 5px; font-size: 18px; }
 .instagramCountdownCompact .instagramTimeGroup { gap: 2px; }
-.instagramCountdownCompact .instagramTimeGroup small { font-size: 8px; }
-.instagramCountdownCompact .instagramTimeGroup > i { margin-top: 5px; font-size: 13px; }
+.instagramCountdownCompact .instagramTimeGroup small { font-size: 8.5px; }
+.instagramCountdownCompact .instagramTimeGroup > i { margin-top: 6px; font-size: 14px; }
 .sideCountdownTimer {
   display: flex;
   align-items: flex-start;

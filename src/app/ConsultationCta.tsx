@@ -70,7 +70,7 @@ export default function ConsultationCta() {
             <strong>⏰ 8기 신청 마감까지</strong>
             <CountdownBoxes remainingTime={remainingTime} compact />
           </div>
-          <span>이번 기수를 놓치면 9기 신청 가능 시기는 12월입니다.</span>
+          <span>9기 개강 예정일은 12월 중순입니다.</span>
         </div>
         <div className={styles.ctaCopy}>
           <strong className={styles.desktopCtaCopy}>내 캐릭터 방향이 궁금하다면</strong>

@@ -120,21 +120,20 @@
   .mobileDeadlineNotice {
     display: grid;
     width: 100%;
-    gap: 2px;
+    gap: 3px;
     padding: 0 0 4px;
     border-bottom: 1px solid var(--sky-line);
     color: var(--sub);
     font-size: 10.5px;
     line-height: 1.2;
+    text-align: center;
   }
   .mobileDeadlineTop {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 6px;
+    display: grid;
+    justify-items: center;
+    gap: 3px;
   }
   .mobileDeadlineNotice strong {
-    flex: 0 0 auto;
     color: var(--sky-dot);
     font-size: 12px;
     line-height: 1.25;
