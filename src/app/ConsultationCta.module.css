@@ -112,7 +112,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 10px;
-    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    padding: 6px 14px calc(6px + env(safe-area-inset-bottom));
     border-width: 1px 0 0;
     border-radius: 0;
   }
@@ -120,21 +120,21 @@
     display: grid;
     width: 100%;
     gap: 2px;
-    padding: 0 0 9px;
+    padding: 0 0 5px;
     border-bottom: 1px solid var(--sky-line);
     color: var(--sub);
     font-size: 10.5px;
-    line-height: 1.4;
+    line-height: 1.25;
   }
   .mobileDeadlineNotice strong {
     color: var(--sky-dot);
-    font-size: 12px;
+    font-size: 11px;
   }
-  .ctaCopy strong { font-size: 12px; }
-  .ctaCopy span { font-size: 10.5px; }
+  .ctaCopy strong { font-size: 11px; }
+  .ctaCopy span { font-size: 9.5px; }
   .desktopCtaCopy { display: none !important; }
   .mobileCtaCopy { display: block !important; }
-  .ctaButton { padding: 12px 15px; }
+  .ctaButton { padding: 9px 12px; font-size: 11px; }
   .backdrop { align-items: end; padding: 0; }
   .dialog { width: 100%; max-height: 94dvh; border-radius: 18px 18px 0 0; }
   .dialogHeader { padding: 20px 18px 14px; }
