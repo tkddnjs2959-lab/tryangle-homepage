@@ -208,6 +208,75 @@
 }
 .homeHero .eyebrow { margin: 0; }
 .homeHero .homeHeroTitle { margin: 10px 0 0; }
+.countdown {
+  width: min(100%, 440px);
+  margin: 26px auto 0;
+  padding: 18px 22px 15px;
+  border: 1px solid #d7e0eb;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #fff 0%, #f5f8fb 100%);
+  box-shadow: 0 12px 30px rgba(18, 34, 79, .08);
+}
+.countdownLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 0 0 9px;
+  color: var(--navy2);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: -.1px;
+}
+.countdownTime {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 14px;
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+}
+.countdownTime > span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+}
+.countdownTime strong {
+  min-width: 1.25em;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+.countdownTime small {
+  color: var(--sub);
+  font-size: 12px;
+  font-weight: 700;
+}
+.countdownTime i {
+  width: 3px;
+  height: 3px;
+  align-self: center;
+  border-radius: 50%;
+  background: #aeb9c8;
+}
+.countdownNext {
+  margin: 11px -22px -15px;
+  padding: 9px 16px 10px;
+  border-top: 1px solid #e2e7ed;
+  border-radius: 0 0 16px 16px;
+  background: rgba(231, 236, 242, .6);
+  color: var(--sub);
+  font-size: 11px;
+  font-weight: 700;
+}
+.countdownNext span { display: block; }
+.countdownClosed {
+  margin: 2px 0 12px;
+  color: var(--navy);
+  font-size: 17px;
+  font-weight: 800;
+}
+.mobileEnrollmentBar { display: none; }
 .eyebrow {
   font-size: 12.5px;
   font-weight: 800;
@@ -258,6 +327,57 @@
     font-size: 24px;
     line-height: 1.32;
     letter-spacing: -1px;
+    white-space: nowrap;
+  }
+  .countdown {
+    margin-top: 22px;
+    padding: 16px 16px 13px;
+    border-radius: 14px;
+  }
+  .countdownTime { gap: 10px; }
+  .countdownTime strong { font-size: 27px; }
+  .countdownNext {
+    margin: 10px -16px -13px;
+    border-radius: 0 0 14px 14px;
+  }
+  .mobileEnrollmentBar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px max(12px, env(safe-area-inset-left)) calc(9px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    border-top: 1px solid #dbe3ec;
+    background: rgba(255, 255, 255, .96);
+    box-shadow: 0 -8px 22px rgba(18, 34, 79, .1);
+    backdrop-filter: blur(10px);
+  }
+  .mobileEnrollmentCopy {
+    display: grid;
+    gap: 1px;
+    margin: 0;
+    color: var(--navy2);
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: -.2px;
+  }
+  .mobileEnrollmentCopy span { color: var(--sub); }
+  .mobileEnrollmentCopy .mobileEnrollmentTimer { color: var(--sky-dot); font-weight: 800; }
+  .mobileEnrollmentCopy strong { font-size: 11px; }
+  .mobileEnrollmentButton {
+    flex: none;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: var(--navy);
+    color: #fff;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 800;
     white-space: nowrap;
   }
 }

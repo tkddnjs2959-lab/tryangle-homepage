@@ -7,9 +7,12 @@ import ConsultationSummaryCard from './ConsultationSummaryCard';
 import StudentChangesCarousel from './StudentChangesCarousel';
 import PageMotion from './PageMotion';
 import ProtectedMedia from './ProtectedMedia';
+import EnrollmentCountdown from './EnrollmentCountdown';
+import MobileEnrollmentBar from './MobileEnrollmentBar';
 import { KAKAO_CHANNEL_CHAT_URL } from '@/lib/external-links';
 
 const KAKAO_URL = KAKAO_CHANNEL_CHAT_URL;
+const EIGHTH_COHORT_REGISTRATION_DEADLINE = '2026-09-12T00:00:00+09:00';
 
 const PROCESS = [
   {
@@ -120,6 +123,7 @@ export default function Home() {
               캐릭터 포지셔닝 클래스
             </TrackedLink>
           </h1>
+          <EnrollmentCountdown deadline={EIGHTH_COHORT_REGISTRATION_DEADLINE} />
         </section>
 
         <section className={`${styles.sheet} ${styles.hookSection}`} data-motion="hook">
@@ -362,6 +366,7 @@ export default function Home() {
           카카오톡 채널
         </TrackedLink>
       </footer>
+      <MobileEnrollmentBar deadline={EIGHTH_COHORT_REGISTRATION_DEADLINE} />
     </>
   );
 }
