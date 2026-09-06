@@ -104,6 +104,52 @@
   font-variant-numeric: tabular-nums;
   letter-spacing: -.5px;
 }
+.sideCountdownTimer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+.sideCountdownGroup {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+}
+.sideCountdownDigits {
+  display: flex;
+  gap: 3px;
+}
+.sideCountdownDigits b {
+  display: grid;
+  width: 23px;
+  height: 31px;
+  place-items: center;
+  border-radius: 6px;
+  background: #eef0f2;
+  color: #24272b;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.sideCountdownGroup small {
+  color: var(--sub);
+  font-size: 9px;
+  font-weight: 800;
+}
+.sideCountdownTimeGroup {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+.sideCountdownTimeGroup > i {
+  margin-top: 8px;
+  color: #34383d;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 700;
+}
 .sideNextCohort {
   margin: -4px 0 13px;
   color: var(--sub);
