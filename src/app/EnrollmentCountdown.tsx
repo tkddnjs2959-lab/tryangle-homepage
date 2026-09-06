@@ -7,6 +7,7 @@ type RemainingTime = {
   days: number;
   hours: number;
   minutes: number;
+  seconds: number;
 };
 
 export const getRemainingTime = (deadline: string): RemainingTime | null => {
@@ -14,12 +15,13 @@ export const getRemainingTime = (deadline: string): RemainingTime | null => {
 
   if (remainingMilliseconds <= 0) return null;
 
-  const totalMinutes = Math.ceil(remainingMilliseconds / 60_000);
+  const totalSeconds = Math.ceil(remainingMilliseconds / 1_000);
 
   return {
-    days: Math.floor(totalMinutes / (60 * 24)),
-    hours: Math.floor((totalMinutes % (60 * 24)) / 60),
-    minutes: totalMinutes % 60,
+    days: Math.floor(totalSeconds / (60 * 60 * 24)),
+    hours: Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60)),
+    minutes: Math.floor((totalSeconds % (60 * 60)) / 60),
+    seconds: totalSeconds % 60,
   };
 };
 
@@ -31,7 +33,7 @@ export function useRemainingTime(deadline: string) {
       const nextRemainingTime = getRemainingTime(deadline);
       setRemainingTime((current) => {
         if (current === null && nextRemainingTime === null) return current;
-        if (current && nextRemainingTime && current.days === nextRemainingTime.days && current.hours === nextRemainingTime.hours && current.minutes === nextRemainingTime.minutes) return current;
+        if (current && nextRemainingTime && current.days === nextRemainingTime.days && current.hours === nextRemainingTime.hours && current.minutes === nextRemainingTime.minutes && current.seconds === nextRemainingTime.seconds) return current;
         return nextRemainingTime;
       });
     };
@@ -74,12 +76,17 @@ export default function EnrollmentCountdown({ deadline }: { deadline: string }) 
             <strong>{isLoading ? '--' : String(remainingTime.minutes).padStart(2, '0')}</strong>
             <small>분</small>
           </span>
+          <i aria-hidden="true" />
+          <span>
+            <strong>{isLoading ? '--' : String(remainingTime.seconds).padStart(2, '0')}</strong>
+            <small>초</small>
+          </span>
         </div>
       )}
 
       <p className={styles.countdownNext}>
         <span>이번 기수를 놓치면</span>
-        <span>9기 참여 가능 시기는 12월입니다.</span>
+        <span>9기 신청 가능 시기는 12월입니다.</span>
       </p>
     </div>
   );

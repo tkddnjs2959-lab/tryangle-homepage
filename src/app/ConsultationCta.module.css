@@ -123,12 +123,12 @@
     padding: 0 0 5px;
     border-bottom: 1px solid var(--sky-line);
     color: var(--sub);
-    font-size: 10.5px;
+    font-size: 11px;
     line-height: 1.25;
   }
   .mobileDeadlineNotice strong {
     color: var(--sky-dot);
-    font-size: 11px;
+    font-size: 12.5px;
   }
   .ctaCopy strong { font-size: 11px; }
   .ctaCopy span { font-size: 9.5px; }

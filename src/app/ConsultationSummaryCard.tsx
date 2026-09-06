@@ -21,7 +21,7 @@ function SummaryContents({ placement, deadline }: { placement: string; deadline:
       <h2>8기 클래스 안내</h2>
       <div className={styles.sideCountdown} aria-label="8기 신청 및 등록 마감까지 남은 시간">
         <span>⏰ 8기 신청 및 등록 마감까지</span>
-        <strong>{remainingTime === undefined ? '--일 --시간 --분' : remainingTime === null ? '마감' : `${remainingTime.days}일 ${String(remainingTime.hours).padStart(2, '0')}시간 ${String(remainingTime.minutes).padStart(2, '0')}분`}</strong>
+        <strong>{remainingTime === undefined ? '--일 --시간 --분 --초' : remainingTime === null ? '마감' : `${remainingTime.days}일 ${String(remainingTime.hours).padStart(2, '0')}시간 ${String(remainingTime.minutes).padStart(2, '0')}분 ${String(remainingTime.seconds).padStart(2, '0')}초`}</strong>
       </div>
       <p className={styles.sideNextCohort}>9기 신청 가능 시기는 12월입니다.</p>
 
