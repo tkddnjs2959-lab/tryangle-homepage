@@ -101,6 +101,13 @@
   font-variant-numeric: tabular-nums;
   letter-spacing: -.4px;
 }
+.sideNextCohort {
+  margin: -4px 0 13px;
+  color: var(--sub);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.45;
+}
 .sideFacts { margin: 0; }
 .sideFacts > div {
   display: grid;

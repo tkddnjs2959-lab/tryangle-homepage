@@ -50,10 +50,10 @@ export default function EnrollmentCountdown({ deadline }: { deadline: string }) 
   const isClosed = remainingTime === null;
 
   return (
-    <div className={styles.countdown} aria-label="8기 상담 및 등록 마감 안내">
+    <div className={styles.countdown} aria-label="8기 신청 마감 안내">
       <p className={styles.countdownLabel}>
         <span aria-hidden="true">⏰</span>
-        8기 상담 및 등록 마감까지
+        8기 신청 마감까지
       </p>
 
       {isClosed ? (

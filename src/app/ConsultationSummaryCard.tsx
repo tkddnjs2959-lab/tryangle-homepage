@@ -19,10 +19,11 @@ function SummaryContents({ placement, deadline }: { placement: string; deadline:
     <div className={styles.sideCard}>
       <p className={styles.sideStatus}><span aria-hidden="true" />8기 상담 및 신청 진행 중</p>
       <h2>8기 클래스 안내</h2>
-      <div className={styles.sideCountdown} aria-label="8기 상담 및 등록 마감까지 남은 시간">
-        <span>⏰ 마감까지</span>
+      <div className={styles.sideCountdown} aria-label="8기 신청 마감까지 남은 시간">
+        <span>⏰ 8기 신청 마감까지</span>
         <strong>{remainingTime === undefined ? '--일 --시간 --분' : remainingTime === null ? '마감' : `${remainingTime.days}일 ${String(remainingTime.hours).padStart(2, '0')}시간 ${String(remainingTime.minutes).padStart(2, '0')}분`}</strong>
       </div>
+      <p className={styles.sideNextCohort}>9기 신청 가능 시기는 12월입니다.</p>
 
       <dl className={styles.sideFacts}>
         <div>

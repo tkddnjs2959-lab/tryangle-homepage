@@ -7,7 +7,6 @@ import ConsultationSummaryCard from './ConsultationSummaryCard';
 import StudentChangesCarousel from './StudentChangesCarousel';
 import PageMotion from './PageMotion';
 import ProtectedMedia from './ProtectedMedia';
-import EnrollmentCountdown from './EnrollmentCountdown';
 import MobileEnrollmentBar from './MobileEnrollmentBar';
 import { KAKAO_CHANNEL_CHAT_URL } from '@/lib/external-links';
 
@@ -123,7 +122,6 @@ export default function Home() {
               캐릭터 포지셔닝 클래스
             </TrackedLink>
           </h1>
-          <EnrollmentCountdown deadline={EIGHTH_COHORT_REGISTRATION_DEADLINE} />
         </section>
 
         <section className={`${styles.sheet} ${styles.hookSection}`} data-motion="hook">
