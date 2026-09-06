@@ -1,12 +1,14 @@
 'use client';
 
 import styles from './page.module.css';
+import { useRemainingTime } from './EnrollmentCountdown';
 
 type ConsultationSummaryCardProps = {
   variant: 'desktop' | 'mobile';
 };
 
-function SummaryContents({ placement }: { placement: string }) {
+function SummaryContents({ placement, deadline }: { placement: string; deadline: string }) {
+  const remainingTime = useRemainingTime(deadline);
   function openConsultation() {
     window.dispatchEvent(new CustomEvent('tryangle:open-consultation', {
       detail: { placement },
@@ -17,6 +19,10 @@ function SummaryContents({ placement }: { placement: string }) {
     <div className={styles.sideCard}>
       <p className={styles.sideStatus}><span aria-hidden="true" />8기 상담 및 신청 진행 중</p>
       <h2>8기 클래스 안내</h2>
+      <div className={styles.sideCountdown} aria-label="8기 상담 및 등록 마감까지 남은 시간">
+        <span>⏰ 마감까지</span>
+        <strong>{remainingTime === undefined ? '--일 --시간 --분' : remainingTime === null ? '마감' : `${remainingTime.days}일 ${String(remainingTime.hours).padStart(2, '0')}시간 ${String(remainingTime.minutes).padStart(2, '0')}분`}</strong>
+      </div>
 
       <dl className={styles.sideFacts}>
         <div>
@@ -50,18 +56,18 @@ function SummaryContents({ placement }: { placement: string }) {
   );
 }
 
-export default function ConsultationSummaryCard({ variant }: ConsultationSummaryCardProps) {
+export default function ConsultationSummaryCard({ variant, deadline }: ConsultationSummaryCardProps & { deadline: string }) {
   if (variant === 'mobile') {
     return (
       <section className={styles.mobileSummary} aria-label="모바일 8기 클래스 핵심 안내">
-        <SummaryContents placement="homepage_mobile_summary" />
+        <SummaryContents placement="homepage_mobile_summary" deadline={deadline} />
       </section>
     );
   }
 
   return (
     <aside className={styles.sideRail} aria-label="8기 클래스 핵심 안내" data-motion="summary">
-      <SummaryContents placement="homepage_sticky_summary" />
+      <SummaryContents placement="homepage_sticky_summary" deadline={deadline} />
     </aside>
   );
 }

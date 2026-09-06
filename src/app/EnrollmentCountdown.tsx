@@ -79,7 +79,7 @@ export default function EnrollmentCountdown({ deadline }: { deadline: string }) 
 
       <p className={styles.countdownNext}>
         <span>이번 기수를 놓치면</span>
-        <span>다음 참여 가능 시기는 12월입니다.</span>
+        <span>9기 참여 가능 시기는 12월입니다.</span>
       </p>
     </div>
   );

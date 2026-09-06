@@ -18,7 +18,7 @@ export default function MobileEnrollmentBar({ deadline }: { deadline: string }) 
           ⏰ 8기 마감까지 {remainingTime === undefined ? '--일 --시간 --분' : remainingTime === null ? '마감' : `${remainingTime.days}일 ${String(remainingTime.hours).padStart(2, '0')}시간 ${String(remainingTime.minutes).padStart(2, '0')}분`}
         </span>
         <span>이번 기수를 놓치면</span>
-        <strong>다음 참여 가능 시기는 12월입니다.</strong>
+        <strong>9기 참여 가능 시기는 12월입니다.</strong>
       </p>
       <button type="button" className={styles.mobileEnrollmentButton} onClick={openConsultation}>
         상담 신청하기

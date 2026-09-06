@@ -348,7 +348,7 @@ export default function Home() {
           <ContactForm />
         </section>
         </div>
-        <ConsultationSummaryCard variant="desktop" />
+        <ConsultationSummaryCard variant="desktop" deadline={EIGHTH_COHORT_REGISTRATION_DEADLINE} />
       </main>
 
       <footer className={styles.footer}>

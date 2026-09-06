@@ -83,6 +83,24 @@
 }
 .sideStatus span { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
 .sideCard h2 { margin: 0 0 16px; color: var(--navy); font-size: 19px; }
+.sideCountdown {
+  display: grid;
+  gap: 2px;
+  margin: 0 0 14px;
+  padding: 10px 11px;
+  border: 1px solid #dce7f0;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--sky-dot);
+  font-size: 10px;
+  font-weight: 800;
+}
+.sideCountdown strong {
+  color: var(--navy);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.4px;
+}
 .sideFacts { margin: 0; }
 .sideFacts > div {
   display: grid;
