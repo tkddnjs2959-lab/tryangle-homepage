@@ -118,6 +118,12 @@
 .instagramDigits { display: flex; gap: 2px; }
 .instagramDigits b { display: grid; width: 19px; height: 27px; place-items: center; border-radius: 5px; background: #eef0f2; color: #24272b; font-size: 17px; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; }
 .instagramTimeGroup > i { margin-top: 6px; color: #34383d; font-size: 15px; font-style: normal; font-weight: 700; }
+.instagramCountdownCompact { justify-content: flex-start; gap: 1px; margin-top: 0; }
+.instagramCountdownCompact .instagramDigits { gap: 1px; }
+.instagramCountdownCompact .instagramDigits b { width: 15px; height: 22px; border-radius: 4px; font-size: 14px; }
+.instagramCountdownCompact .instagramTimeGroup { gap: 2px; }
+.instagramCountdownCompact .instagramTimeGroup small { font-size: 7px; }
+.instagramCountdownCompact .instagramTimeGroup > i { margin-top: 4px; font-size: 12px; }
 .sideCountdownTimer {
   display: flex;
   align-items: flex-start;
