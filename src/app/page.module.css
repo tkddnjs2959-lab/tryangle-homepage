@@ -122,7 +122,7 @@
 .instagramCountdownCompact .instagramDigits { gap: 1px; }
 .instagramCountdownCompact .instagramDigits b { width: 15px; height: 22px; border-radius: 4px; font-size: 14px; }
 .instagramCountdownCompact .instagramTimeGroup { gap: 2px; }
-.instagramCountdownCompact .instagramTimeGroup small { font-size: 7px; }
+.instagramCountdownCompact .instagramTimeGroup small { font-size: 7.5px; }
 .instagramCountdownCompact .instagramTimeGroup > i { margin-top: 4px; font-size: 12px; }
 .sideCountdownTimer {
   display: flex;

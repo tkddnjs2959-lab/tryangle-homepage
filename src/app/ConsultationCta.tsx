@@ -66,8 +66,10 @@ export default function ConsultationCta() {
     <>
       <div className={`${styles.ctaBar} ${pathname === '/' ? styles.homeCtaBar : ''}`}>
         <div className={styles.mobileDeadlineNotice} aria-label="8기 신청 마감 및 9기 신청 안내">
-          <strong>⏰ 8기 신청 마감까지</strong>
-          <CountdownBoxes remainingTime={remainingTime} compact />
+          <div className={styles.mobileDeadlineTop}>
+            <strong>⏰ 8기 신청 마감까지</strong>
+            <CountdownBoxes remainingTime={remainingTime} compact />
+          </div>
           <span>이번 기수를 놓치면 9기 신청 가능 시기는 12월입니다.</span>
         </div>
         <div className={styles.ctaCopy}>
