@@ -105,17 +105,17 @@
 
 @media (max-width: 560px) {
   .ctaBar {
-    right: 10px;
-    bottom: 8px;
-    left: auto;
-    width: auto;
-    max-width: min(350px, calc(100vw - 20px));
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: none;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 6px;
     padding: 5px 8px calc(5px + env(safe-area-inset-bottom));
-    border-width: 1px;
-    border-radius: 12px;
+    border-width: 1px 0 0;
+    border-radius: 0;
   }
   .mobileDeadlineNotice {
     display: grid;
