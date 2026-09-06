@@ -17,7 +17,7 @@
 .ctaCopy { display: grid; gap: 1px; color: var(--navy); white-space: nowrap; }
 .mobileCtaCopy { display: none !important; }
 .mobileCtaPrimary { color: var(--ok) !important; }
-.mobileCtaNext { color: var(--sub) !important; }
+.mobileDeadlineNotice { display: none; }
 .ctaCopy strong { font-size: 13px; }
 .ctaCopy span { color: var(--sub); font-size: 11px; }
 .ctaButton {
@@ -109,11 +109,26 @@
     bottom: 0;
     width: 100%;
     max-width: none;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: 10px;
     padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
     border-width: 1px 0 0;
     border-radius: 0;
+  }
+  .mobileDeadlineNotice {
+    display: grid;
+    width: 100%;
+    gap: 2px;
+    padding: 0 0 9px;
+    border-bottom: 1px solid var(--sky-line);
+    color: var(--sub);
+    font-size: 10.5px;
+    line-height: 1.4;
+  }
+  .mobileDeadlineNotice strong {
+    color: var(--sky-dot);
+    font-size: 12px;
   }
   .ctaCopy strong { font-size: 12px; }
   .ctaCopy span { font-size: 10.5px; }

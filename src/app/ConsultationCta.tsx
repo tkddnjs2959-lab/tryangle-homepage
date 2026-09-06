@@ -64,14 +64,17 @@ export default function ConsultationCta() {
   return (
     <>
       <div className={`${styles.ctaBar} ${pathname === '/' ? styles.homeCtaBar : ''}`}>
-        <div className={styles.ctaCopy}>
-          <strong className={styles.desktopCtaCopy}>내 캐릭터 방향이 궁금하다면</strong>
-          <strong className={`${styles.mobileCtaCopy} ${styles.mobileCtaPrimary}`}>
+        <div className={styles.mobileDeadlineNotice} aria-label="8기 신청 마감 및 9기 신청 안내">
+          <strong>
             ⏰ 8기 신청 마감까지 {remainingTime === undefined ? '--일 --시간 --분' : remainingTime === null ? '마감' : `${remainingTime.days}일 ${String(remainingTime.hours).padStart(2, '0')}시간 ${String(remainingTime.minutes).padStart(2, '0')}분`}
           </strong>
+          <span>이번 기수를 놓치면 9기 신청 가능 시기는 12월입니다.</span>
+        </div>
+        <div className={styles.ctaCopy}>
+          <strong className={styles.desktopCtaCopy}>내 캐릭터 방향이 궁금하다면</strong>
+          <strong className={`${styles.mobileCtaCopy} ${styles.mobileCtaPrimary}`}>8기 한정가 45만원 / 상담 진행 중</strong>
           <span className={styles.desktopCtaCopy}>상담 신청은 약 1분이면 충분해요.</span>
-          <span className={styles.mobileCtaCopy}>이번 기수를 놓치면</span>
-          <span className={`${styles.mobileCtaCopy} ${styles.mobileCtaNext}`}>9기 신청 가능 시기는 12월입니다.</span>
+          <span className={styles.mobileCtaCopy}>상담 신청은 약 1분이면 충분해요</span>
         </div>
         {isInsightPage ? (
           <TrackedLink className={styles.ctaButton} href="/#consultation" eventName="click_insight_to_home" eventParams={{ placement: 'global_floating', destination: 'home_consultation' }}>
