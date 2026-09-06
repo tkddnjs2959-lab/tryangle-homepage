@@ -7,7 +7,6 @@ import ConsultationSummaryCard from './ConsultationSummaryCard';
 import StudentChangesCarousel from './StudentChangesCarousel';
 import PageMotion from './PageMotion';
 import ProtectedMedia from './ProtectedMedia';
-import MobileEnrollmentBar from './MobileEnrollmentBar';
 import { KAKAO_CHANNEL_CHAT_URL } from '@/lib/external-links';
 
 const KAKAO_URL = KAKAO_CHANNEL_CHAT_URL;
@@ -364,7 +363,6 @@ export default function Home() {
           카카오톡 채널
         </TrackedLink>
       </footer>
-      <MobileEnrollmentBar deadline={EIGHTH_COHORT_REGISTRATION_DEADLINE} />
     </>
   );
 }

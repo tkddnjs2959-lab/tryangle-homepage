@@ -4,11 +4,15 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import ContactForm from './ContactForm';
 import TrackedLink, { trackEvent } from './TrackedLink';
+import { useRemainingTime } from './EnrollmentCountdown';
 import styles from './ConsultationCta.module.css';
+
+const EIGHTH_COHORT_REGISTRATION_DEADLINE = '2026-09-12T00:00:00+09:00';
 
 export default function ConsultationCta() {
   const pathname = usePathname();
   const [modalState, setModalState] = useState<'closed' | 'open' | 'closing'>('closed');
+  const remainingTime = useRemainingTime(EIGHTH_COHORT_REGISTRATION_DEADLINE);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const open = modalState !== 'closed';
@@ -62,9 +66,12 @@ export default function ConsultationCta() {
       <div className={`${styles.ctaBar} ${pathname === '/' ? styles.homeCtaBar : ''}`}>
         <div className={styles.ctaCopy}>
           <strong className={styles.desktopCtaCopy}>내 캐릭터 방향이 궁금하다면</strong>
-          <strong className={`${styles.mobileCtaCopy} ${styles.mobileCtaPrimary}`}>8기 한정가 45만원 / 상담 진행 중</strong>
+          <strong className={`${styles.mobileCtaCopy} ${styles.mobileCtaPrimary}`}>
+            ⏰ 8기 신청 마감까지 {remainingTime === undefined ? '--일 --시간 --분' : remainingTime === null ? '마감' : `${remainingTime.days}일 ${String(remainingTime.hours).padStart(2, '0')}시간 ${String(remainingTime.minutes).padStart(2, '0')}분`}
+          </strong>
           <span className={styles.desktopCtaCopy}>상담 신청은 약 1분이면 충분해요.</span>
-          <span className={styles.mobileCtaCopy}>상담 신청은 약 1분이면 충분해요</span>
+          <span className={styles.mobileCtaCopy}>이번 기수를 놓치면</span>
+          <span className={`${styles.mobileCtaCopy} ${styles.mobileCtaNext}`}>9기 신청 가능 시기는 12월입니다.</span>
         </div>
         {isInsightPage ? (
           <TrackedLink className={styles.ctaButton} href="/#consultation" eventName="click_insight_to_home" eventParams={{ placement: 'global_floating', destination: 'home_consultation' }}>
