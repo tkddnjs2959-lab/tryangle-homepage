@@ -139,12 +139,12 @@ export default function ContactForm({
   if (state === 'done') {
     return (
       <div className={styles.formDone}>
-        <strong>{bookingMode ? '레슨 예약이 접수되었습니다.' : '상담 신청이 접수되었습니다.'}</strong>
+        <strong>{bookingMode ? '상담 예약이 접수되었습니다.' : '상담 신청이 접수되었습니다.'}</strong>
         <strong className={styles.formDoneMessage}>
           아래 버튼을 눌러 카카오톡에서<br />
-          “{bookingMode ? '레슨 예약했어요' : '상담 신청했어요'}”라고 메시지를 남겨주세요.
+          “{bookingMode ? '상담 예약했어요' : '상담 신청했어요'}”라고 메시지를 남겨주세요.
           <br />
-          확인 후 {bookingMode ? '레슨 가능 일정' : '상담 가능 일정'}과 진행 방법을 안내해드리겠습니다.
+          {bookingMode ? '확인 후 방문상담 가능 일정을 안내해드리겠습니다.' : '확인 후 상담 가능 일정과 진행 방법을 안내해드리겠습니다.'}
         </strong>
         <TrackedLink
           className={styles.formDoneButton}
@@ -288,7 +288,7 @@ export default function ContactForm({
       </label>
       {error && <p className={styles.formError}>{error}</p>}
       <button className={styles.formSubmit} type="submit" disabled={state === 'sending'}>
-        {state === 'sending' ? '접수 중…' : bookingMode ? '수업 예약하기' : '상담 신청하기'}
+        {state === 'sending' ? '접수 중…' : bookingMode ? '상담 예약하기' : '상담 신청하기'}
       </button>
       <TrackedLink
         className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
