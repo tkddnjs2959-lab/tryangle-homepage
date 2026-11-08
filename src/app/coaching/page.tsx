@@ -6,8 +6,9 @@ import TrackedLink from '../TrackedLink';
 import styles from './coaching.module.css';
 import { BENEFITS, COACHING_AREAS, DIFFERENCE_FROM_GROUP_CLASS, FAQ, PRICING, TRAINER } from './content';
 import ContactForm from '../ContactForm';
+import { KAKAO_CHANNEL_PROFILE_URL } from '@/lib/external-links';
 
-const KAKAO_URL = 'https://pf.kakao.com/_mWxcMb';
+const KAKAO_URL = KAKAO_CHANNEL_PROFILE_URL;
 
 /** 콘텐츠 문자열의 '\n' 을 모바일에서만 줄바꿈으로 바꾼다 (데스크톱은 한 줄로 이어짐). */
 function mobileLines(text: string) {

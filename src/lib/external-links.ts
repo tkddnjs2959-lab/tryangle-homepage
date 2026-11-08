@@ -6,3 +6,4 @@
  * 사이트 내부 이벤트로만 처리한다.
  */
 export const KAKAO_CHANNEL_CHAT_URL = 'https://pf.kakao.com/_mWxcMb/chat';
+export const KAKAO_CHANNEL_PROFILE_URL = 'https://pf.kakao.com/_mWxcMb';
