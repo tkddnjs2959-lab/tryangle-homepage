@@ -120,6 +120,9 @@
   padding-bottom: 26px;
   text-align: center;
 }
+.priceGroup { text-align: left; }
+.priceGroupSolo { margin-top: 22px; padding-top: 20px; border-top: 1px solid #cbd5e4; }
+.priceGroupHeading { margin: 0 0 10px; color: #12233e; font-size: 15px; font-weight: 900; letter-spacing: .2px; }
 .coachHero {
   position: relative;
   overflow: hidden;
@@ -148,11 +151,13 @@
   line-height: 1.18;
   word-break: keep-all;
 }
+.audienceNote { margin: 14px 0 0; color: #4d5e78; font-size: 14px; font-weight: 600; letter-spacing: -.2px; }
 .priceGrid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   margin-top: 0;
 }
+.priceGroupSolo .priceGrid { grid-template-columns: minmax(0, 1fr); }
 .priceCard {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -175,14 +180,19 @@
   letter-spacing: -0.5px;
   white-space: nowrap;
 }
-.priceCard:first-child {
+.priceCardLight {
   background: #fff;
   border-color: #d9e0eb;
 }
-.priceCard:first-child .priceFrequency { color: #12233e; border-right-color: #b4c9ed; }
-.priceCard:first-child .priceSchedule { color: #44536b; }
-.priceCard:first-child .priceAmounts del { color: #66748a; }
-.priceCard:first-child .priceAmounts b { color: #1758dc; }
+.priceCardLight .priceFrequency { color: #12233e; border-right-color: #b4c9ed; }
+.priceCardLight .priceSchedule { color: #44536b; }
+.priceCardLight .priceAmounts del { color: #66748a; }
+.priceCardLight .priceAmounts b { color: #1758dc; }
+.priceCardDark { background: #12233e; border-color: #12233e; }
+.priceCardSolo { background: #dce9ff; border-color: #c4d8fa; }
+.priceCardSolo .priceFrequency { color: #12233e; border-right-color: #b4c9ed; }
+.priceCardSolo .priceSchedule { color: #44536b; }
+.priceCardSolo .priceAmounts b { color: #1758dc; }
 .priceSchedule { display: grid; gap: 2px; color: #d4dceb; font-size: 12px; line-height: 1.4; white-space: nowrap; }
 .priceAmounts { display: grid; justify-items: end; align-items: baseline; gap: 3px; white-space: nowrap; }
 .priceAmounts del {
@@ -199,6 +209,7 @@
   .coachHero::before { left: 20px; top: 23px; width: 48px; }
   .coachTitle { font-size: clamp(28px, 8vw, 36px); letter-spacing: -1.5px; }
   .featuredPricing { padding-top: 20px; padding-bottom: 20px; }
+  .priceGroupSolo { margin-top: 16px; padding-top: 16px; }
   .priceGrid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .priceCard { grid-template-columns: auto minmax(0, 1fr) auto; padding: 13px 12px; gap: 9px; }
   .priceFrequency { padding-right: 9px; font-size: 16px; }

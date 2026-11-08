@@ -17,10 +17,12 @@ const AFTERNOON_TIMES = TIMES.filter((time) => Number(time.slice(0, 2)) >= 12);
 export default function ContactForm({
   programLabel,
   hideCoachingAvailability = false,
+  bookingMode = false,
   kakaoInquiryUrl,
 }: {
   programLabel?: string;
   hideCoachingAvailability?: boolean;
+  bookingMode?: boolean;
   kakaoInquiryUrl?: string;
 } = {}) {
   const [name, setName] = useState('');
@@ -32,6 +34,7 @@ export default function ContactForm({
   const [preferredSlots, setPreferredSlots] = useState<Record<string, string[]>>({});
   const [major, setMajor] = useState('');
   const [mediaExperience, setMediaExperience] = useState('없음');
+  const [bookingPreference, setBookingPreference] = useState('');
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [website, setWebsite] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
@@ -74,6 +77,7 @@ export default function ContactForm({
             ...(programLabel ? [`신청 프로그램: ${programLabel}`] : []),
             `나이: ${age}세`,
             `성별: ${gender}`,
+            ...(bookingMode && bookingPreference.trim() ? [`희망 요일·시간: ${bookingPreference.trim()}`] : []),
             ...(!hideCoachingAvailability ? [`상담 희망: ${selectedSlots.join(', ')}`] : []),
             `연기 전공 여부: ${major}`,
             ...(!hideCoachingAvailability ? [`매체연기 경력(연극 제외): ${mediaExperience}`] : []),
@@ -132,12 +136,12 @@ export default function ContactForm({
   if (state === 'done') {
     return (
       <div className={styles.formDone}>
-        <strong>상담 신청이 접수되었습니다.</strong>
+        <strong>{bookingMode ? '레슨 예약이 접수되었습니다.' : '상담 신청이 접수되었습니다.'}</strong>
         <strong className={styles.formDoneMessage}>
           아래 버튼을 눌러 카카오톡에서<br />
-          “상담 신청했어요”라고 메시지를 남겨주세요.
+          “{bookingMode ? '레슨 예약했어요' : '상담 신청했어요'}”라고 메시지를 남겨주세요.
           <br />
-          확인 후 상담 가능 일정과 진행 방법을 안내해드리겠습니다.
+          확인 후 {bookingMode ? '레슨 가능 일정' : '상담 가능 일정'}과 진행 방법을 안내해드리겠습니다.
         </strong>
         <a
           className={styles.formDoneButton}
@@ -145,7 +149,7 @@ export default function ContactForm({
           target="_blank"
           rel="noopener noreferrer"
         >
-          {kakaoInquiryUrl ? '카카오톡 오픈채팅 바로가기' : 'TRY앵글 카카오톡 채널 바로가기'}
+          {kakaoInquiryUrl ? '카카오톡 문의하기' : 'TRY앵글 카카오톡 채널 바로가기'}
         </a>
       </div>
     );
@@ -219,6 +223,19 @@ export default function ContactForm({
           </label>
         )}
       </div>
+      {bookingMode && (
+        <label className={styles.fieldLabel}>
+          <span className={styles.fieldTitle}>희망 요일·시간 <small>(선택)</small></span>
+          <textarea
+            className={styles.textarea}
+            value={bookingPreference}
+            onChange={(e) => setBookingPreference(e.target.value)}
+            placeholder="예: 평일 저녁, 토요일 오전"
+            rows={3}
+            maxLength={300}
+          />
+        </label>
+      )}
       {!hideCoachingAvailability && <fieldset className={styles.choiceGroup}>
         <legend>
           상담 희망 요일·시간
@@ -256,15 +273,15 @@ export default function ContactForm({
           required
         />
         <span>
-          상담 신청을 위한 개인정보 수집·이용에 동의합니다.
+          {bookingMode ? '레슨 예약' : '상담 신청'}을 위한 개인정보 수집·이용에 동의합니다.
           <small>
-            수집 항목: 이름, 연락처, 나이, 성별{hideCoachingAvailability ? '' : ', 상담 희망 시간'} 등 · 이용 목적: 상담 일정 안내 및 연락
+            수집 항목: 이름, 연락처, 나이, 성별{bookingMode ? ', 희망 요일·시간' : hideCoachingAvailability ? '' : ', 상담 희망 시간'} 등 · 이용 목적: 상담 일정 안내 및 연락
           </small>
         </span>
       </label>
       {error && <p className={styles.formError}>{error}</p>}
       <button className={styles.formSubmit} type="submit" disabled={state === 'sending'}>
-        {state === 'sending' ? '접수 중…' : '상담 신청하기'}
+        {state === 'sending' ? '접수 중…' : bookingMode ? '레슨 예약하기' : '상담 신청하기'}
       </button>
       <a
         className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
