@@ -3,9 +3,10 @@ import ProtectedMedia from '../ProtectedMedia';
 import { NEWS } from '../newsData';
 import pageStyles from '../page.module.css';
 import TrackedLink from '../TrackedLink';
+import ContactForm from '../ContactForm';
 import styles from './coaching.module.css';
 import { BENEFITS, COACHING_AREAS, DIFFERENCE_FROM_GROUP_CLASS, FAQ, PRICING, TRAINER } from './content';
-import { KAKAO_CHANNEL_CHAT_URL } from '@/lib/external-links';
+import { KAKAO_CHANNEL_CHAT_URL, KAKAO_CHANNEL_PROFILE_URL } from '@/lib/external-links';
 
 const KAKAO_URL = KAKAO_CHANNEL_CHAT_URL;
 
@@ -65,6 +66,7 @@ export default function CoachingPage() {
         <section className={pageStyles.hero}>
           <span className={styles.exclusiveTag}>캐릭터 포지셔닝 클래스 수료생 전용</span>
           <h1 className={pageStyles.h1}>1:1 매체연기 코칭</h1>
+          <p className={styles.audienceNote}>이 레슨은 성인 대상으로 합니다.</p>
           <p className={pageStyles.heroLead}>
             TRY앵글 1:1 매체연기 코칭은
             <br />
@@ -224,13 +226,25 @@ export default function CoachingPage() {
         {/* ---------- 비용 ---------- */}
         <section className={pageStyles.sheet}>
           <h2 className={pageStyles.h2}>비용</h2>
-          <div className={styles.priceGrid}>
-            {PRICING.map((p) => (
-              <div key={p.freq} className={styles.priceCard}>
-                <span>{p.freq}</span>
-                <b>{p.price}</b>
+          <div className={styles.priceGroups}>
+            <div className={styles.priceGroup}>
+              <h3 className={styles.groupHeading}>2:1 그룹 레슨</h3>
+              <div className={styles.priceGrid}>
+                {PRICING.map((p) => (
+                  <div key={p.freq} className={styles.priceCard}>
+                    <span>{p.freq}</span>
+                    <b>{p.price}</b>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+            <div className={styles.individualPriceCard}>
+              <h3 className={styles.groupHeading}>1:1 개인 레슨</h3>
+              <div className={styles.individualPrice}>
+                <span>주 1회 · 월 4회</span>
+                <b>월 25만원</b>
+              </div>
+            </div>
           </div>
           <div className={pageStyles.callout} style={{ marginTop: 20 }}>
             💡 본 프로그램은 소수 인원으로 운영되며,
@@ -270,30 +284,17 @@ export default function CoachingPage() {
 
         {/* ---------- 신청 방법 ---------- */}
         <section className={pageStyles.sheet}>
-          <h2 className={pageStyles.h2}>신청 방법</h2>
+          <h2 className={pageStyles.h2}>레슨 예약</h2>
           <p className={pageStyles.body}>
-            1:1 매체연기 코칭에 관심 있으신 분들은{' '}
-            <br className={styles.brM} />
-            카카오톡 채널을 통해
-            <br />
-            &lsquo;개인 레슨 신청 희망&rsquo;이라고 메시지를 남겨주세요.
+            희망하는 요일과 시간을 남겨주시면 확인 후 레슨 일정을 안내해드립니다.
           </p>
-          <p className={pageStyles.body}>
-            신청해주신 배우분들에 한해 개별 상담을 진행하며,
-            <br />
-            현재 연기 역량과 목표를 바탕으로 코칭 방향 및 일정을 함께 조율합니다.
-          </p>
-
-          <TrackedLink
-            className={`${pageStyles.kakaoBtn} ${pageStyles.kakaoBtnWide}`}
-            href={KAKAO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            eventName="click_kakao_consult"
-            eventParams={{ placement: 'coaching_application_section' }}
-          >
-            TRY앵글 공식 카카오톡 채널 바로가기
-          </TrackedLink>
+          <ContactForm
+            formName="coaching_lesson_booking"
+            successPlacement="coaching_lesson_booking_success"
+            programLabel="TRY앵글 매체연기 레슨"
+            consultationLabel="레슨 예약"
+            kakaoInquiryUrl={KAKAO_CHANNEL_PROFILE_URL}
+          />
         </section>
       </main>
 
