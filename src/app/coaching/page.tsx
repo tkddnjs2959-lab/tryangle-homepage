@@ -21,10 +21,10 @@ export const metadata = {
 export default function CoachingPage() {
   return (
     <>
-      <main className={pageStyles.page}>
+      <main className={`${pageStyles.page} ${styles.themePage}`} data-coaching-theme="dark">
         <section className={`${pageStyles.hero} ${styles.coachHero}`}>
           <h1 className={styles.coachTitle}>주아쌤의 2:1 매체연기 수업</h1>
-          <p className={styles.audienceNote}>이 레슨은 성인 대상으로 합니다.</p>
+          <p className={styles.audienceNote}>*본 레슨은 성인(만 19세 이상)만을 대상으로 합니다.</p>
         </section>
         {/* ---------- 레슨별 수강료 ---------- */}
         <section id="pricing" className={`${pageStyles.sheet} ${styles.featuredPricing}`}>
