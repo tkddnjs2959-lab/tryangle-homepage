@@ -28,11 +28,82 @@
 /* 코치 프로필 헤더 — 메인 페이지의 멘토 소개와 달리 이 페이지에서만 가운데 정렬한다.
    page.module.css 의 .eyebrowSm / .mentorHead 는 메인 페이지도 함께 쓰므로 건드리지 않고,
    이 두 클래스를 덧붙여서 코칭 페이지에서만 정렬을 바꾼다. */
-.profileEyebrow { text-align: center; }
-.mentorHeadCenter {
-  flex-direction: column;
+.profileLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 245px;
   align-items: center;
+  gap: 30px;
+  background: #eef2f8;
+  border: 1px solid #dbe2ed;
+}
+.profilePhotoColumn {
   text-align: center;
+}
+.profilePhoto {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 330px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(20, 39, 76, 0.12);
+}
+.profileName {
+  margin: 12px 0 2px;
+  color: var(--navy);
+  font-size: 22px;
+  font-weight: 900;
+}
+.profileTitle { margin: 0; color: var(--sub); font-size: 12px; }
+.profileDetails { display: grid; gap: 14px; min-width: 0; }
+.profileHeading { margin-bottom: 20px !important; }
+.profileTimeline { display: grid; gap: 18px; border-left: 2px solid #1758dc; margin-left: 8px; padding-left: 22px; }
+.profileGroup h3 {
+  position: relative;
+  margin: 0 0 7px;
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 800;
+}
+.profileGroup h3::before {
+  content: '';
+  position: absolute;
+  left: -29px;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #1758dc;
+  border-radius: 50%;
+  background: #eef2f8;
+}
+.profileGroup ul {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 5px;
+  list-style: none;
+}
+.profileGroup li {
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.55;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  padding-bottom: 12px;
+}
+@media (max-width: 560px) {
+  .profileLayout { grid-template-columns: minmax(0, 1fr) 112px; gap: 14px; padding: 20px 14px; }
+  .profilePhotoColumn { position: static; }
+  .profileName { margin-top: 8px; font-size: 17px; }
+  .profileTitle { font-size: 10px; }
+  .profileDetails { gap: 10px; }
+  .profileHeading { margin-bottom: 14px !important; }
+  .profileTimeline { gap: 14px; padding-left: 14px; margin-left: 4px; }
+  .profileGroup h3 { font-size: 13px; }
+  .profileGroup h3::before { left: -21px; width: 8px; height: 8px; }
+  .profileGroup ul { grid-template-columns: minmax(0, 1fr); row-gap: 2px; }
+  .profileGroup li { font-size: 10.5px; line-height: 1.4; padding-bottom: 8px; }
 }
 
 .priceGrid {
@@ -41,27 +112,136 @@
   gap: 12px;
   margin-top: 8px;
 }
-@media (max-width: 560px) {
-  .priceGrid { grid-template-columns: 1fr; }
-}
-.priceCard {
-  background: var(--sky-bg);
-  border: 1px solid var(--sky-line);
-  border-radius: 12px;
-  padding: 20px 18px;
+.featuredPricing {
+  margin-top: 4px;
+  border: 1px solid #dce3ef;
+  background: linear-gradient(135deg, #edf2f9 0%, #e5eaf2 100%);
+  padding-top: 26px;
+  padding-bottom: 26px;
   text-align: center;
 }
-.priceCard span {
-  display: block;
-  font-size: 13px;
-  color: var(--sub);
-  margin-bottom: 6px;
+.coachHero {
+  position: relative;
+  overflow: hidden;
+  padding: 56px 42px 48px;
+  text-align: left;
+  background: linear-gradient(115deg, #e9eff8 0%, #f4f6fa 68%, #dce5f2 100%);
+  border-bottom: 1px solid #dbe2ed;
 }
-.priceCard b {
-  display: block;
-  font-size: 24px;
-  font-weight: 800;
+.coachHero::before {
+  content: '';
+  position: absolute;
+  left: 42px;
+  top: 32px;
+  width: 68px;
+  height: 4px;
+  background: #1758dc;
+}
+.coachTitle {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
   color: var(--navy);
+  font-size: clamp(30px, 5vw, 48px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1.18;
+  word-break: keep-all;
+}
+.priceGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 0;
+}
+.priceCard {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  background: #12233e;
+  border: 1px solid #12233e;
+  border-radius: 8px;
+  padding: 21px 18px;
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(31, 52, 88, 0.06);
+}
+.priceFrequency {
+  display: block;
+  padding-right: 14px;
+  border-right: 1px solid rgba(255,255,255,.24);
+  color: #fff;
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+.priceCard:first-child {
+  background: #fff;
+  border-color: #d9e0eb;
+}
+.priceCard:first-child .priceFrequency { color: #12233e; border-right-color: #b4c9ed; }
+.priceCard:first-child .priceSchedule { color: #44536b; }
+.priceCard:first-child .priceAmounts del { color: #66748a; }
+.priceCard:first-child .priceAmounts b { color: #1758dc; }
+.priceSchedule { display: grid; gap: 2px; color: #d4dceb; font-size: 12px; line-height: 1.4; white-space: nowrap; }
+.priceAmounts { display: grid; justify-items: end; align-items: baseline; gap: 3px; white-space: nowrap; }
+.priceAmounts del {
+  color: #b6c1d3;
+  font-size: 12px;
+}
+.priceAmounts b {
+  font-size: 27px;
+  font-weight: 800;
+  color: #fff;
+}
+@media (max-width: 560px) {
+  .coachHero { padding: 44px 20px 34px; }
+  .coachHero::before { left: 20px; top: 23px; width: 48px; }
+  .coachTitle { font-size: clamp(28px, 8vw, 36px); letter-spacing: -1.5px; }
+  .featuredPricing { padding-top: 20px; padding-bottom: 20px; }
+  .priceGrid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .priceCard { grid-template-columns: auto minmax(0, 1fr) auto; padding: 13px 12px; gap: 9px; }
+  .priceFrequency { padding-right: 9px; font-size: 16px; }
+  .priceSchedule { font-size: 10px; white-space: normal; }
+  .priceAmounts del { font-size: 10px; }
+  .priceAmounts b { font-size: 22px; }
+}
+
+.applicationSection {
+  border: 1px solid #d5dfed;
+  border-top: 4px solid #1758dc;
+  background: #f0f3f8;
+}
+
+.stickyApply {
+  position: fixed;
+  z-index: 20;
+  top: 50%;
+  right: max(18px, calc((100vw - 980px) / 2));
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  padding: 18px 13px;
+  border-radius: 999px;
+  background: #1758dc;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(20, 36, 72, 0.2);
+}
+.stickyApply:hover { background: #1045b3; }
+@media (max-width: 560px) {
+  .stickyApply {
+    top: auto;
+    right: 14px;
+    bottom: 18px;
+    transform: none;
+    writing-mode: horizontal-tb;
+    padding: 13px 18px;
+    border-radius: 999px;
+    letter-spacing: 0;
+  }
 }
 
 .faqItem { border-top: 1px solid var(--sky-line); padding: 16px 0; }

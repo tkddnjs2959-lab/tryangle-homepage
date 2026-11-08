@@ -14,7 +14,15 @@ const TIMES = Array.from({ length: 12 }, (_, index) => {
 const MORNING_TIMES = TIMES.filter((time) => Number(time.slice(0, 2)) < 12);
 const AFTERNOON_TIMES = TIMES.filter((time) => Number(time.slice(0, 2)) >= 12);
 
-export default function ContactForm() {
+export default function ContactForm({
+  programLabel,
+  hideCoachingAvailability = false,
+  kakaoInquiryUrl,
+}: {
+  programLabel?: string;
+  hideCoachingAvailability?: boolean;
+  kakaoInquiryUrl?: string;
+} = {}) {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
@@ -33,7 +41,7 @@ export default function ContactForm() {
     e.preventDefault();
     const phoneDigits = contact.replace(/[^0-9]/g, '');
     const selectedSlots = selectedDays.flatMap((day) => (preferredSlots[day] ?? []).map((time) => `${day} ${time}`));
-    if (!name.trim() || !age || !gender || !contact.trim() || !major || !mediaExperience) {
+    if (!name.trim() || !age || !gender || !contact.trim() || !major || (!hideCoachingAvailability && !mediaExperience)) {
       setError('필수 항목을 모두 입력해주세요.');
       return;
     }
@@ -45,11 +53,11 @@ export default function ContactForm() {
       setError('연락처는 휴대전화 번호를 정확히 입력해주세요.');
       return;
     }
-    if (selectedSlots.length === 0) {
+    if (!hideCoachingAvailability && selectedSlots.length === 0) {
       setError('상담 희망 요일별로 시간을 한 개 이상 선택해주세요.');
       return;
     }
-    if (selectedDays.some((day) => (preferredSlots[day] ?? []).length === 0)) {
+    if (!hideCoachingAvailability && selectedDays.some((day) => (preferredSlots[day] ?? []).length === 0)) {
       setError('선택한 모든 요일에 상담 시간을 지정해주세요.');
       return;
     }
@@ -63,11 +71,12 @@ export default function ContactForm() {
           name,
           contact,
           message: [
+            ...(programLabel ? [`신청 프로그램: ${programLabel}`] : []),
             `나이: ${age}세`,
             `성별: ${gender}`,
-            `상담 희망: ${selectedSlots.join(', ')}`,
+            ...(!hideCoachingAvailability ? [`상담 희망: ${selectedSlots.join(', ')}`] : []),
             `연기 전공 여부: ${major}`,
-            `매체연기 경력(연극 제외): ${mediaExperience}`,
+            ...(!hideCoachingAvailability ? [`매체연기 경력(연극 제외): ${mediaExperience}`] : []),
           ].join('\n'),
           website,
           attribution: getAttribution(),
@@ -132,11 +141,11 @@ export default function ContactForm() {
         </strong>
         <a
           className={styles.formDoneButton}
-          href={KAKAO_URL}
+          href={kakaoInquiryUrl ?? KAKAO_URL}
           target="_blank"
           rel="noopener noreferrer"
         >
-          TRY앵글 카카오톡 채널 바로가기
+          {kakaoInquiryUrl ? '카카오톡 오픈채팅 바로가기' : 'TRY앵글 카카오톡 채널 바로가기'}
         </a>
       </div>
     );
@@ -189,7 +198,7 @@ export default function ContactForm() {
           inputMode="tel"
         />
       </div>
-      <div className={styles.formRow}>
+      <div className={hideCoachingAvailability ? styles.formRowSingle : styles.formRow}>
         <label className={styles.fieldLabel}>
           <span className={styles.fieldTitle}>연기 전공 여부</span>
           <select className={styles.input} value={major} onChange={(e) => setMajor(e.target.value)}>
@@ -198,17 +207,19 @@ export default function ContactForm() {
             <option value="비전공">비전공</option>
           </select>
         </label>
-        <label className={styles.fieldLabel}>
-          <span className={styles.fieldTitle}>매체연기 경력 <small>(연극 제외)</small></span>
-          <select className={styles.input} value={mediaExperience} onChange={(e) => setMediaExperience(e.target.value)}>
-            <option value="없음">없음</option>
-            <option value="1년 미만">1년 미만</option>
-            <option value="1–3년">1–3년</option>
-            <option value="4년 이상">4년 이상</option>
-          </select>
-        </label>
+        {!hideCoachingAvailability && (
+          <label className={styles.fieldLabel}>
+            <span className={styles.fieldTitle}>매체연기 경력 <small>(연극 제외)</small></span>
+            <select className={styles.input} value={mediaExperience} onChange={(e) => setMediaExperience(e.target.value)}>
+              <option value="없음">없음</option>
+              <option value="1년 미만">1년 미만</option>
+              <option value="1–3년">1–3년</option>
+              <option value="4년 이상">4년 이상</option>
+            </select>
+          </label>
+        )}
       </div>
-      <fieldset className={styles.choiceGroup}>
+      {!hideCoachingAvailability && <fieldset className={styles.choiceGroup}>
         <legend>
           상담 희망 요일·시간
           <br className={styles.brMobile} />
@@ -236,7 +247,7 @@ export default function ContactForm() {
           <span>오후</span>
           <div className={styles.timeGrid}>{renderTimeButtons(AFTERNOON_TIMES)}</div>
         </div>
-      </fieldset>
+      </fieldset>}
       <label className={styles.privacyAgree}>
         <input
           type="checkbox"
@@ -246,7 +257,9 @@ export default function ContactForm() {
         />
         <span>
           상담 신청을 위한 개인정보 수집·이용에 동의합니다.
-          <small>수집 항목: 이름, 연락처, 나이, 성별, 상담 희망 시간 등 · 이용 목적: 상담 일정 안내 및 연락</small>
+          <small>
+            수집 항목: 이름, 연락처, 나이, 성별{hideCoachingAvailability ? '' : ', 상담 희망 시간'} 등 · 이용 목적: 상담 일정 안내 및 연락
+          </small>
         </span>
       </label>
       {error && <p className={styles.formError}>{error}</p>}
@@ -255,7 +268,7 @@ export default function ContactForm() {
       </button>
       <a
         className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
-        href={KAKAO_URL}
+        href={kakaoInquiryUrl ?? KAKAO_URL}
         target="_blank"
         rel="noopener noreferrer"
       >
