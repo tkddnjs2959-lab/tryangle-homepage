@@ -15,6 +15,59 @@ Do not use local-only files such as `C:\Users\juaju\Desktop\AI\CLAUDE\TRYANGLE\P
 
 If another AI mentions `readme.mk`, treat it as a likely typo for `README.md` unless an actual `readme.mk` file exists.
 
+## Current Production State and Handoff
+Updated: 2026-11-08 (Korea Standard Time). This section describes the live production page and supersedes older homepage descriptions elsewhere in this historical README.
+
+### Source and deployment
+- GitHub source of truth: [`tkddnjs2959-lab/tryangle-homepage`](https://github.com/tkddnjs2959-lab/tryangle-homepage), branch `main`.
+- Vercel project: team `fsd11`, project `tryangle-homepage`.
+- Production URL: https://tryangle-official.co.kr/
+- Current production deployment after the booking selector change: `dpl_AVz78diTkumfgcZGWAiCZBAR5nAv`, READY; source commit `95014a5eba394e177d413059d33f49c8629be0c7`.
+- A newer documentation-only commit may trigger another Vercel deployment; use the latest READY production deployment in Vercel as the final status.
+- Always check GitHub `main` before changing files. This Windows checkout can be behind the live source.
+
+### Live page decisions
+- The root path `/` is JAU T / 주아쌤’s media acting lesson landing page. Do not restore Tryangle branding or the former homepage layout here.
+- The page uses a charcoal background (`#1e1d20`) and pink accents. `public/jua-t-logo.png` is a transparent PNG containing only the pink JAU T lettering.
+- Main heading: `주아쌤 매체연기 레슨`. Directly beneath it: `*본 레슨은 성인(만 19세 이상)만을 대상으로 합니다.`
+- Page order: lesson prices → trainer history → booking form. Keep the compact price presentation and existing page structure unless asked to redesign.
+- Pricing: 2:1, weekly once = monthly 4 classes, 60 minutes each, regular 300,000 KRW / discounted 120,000 KRW; 2:1, weekly twice = monthly 8 classes, 60 minutes each, regular 470,000 KRW / discounted 190,000 KRW; 1:1, weekly once = monthly 4 classes, 60 minutes each, 250,000 KRW.
+- Trainer history includes education, representative acting-coach history, and acting work. Keep the supplied profile photo and do not add related news.
+- Do not show reviews until the owner supplies review photos.
+- `/coaching` intentionally returns 404 and is noindex. The active coaching page is shown at `/`. The former character-positioning page is preserved at `/character-positioning` and is noindex.
+
+### Booking form
+- Form heading: `상담 예약`. Preserve its established fields and layout.
+- The form starts with two selectable tabs: `2:1 레슨` and `1:1 레슨`; 2:1 is selected by default. The chosen type is included in the inquiry message as `레슨 유형` and listed in the privacy collection notice.
+- The form has no gender field, includes a free-text preferred day/time field (example: `월요일 3시 이후, 금요일 6시`), and submits through the existing inquiry API.
+- Submit button: `상담 예약하기`. After submission, show:
+  `상담 예약이 접수되었습니다.`
+  `아래 버튼을 눌러 카카오톡에서 “상담 예약했어요”라고 메시지를 남겨주세요.`
+  `확인 후 방문상담 가능 일정을 안내해드리겠습니다.`
+- The completion button opens the Tryangle Kakao channel at https://pf.kakao.com/_mWxcMb.
+- Keep the floating `신청하기` shortcut available while scrolling.
+- UTM attribution is captured with inquiries. `click_kakao_consult` measures a click to Kakao only; it does not prove that a message or consultation occurred. Use distinct UTM values (especially `utm_content`) for ad variants.
+
+### Main source files
+- `src/app/page.tsx`: root metadata and the active coaching landing page.
+- `src/app/coaching/CoachingLanding.tsx`: page sections and booking form configuration.
+- `src/app/coaching/page.tsx`: intentionally disabled `/coaching` route.
+- `src/app/coaching/content.ts`: price and trainer-history content.
+- `src/app/coaching/coaching.module.css`: landing page and responsive layout.
+- `src/app/ContactForm.tsx`: booking form logic, lesson selection, inquiry payload, and Kakao links.
+- `src/app/page.module.css`: shared form styles, including the lesson selector.
+- `public/jua-t-logo.png`: transparent JAU T logo.
+
+### Continue on another computer
+1. Open the repository folder and run `git status --short`. Preserve any local edits before switching branches; do not hard-reset or overwrite them.
+2. Update from the canonical branch: `git fetch origin`, `git switch main`, then `git pull --ff-only origin main`.
+3. Read this section of `README.md` and `PROJECT_STATUS.md` before editing.
+4. Make only the requested change. Run `npm ci` if dependencies are missing and `npm run build` before release.
+5. Commit and push to `main`; check that Vercel built that same commit and reached READY. Update this handoff when a lasting design or behavior decision changes.
+
+Reusable start instruction:
+> 저장소의 `main`을 최신으로 동기화하고 README.md의 “Current Production State and Handoff”와 PROJECT_STATUS.md를 먼저 읽어줘. 기존 로컬 수정은 덮어쓰지 말고 보존해. 주아쌤 레슨 페이지는 루트 `/`에서 운영하며, 요청한 범위만 수정해. 완료 후 빌드 확인, GitHub main 반영, Vercel 운영 배포 READY 확인까지 진행하고, 지속적인 작업 내용은 두 기록 문서에도 업데이트해줘.
+
 ## Current Goal
 
 Build a zero-extra-cost analytics system that can grow from simple website analytics into a business dashboard.

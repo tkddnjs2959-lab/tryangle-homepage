@@ -1,62 +1,72 @@
-# Try앵글 홈페이지 작업 기준
+# 주아쌤 레슨 홈페이지 — 작업 기준
 
-최종 정리일: 2026-11-08 (한국 시간)
+최종 정리: 2026-11-08 (한국 시간)
 
-## 단일 기준
+## 기준 저장소와 배포
 
-- GitHub: `tkddnjs2959-lab/tryangle-homepage`
-- 작업 및 배포 기준 브랜치: `main`
-- Vercel 팀/프로젝트: `fsd11/tryangle-homepage`
-- 운영 주소: https://tryangle-official.co.kr
-- 주아쌤 레슨 홈페이지: https://tryangle-official.co.kr/
-- 기존 캐릭터 포지셔닝 페이지 보존 경로: https://tryangle-official.co.kr/character-positioning (noindex)
-- `/coaching` 경로는 임시 비활성화(404) 상태다. 코칭 화면 코드는 `src/app/coaching/CoachingLanding.tsx`에 보존해 두었다.
-- 이 문서와 `main`의 파일을 함께 작업 기준으로 사용한다. Vercel의 과거 배포본이나 다른 컴퓨터의 오래된 로컬 파일을 소스 기준으로 삼지 않는다.
+- GitHub: https://github.com/tkddnjs2959-lab/tryangle-homepage
+- 기준 브랜치: `main`
+- Vercel: 팀 `fsd11`, 프로젝트 `tryangle-homepage`
+- 운영 주소: https://tryangle-official.co.kr/
+- 현재 운영 배포: `dpl_AVz78diTkumfgcZGWAiCZBAR5nAv` (READY)
+- 가장 최신의 전체 인수인계 내용은 저장소의 README.md에서 `Current Production State and Handoff`를 확인한다. 이 문서는 핵심 요약이다.
 
-## 코칭 페이지 최종 요구 사항
+## 현재 페이지 상태
 
-- 홈페이지 루트에서 주아쌤 레슨 화면을 보여준다. 화면에 Try앵글 로고나 브랜드 문구를 추가하지 않는다.
-- 최상단 제목: `주아쌤 매체연기 레슨`.
-- 제목 바로 아래: `이 레슨은 성인 대상으로 합니다.`
-- 가격을 이력보다 먼저 배치한다. `수업료` 제목은 표시하지 않는다.
-- 가격은 `2:1 레슨`과 `1:1 레슨`으로 구역을 나눈다.
-- `2:1 레슨`의 `주 1회 레슨`: 월 총 4회, 회당 1시간, 정가 30만원, 월 할인가 12만원. 흰색 카드 배경.
-- `2:1 레슨`의 `주 2회 레슨`: 월 총 8회, 회당 1시간, 정가 47만원, 월 할인가 19만원. 짙은 네이비 카드 배경.
-- `1:1 레슨`의 `주 1회 레슨`: 월 총 4회, 회당 1시간, 월 25만원.
-- 횟수와 `회당 1시간 기준`은 각각 다른 줄에 표시한다.
-- `이력 사항`: 실제 코치 사진과 학력·연기트레이너 대표 이력·배우 활동을 표시한다. 관련 뉴스는 넣지 않는다. 이력 소단락 사이에는 여백을 둔다.
-- 상담 영역 제목은 `상담 예약`. 코칭 폼은 매체연기 경력을 묻지 않고, 희망 요일·시간을 자유롭게 작성할 수 있게 한다. 성별 항목은 숨긴다. 메인 페이지의 공용 폼은 별도로 유지한다.
-- 코칭 페이지의 카카오톡 문의와 접수 완료 후 이동 주소는 https://pf.kakao.com/_mWxcMb 이다.
-- 카카오톡 이동 버튼은 `click_kakao_consult` 이벤트를 보내며 광고 유입 UTM과 버튼 위치를 함께 기록한다. 이 이벤트는 카카오톡 채팅 시작이 아니라 외부 이동 클릭을 뜻한다.
-- 신청하기 버튼은 스크롤 중에도 접근 가능해야 한다.
-- 루트 홈페이지는 검색 가능하게 두고, `/coaching`은 비활성화해 검색되지 않도록 한다. 코칭 화면은 루트에서 사용하며, 코드를 지우지 않는다.
-- 사진 리뷰는 실제 자료를 받은 뒤 추가한다. 현재는 리뷰 섹션을 표시하지 않는다.
-- 모바일에서는 가격 카드가 세로로 쌓이고 긴 이력 문구가 넘치지 않도록 줄바꿈한다.
+- `/`가 주아쌤 매체연기 레슨 페이지다. Try앵글 브랜딩이나 예전 홈페이지 구성을 루트에 되살리지 않는다.
+- 제목: `주아쌤 매체연기 레슨`
+- 제목 아래 성인 안내: `*본 레슨은 성인(만 19세 이상)만을 대상으로 합니다.`
+- 디자인: 차콜 배경 `#1e1d20`, 핑크 강조색. `public/jua-t-logo.png`는 글자만 남긴 투명 로고다.
+- 섹션 순서: 가격 → 이력 사항 → 상담 예약.
+- 리뷰 사진은 자료를 받은 뒤 추가한다.
+- `/coaching`은 404/noindex로 비활성화되어 있다. 실제 코칭 페이지는 루트에 표시한다.
+- `/character-positioning`은 기존 페이지 보존 경로이며 noindex.
+
+## 가격과 이력
+
+- 2:1 주 1회: 월 4회, 회당 1시간, 정가 30만원, 할인가 12만원.
+- 2:1 주 2회: 월 8회, 회당 1시간, 정가 47만원, 할인가 19만원.
+- 1:1 주 1회: 월 4회, 회당 1시간, 25만원.
+- 이력은 학력, 연기트레이너 대표 이력, 배우 활동으로 구성한다. 기존 사진과 문구를 유지하고 관련 뉴스는 추가하지 않는다.
+
+## 상담 예약 폼
+
+- `2:1 레슨` / `1:1 레슨` 선택 탭이 있다. 기본값은 2:1이다.
+- 선택한 유형은 신청 메시지의 `레슨 유형` 항목에 저장되며 개인정보 수집 안내에도 포함된다.
+- 성별 선택은 숨기고, 희망 요일·시간은 직접 입력한다. 예시: `월요일 3시 이후, 금요일 6시`.
+- 제출 버튼은 `상담 예약하기`.
+- 접수 후 문구:
+  - 상담 예약이 접수되었습니다.
+  - 아래 버튼을 눌러 카카오톡에서 “상담 예약했어요”라고 메시지를 남겨주세요.
+  - 확인 후 방문상담 가능 일정을 안내해드리겠습니다.
+- 접수 완료 카카오톡 주소: https://pf.kakao.com/_mWxcMb
+- 우측 고정 `신청하기` 버튼을 유지한다.
+- 카카오 버튼의 `click_kakao_consult`는 링크 클릭만 뜻한다. 실제 카카오 메시지나 상담 완료로 해석하지 않는다. 신청 유입의 UTM은 함께 저장한다.
 
 ## 주요 파일
 
-- `src/app/page.tsx`: 루트 홈페이지에서 주아쌤 레슨 화면을 표시
-- `src/app/coaching/CoachingLanding.tsx`: 코칭 랜딩페이지 구성과 화면 문구
-- `src/app/coaching/page.tsx`: 임시 비활성화된 `/coaching` 경로
-- `public/jua-t-logo.png`: 주아쌤 로고, 페이지 및 공유 미리보기 이미지
-- `src/app/coaching/coaching.module.css`: 코칭 페이지 디자인과 모바일 배치
-- `src/app/coaching/content.ts`: 이력과 가격 데이터
-- `src/app/ContactForm.tsx`: 공용 신청 폼, 코칭 전용 선택 항목과 카카오톡 주소 처리
-- `src/app/page.module.css`: 공용 폼 스타일
+- `src/app/page.tsx`: 홈페이지 루트와 메타데이터
+- `src/app/coaching/CoachingLanding.tsx`: 페이지 섹션 및 폼 설정
+- `src/app/coaching/page.tsx`: 비활성화된 /coaching 경로
+- `src/app/coaching/content.ts`: 가격 및 이력 데이터
+- `src/app/coaching/coaching.module.css`: 랜딩페이지와 반응형 디자인
+- `src/app/ContactForm.tsx`: 폼과 레슨 유형 선택, 신청 데이터
+- `src/app/page.module.css`: 공용 폼과 탭 디자인
+- `public/jua-t-logo.png`: 투명 JAU T 로고
 
-## 다른 컴퓨터에서 이어서 작업하기
+## 다른 컴퓨터에서 작업 재개
 
-1. 기존 로컬 변경이 있으면 먼저 별도 브랜치에 커밋하거나 파일을 백업한다.
-2. 저장소에서 `git fetch origin` 후 `git switch main`과 `git pull --ff-only origin main`을 실행한다.
-3. `PROJECT_STATUS.md`를 읽고 수정할 페이지와 요구 사항을 확인한다.
-4. 작업 후 변경 파일을 확인하고 `npm run build`로 배포 가능 여부를 확인한다.
-5. `main`에 커밋하고 `git push origin main`으로 올린다. 배포된 버전과 GitHub 소스가 같은 커밋을 가리키는지 확인한다.
+1. 로컬 변경을 확인하고 보존한다: `git status --short`. 로컬 변경을 무조건 초기화하거나 삭제하지 않는다.
+2. 공식 저장소의 `main`을 가져온다: `git fetch origin`, `git switch main`, `git pull --ff-only origin main`.
+3. README.md의 `Current Production State and Handoff`와 이 파일을 읽는다.
+4. 필요한 범위만 수정하고 `npm run build`로 빌드를 확인한다.
+5. GitHub `main`에 반영하고 Vercel에서 동일 커밋의 운영 배포가 READY인지 확인한다.
+6. 오래 지속될 디자인/문구/동작 변경은 README.md와 이 파일에 함께 기록한다.
 
-작업 요청 예시: “`main`을 최신으로 가져오고 `PROJECT_STATUS.md`를 읽은 뒤 코칭 페이지 작업을 이어가줘. 기존 변경을 먼저 보존하고, 최종 결과를 GitHub에 커밋·푸시해줘.”
+새 컴퓨터에서 시작할 때 사용할 지시:
+> tryangle-homepage 저장소의 main을 최신으로 동기화하고 README.md의 “Current Production State and Handoff”와 PROJECT_STATUS.md를 읽어줘. 기존 로컬 변경은 보존하고 덮어쓰지 마. 주아쌤 레슨 페이지는 루트 / 에서 운영 중이니 요청 범위만 수정해. 작업 후 빌드 확인, main 반영, Vercel 운영 배포 READY 확인, 두 작업 기록 문서 업데이트까지 진행해줘.
 
-## 복구 기록
+## 복구 기준
 
-- 이전 화면으로 돌아간 원인: 코칭 페이지 최종 수정이 별도 복구 브랜치에 있었고, 다른 컴퓨터에서는 `main`의 다른 코드로 배포했다.
-- 마지막으로 확인된 코칭 페이지 배포: Vercel `dpl_GHqfDqG1WxaGy8qqMcLD4fsBMCSF`.
-- 정리 전 `main`은 `archive/main-before-final-2026-11-08`에 보관했다.
-- 과거 실패 배포와 보관 브랜치는 운영 기준이 아니다. 복구나 비교가 필요한 경우에만 참조한다.
+- 이전에 다른 컴퓨터에서 예전 화면으로 덮인 일이 있었으므로 과거 Vercel 배포를 소스 기준으로 삼지 않는다.
+- 현재의 GitHub `main`이 유일한 코드 기준이다. 복구가 필요하면 먼저 GitHub main을 확인하고, 오래된 별도 브랜치나 실패 배포로 main을 되돌리지 않는다.
