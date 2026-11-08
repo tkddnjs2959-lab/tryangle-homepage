@@ -21,7 +21,7 @@ export const metadata = {
 export default function CoachingPage() {
   return (
     <>
-      <main className={`${pageStyles.page} ${styles.themePage}`} data-coaching-theme="dark">
+      <main className={`${pageStyles.page} ${styles.themePage}`} data-coaching-theme="light">
         <section className={`${pageStyles.hero} ${styles.coachHero}`}>
           <h1 className={styles.coachTitle}>주아쌤의 2:1 매체연기 수업</h1>
           <p className={styles.audienceNote}>*본 레슨은 성인(만 19세 이상)만을 대상으로 합니다.</p>
@@ -102,12 +102,10 @@ export default function CoachingPage() {
         {/* ---------- 메인 페이지와 동일한 신청 폼 ---------- */}
         <section id="consultation" className={`${pageStyles.sheet} ${styles.applicationSection}`}>
           <h2 className={pageStyles.h2}>레슨 예약</h2>
-          <p className={pageStyles.body}>
-            예약 내용을 확인한 뒤 수업 가능 일정과 진행 방법을 안내해드립니다.
-          </p>
           <ContactForm
             programLabel="주아쌤의 2:1 매체연기 수업"
             hideCoachingAvailability
+            hideGender
             bookingMode
             kakaoInquiryUrl="https://pf.kakao.com/_mWxcMb"
           />

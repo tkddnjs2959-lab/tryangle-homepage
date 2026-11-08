@@ -17,11 +17,13 @@ const AFTERNOON_TIMES = TIMES.filter((time) => Number(time.slice(0, 2)) >= 12);
 export default function ContactForm({
   programLabel,
   hideCoachingAvailability = false,
+  hideGender = false,
   bookingMode = false,
   kakaoInquiryUrl,
 }: {
   programLabel?: string;
   hideCoachingAvailability?: boolean;
+  hideGender?: boolean;
   bookingMode?: boolean;
   kakaoInquiryUrl?: string;
 } = {}) {
@@ -44,7 +46,7 @@ export default function ContactForm({
     e.preventDefault();
     const phoneDigits = contact.replace(/[^0-9]/g, '');
     const selectedSlots = selectedDays.flatMap((day) => (preferredSlots[day] ?? []).map((time) => `${day} ${time}`));
-    if (!name.trim() || !age || !gender || !contact.trim() || !major || (!hideCoachingAvailability && !mediaExperience)) {
+    if (!name.trim() || !age || (!hideGender && !gender) || !contact.trim() || !major || (!hideCoachingAvailability && !mediaExperience)) {
       setError('필수 항목을 모두 입력해주세요.');
       return;
     }
@@ -76,7 +78,7 @@ export default function ContactForm({
           message: [
             ...(programLabel ? [`신청 프로그램: ${programLabel}`] : []),
             `나이: ${age}세`,
-            `성별: ${gender}`,
+            ...(!hideGender ? [`성별: ${gender}`] : []),
             ...(bookingMode && bookingPreference.trim() ? [`희망 요일·시간: ${bookingPreference.trim()}`] : []),
             ...(!hideCoachingAvailability ? [`상담 희망: ${selectedSlots.join(', ')}`] : []),
             `연기 전공 여부: ${major}`,
@@ -186,12 +188,14 @@ export default function ContactForm({
           inputMode="numeric"
         />
       </div>
-      <div className={styles.formRow}>
-        <select className={styles.input} value={gender} onChange={(e) => setGender(e.target.value)}>
-          <option value="">성별 선택</option>
-          <option value="여">여</option>
-          <option value="남">남</option>
-        </select>
+      <div className={hideGender ? styles.formRowSingle : styles.formRow}>
+        {!hideGender && (
+          <select className={styles.input} value={gender} onChange={(e) => setGender(e.target.value)}>
+            <option value="">성별 선택</option>
+            <option value="여">여</option>
+            <option value="남">남</option>
+          </select>
+        )}
         <input
           className={styles.input}
           type="tel"
@@ -275,13 +279,13 @@ export default function ContactForm({
         <span>
           {bookingMode ? '레슨 예약' : '상담 신청'}을 위한 개인정보 수집·이용에 동의합니다.
           <small>
-            수집 항목: 이름, 연락처, 나이, 성별{bookingMode ? ', 희망 요일·시간' : hideCoachingAvailability ? '' : ', 상담 희망 시간'} 등 · 이용 목적: 상담 일정 안내 및 연락
+            수집 항목: 이름, 연락처, 나이{hideGender ? '' : ', 성별'}{bookingMode ? ', 희망 요일·시간' : hideCoachingAvailability ? '' : ', 상담 희망 시간'} 등 · 이용 목적: 상담 일정 안내 및 연락
           </small>
         </span>
       </label>
       {error && <p className={styles.formError}>{error}</p>}
       <button className={styles.formSubmit} type="submit" disabled={state === 'sending'}>
-        {state === 'sending' ? '접수 중…' : bookingMode ? '레슨 예약하기' : '상담 신청하기'}
+        {state === 'sending' ? '접수 중…' : bookingMode ? '수업 예약하기' : '상담 신청하기'}
       </button>
       <a
         className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
