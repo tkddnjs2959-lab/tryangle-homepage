@@ -81,6 +81,7 @@ export default function CoachingPage() {
           <ContactForm
             formName="coaching_lesson_booking"
             successPlacement="coaching_lesson_booking_success"
+            consultationLabel="레슨 예약"
             programLabel="주아쌤의 매체연기 레슨"
             kakaoUrl={KAKAO_CHANNEL_PROFILE_URL}
           />
