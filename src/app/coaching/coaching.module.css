@@ -68,3 +68,30 @@
 .faqItem:first-child { border-top: none; padding-top: 0; }
 .faqQ { font-size: 14.5px; font-weight: 800; color: var(--ink); margin: 0 0 6px; }
 .faqA { font-size: 13.5px; line-height: 1.7; color: var(--sub); margin: 0; }
+
+.audienceNote {
+  margin: 14px 0 0;
+  color: #44536b;
+  font-size: 15px;
+  font-weight: 700;
+}
+.pricingHeading {
+  margin: 0 0 20px;
+  color: #12233e;
+  font-size: 23px;
+  font-weight: 900;
+  text-align: left;
+}
+.priceGroups { display: grid; gap: 22px; text-align: left; }
+.priceGroup { padding: 18px; border: 1px solid #d9e0eb; border-radius: 12px; background: #fff; }
+.priceGroupOne { padding: 18px; border: 1px solid #1758dc; border-radius: 12px; background: #f0f5ff; }
+.groupHeading { margin: 0 0 14px; color: #12233e; font-size: 17px; font-weight: 900; }
+.individualPrice { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #44536b; }
+.individualPrice b { color: #1758dc; font-size: 24px; font-weight: 900; }
+@media (max-width: 560px) {
+  .audienceNote { font-size: 13px; }
+  .pricingHeading { font-size: 20px; }
+  .priceGroup, .priceGroupOne { padding: 14px 12px; }
+  .individualPrice { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .individualPrice b { font-size: 22px; }
+}
