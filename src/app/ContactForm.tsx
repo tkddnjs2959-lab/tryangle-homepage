@@ -13,6 +13,7 @@ import TurnstileWidget from './TurnstileWidget';
 import { KAKAO_CHANNEL_CHAT_URL } from '@/lib/external-links';
 
 const DAYS = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+const KAKAO_URL = KAKAO_CHANNEL_CHAT_URL;
 const TIMES = Array.from({ length: 12 }, (_, index) => {
   const totalMinutes = 10 * 60 + index * 60;
   const hour = String(Math.floor(totalMinutes / 60)).padStart(2, '0');
@@ -32,16 +33,9 @@ function createSubmissionId() {
 type ContactFormProps = {
   formName?: string;
   successPlacement?: string;
-  kakaoUrl?: string;
-  consultationLabel?: string;
 };
 
-export default function ContactForm({
-  formName = 'contact_form',
-  successPlacement = 'contact_form_success',
-  kakaoUrl = KAKAO_CHANNEL_CHAT_URL,
-  consultationLabel = '상담 신청',
-}: ContactFormProps) {
+export default function ContactForm({ formName = 'contact_form', successPlacement = 'contact_form_success' }: ContactFormProps) {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
@@ -215,10 +209,10 @@ export default function ContactForm({
   if (state === 'done') {
     return (
       <div className={styles.formDone}>
-        <strong>{consultationLabel}이 접수되었습니다.</strong>
+        <strong>상담 신청이 접수되었습니다.</strong>
         <strong className={styles.formDoneMessage}>
           아래 버튼을 눌러 카카오톡에서<br />
-          “{consultationLabel}했어요”라고 메시지를 남겨주세요.
+          “상담 신청했어요”라고 메시지를 남겨주세요.
           <br />
           확인 후
           <br />
@@ -228,7 +222,7 @@ export default function ContactForm({
         </strong>
         <TrackedLink
           className={styles.formDoneButton}
-          href={kakaoUrl}
+          href={KAKAO_URL}
           target="_blank"
           rel="noopener noreferrer"
           eventName="click_kakao_consult"
@@ -349,7 +343,7 @@ export default function ContactForm({
           required
         />
         <span>
-          {consultationLabel}을 위한 개인정보 수집·이용에 동의합니다.
+          상담 신청을 위한 개인정보 수집·이용에 동의합니다.
           <small>
             수집 항목: 이름, 연락처, 나이, 성별, 상담 희망 시간 등 ·
             <br className={styles.brMobile} /> 이용 목적: 상담 일정 안내 및 연락
@@ -364,11 +358,11 @@ export default function ContactForm({
         disabled={state === 'sending'}
         onClick={() => trackEvent('click_consultation_submit', { form: formName })}
       >
-        {state === 'sending' ? '접수 중…' : `${consultationLabel}하기`}
+        {state === 'sending' ? '접수 중…' : '상담 신청하기'}
       </button>
       <TrackedLink
         className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
-        href={kakaoUrl}
+        href={KAKAO_URL}
         target="_blank"
         rel="noopener noreferrer"
         eventName="click_kakao_consult"

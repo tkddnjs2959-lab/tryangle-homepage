@@ -5,10 +5,9 @@ import pageStyles from '../page.module.css';
 import TrackedLink from '../TrackedLink';
 import styles from './coaching.module.css';
 import { BENEFITS, COACHING_AREAS, DIFFERENCE_FROM_GROUP_CLASS, FAQ, PRICING, TRAINER } from './content';
-import ContactForm from '../ContactForm';
-import { KAKAO_CHANNEL_PROFILE_URL } from '@/lib/external-links';
+import { KAKAO_CHANNEL_CHAT_URL } from '@/lib/external-links';
 
-const KAKAO_URL = KAKAO_CHANNEL_PROFILE_URL;
+const KAKAO_URL = KAKAO_CHANNEL_CHAT_URL;
 
 /** 콘텐츠 문자열의 '\n' 을 모바일에서만 줄바꿈으로 바꾼다 (데스크톱은 한 줄로 이어짐). */
 function mobileLines(text: string) {
@@ -65,8 +64,7 @@ export default function CoachingPage() {
         {/* ---------- 히어로 ---------- */}
         <section className={pageStyles.hero}>
           <span className={styles.exclusiveTag}>캐릭터 포지셔닝 클래스 수료생 전용</span>
-          <h1 className={pageStyles.h1}>주아쌤의 매체연기 레슨</h1>
-          <p className={pageStyles.heroLead}>이 레슨은 성인만을 대상으로 합니다.</p>
+          <h1 className={pageStyles.h1}>1:1 매체연기 코칭</h1>
           <p className={pageStyles.heroLead}>
             TRY앵글 1:1 매체연기 코칭은
             <br />
@@ -229,7 +227,6 @@ export default function CoachingPage() {
           <div className={styles.priceGrid}>
             {PRICING.map((p) => (
               <div key={p.freq} className={styles.priceCard}>
-                <strong>{p.lesson}</strong>
                 <span>{p.freq}</span>
                 <b>{p.price}</b>
               </div>
@@ -271,18 +268,32 @@ export default function CoachingPage() {
           </section>
         )}
 
-        {/* ---------- 상담 예약 ---------- */}
-        <section id="consultation" className={pageStyles.sheet}>
-          <h2 className={pageStyles.h2}>상담 예약</h2>
+        {/* ---------- 신청 방법 ---------- */}
+        <section className={pageStyles.sheet}>
+          <h2 className={pageStyles.h2}>신청 방법</h2>
           <p className={pageStyles.body}>
-            상담을 원하는 요일과 시간을 선택해 주세요. 접수 후 상담 일정을 안내해 드립니다.
+            1:1 매체연기 코칭에 관심 있으신 분들은{' '}
+            <br className={styles.brM} />
+            카카오톡 채널을 통해
+            <br />
+            &lsquo;개인 레슨 신청 희망&rsquo;이라고 메시지를 남겨주세요.
           </p>
-          <ContactForm
-            formName="coaching_consultation"
-            successPlacement="coaching_consultation_success"
-            consultationLabel="상담 예약"
-            kakaoUrl={KAKAO_URL}
-          />
+          <p className={pageStyles.body}>
+            신청해주신 배우분들에 한해 개별 상담을 진행하며,
+            <br />
+            현재 연기 역량과 목표를 바탕으로 코칭 방향 및 일정을 함께 조율합니다.
+          </p>
+
+          <TrackedLink
+            className={`${pageStyles.kakaoBtn} ${pageStyles.kakaoBtnWide}`}
+            href={KAKAO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            eventName="click_kakao_consult"
+            eventParams={{ placement: 'coaching_application_section' }}
+          >
+            TRY앵글 공식 카카오톡 채널 바로가기
+          </TrackedLink>
         </section>
       </main>
 
