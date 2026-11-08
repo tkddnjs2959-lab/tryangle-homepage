@@ -13,6 +13,11 @@ export const metadata: Metadata = {
     siteName: 'TRYANGLE',
     images: [{ url: '/logo.jpg', width: 512, height: 512 }],
   },
+  icons: {
+    icon: '/jua-t-logo.png',
+    shortcut: '/jua-t-logo.png',
+    apple: '/jua-t-logo.png',
+  },
   title: 'TRY앵글 — 배우 퍼스널 브랜딩',
   description: '배우를 위한 퍼스널 브랜딩 · 캐릭터 분석',
 };

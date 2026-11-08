@@ -38,6 +38,7 @@
 - `src/app/page.tsx`: 루트 홈페이지에서 주아쌤 레슨 화면을 표시
 - `src/app/coaching/CoachingLanding.tsx`: 코칭 랜딩페이지 구성과 화면 문구
 - `src/app/coaching/page.tsx`: 임시 비활성화된 `/coaching` 경로
+- `public/jua-t-logo.png`: 주아쌤 로고, 페이지 및 공유 미리보기 이미지
 - `src/app/coaching/coaching.module.css`: 코칭 페이지 디자인과 모바일 배치
 - `src/app/coaching/content.ts`: 이력과 가격 데이터
 - `src/app/ContactForm.tsx`: 공용 신청 폼, 코칭 전용 선택 항목과 카카오톡 주소 처리

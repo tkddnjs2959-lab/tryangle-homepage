@@ -10,6 +10,15 @@ export default function CoachingPage() {
     <>
       <main className={`${pageStyles.page} ${styles.themePage}`} data-coaching-theme="dark">
         <section className={`${pageStyles.hero} ${styles.coachHero}`}>
+          <Image
+            src="/jua-t-logo.png"
+            alt="JAU T 주아쌤 로고"
+            width={1240}
+            height={1240}
+            sizes="(max-width: 560px) 190px, 248px"
+            className={styles.coachLogo}
+            priority
+          />
           <h1 className={styles.coachTitle}>주아쌤 매체연기 레슨</h1>
           <p className={styles.audienceNote}>*본 레슨은 성인(만 19세 이상)만을 대상으로 합니다.</p>
         </section>
