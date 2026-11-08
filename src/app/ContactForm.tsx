@@ -20,12 +20,14 @@ export default function ContactForm({
   hideCoachingAvailability = false,
   hideGender = false,
   bookingMode = false,
+  lessonTypeSelection = false,
   kakaoInquiryUrl,
 }: {
   programLabel?: string;
   hideCoachingAvailability?: boolean;
   hideGender?: boolean;
   bookingMode?: boolean;
+  lessonTypeSelection?: boolean;
   kakaoInquiryUrl?: string;
 } = {}) {
   const [name, setName] = useState('');
@@ -38,6 +40,7 @@ export default function ContactForm({
   const [major, setMajor] = useState('');
   const [mediaExperience, setMediaExperience] = useState('없음');
   const [bookingPreference, setBookingPreference] = useState('');
+  const [lessonType, setLessonType] = useState<'2:1' | '1:1'>('2:1');
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [website, setWebsite] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
@@ -78,6 +81,7 @@ export default function ContactForm({
           contact,
           message: [
             ...(programLabel ? [`신청 프로그램: ${programLabel}`] : []),
+            ...(lessonTypeSelection ? [`레슨 유형: ${lessonType}`] : []),
             `나이: ${age}세`,
             ...(!hideGender ? [`성별: ${gender}`] : []),
             ...(bookingMode && bookingPreference.trim() ? [`희망 요일·시간: ${bookingPreference.trim()}`] : []),
@@ -172,6 +176,21 @@ export default function ContactForm({
         autoComplete="off"
         aria-hidden="true"
       />
+      {bookingMode && lessonTypeSelection && (
+        <div className={styles.lessonTypeTabs} role="group" aria-label="레슨 유형 선택">
+          {(['2:1', '1:1'] as const).map((type) => (
+            <button
+              type="button"
+              key={type}
+              aria-pressed={lessonType === type}
+              className={styles.lessonTypeTab + (lessonType === type ? ' ' + styles.lessonTypeTabActive : '')}
+              onClick={() => setLessonType(type)}
+            >
+              {type} 레슨
+            </button>
+          ))}
+        </div>
+      )}
       <div className={styles.formRow}>
         <input
           className={styles.input}
@@ -282,7 +301,7 @@ export default function ContactForm({
         <span>
           {bookingMode ? '레슨 예약' : '상담 신청'}을 위한 개인정보 수집·이용에 동의합니다.
           <small>
-            수집 항목: 이름, 연락처, 나이{hideGender ? '' : ', 성별'}{bookingMode ? ', 희망 요일·시간' : hideCoachingAvailability ? '' : ', 상담 희망 시간'} 등 · 이용 목적: 상담 일정 안내 및 연락
+            수집 항목: 이름, 연락처, 나이{hideGender ? '' : ', 성별'}{lessonTypeSelection ? ', 레슨 유형' : ''}{bookingMode ? ', 희망 요일·시간' : hideCoachingAvailability ? '' : ', 상담 희망 시간'} 등 · 이용 목적: 상담 일정 안내 및 연락
           </small>
         </span>
       </label>

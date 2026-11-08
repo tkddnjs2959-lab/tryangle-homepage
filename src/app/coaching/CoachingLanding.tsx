@@ -103,6 +103,7 @@ export default function CoachingPage() {
             hideCoachingAvailability
             hideGender
             bookingMode
+            lessonTypeSelection
             kakaoInquiryUrl="https://pf.kakao.com/_mWxcMb"
           />
         </section>

@@ -519,6 +519,34 @@
 :global([data-coaching-theme="dark"]) .privacyAgree { font-size: 13px; font-weight: 600; }
 :global([data-coaching-theme="dark"]) .privacyAgree small { font-size: 12px; }
 
+/* 상담 예약 레슨 유형 선택 탭 */
+.lessonTypeTabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--sky-bg);
+}
+.lessonTypeTab {
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.lessonTypeTab:focus-visible { outline: 2px solid var(--sky-dot); outline-offset: 2px; }
+.lessonTypeTabActive { background: var(--navy); color: #fff; }
+:global([data-coaching-theme="dark"]) .lessonTypeTabs { background: #242226; border-color: #555158; }
+:global([data-coaching-theme="dark"]) .lessonTypeTab { color: #f7f5f7; }
+:global([data-coaching-theme="dark"]) .lessonTypeTabActive { background: #e99bc9; border-color: #e99bc9; color: #211d22; }
+
 /* ================= 푸터 ================= */
 .footer {
   max-width: 860px;
