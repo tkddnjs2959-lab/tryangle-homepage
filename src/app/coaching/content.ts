@@ -43,8 +43,9 @@ export const COACHING_AREAS = [
 ];
 
 export const PRICING = [
-  { freq: '월 2회 (격주)', price: '18만원' },
-  { freq: '월 4회 (주 1회)', price: '30만원' },
+  { lesson: '2:1 소규모 레슨', freq: '월 2회 (격주)', price: '18만원' },
+  { lesson: '2:1 소규모 레슨', freq: '월 4회 (주 1회)', price: '30만원' },
+  { lesson: '1:1 개인레슨', freq: '주 1회', price: '25만원' },
 ];
 
 /** 원고 준비되면 채우기. 비어있으면 섹션이 렌더링되지 않는다. */
