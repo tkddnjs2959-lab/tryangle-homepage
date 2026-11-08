@@ -33,10 +33,18 @@ function createSubmissionId() {
 type ContactFormProps = {
   formName?: string;
   successPlacement?: string;
+  programLabel?: string;
+  consultationLabel?: string;
   kakaoUrl?: string;
 };
 
-export default function ContactForm({ formName = 'contact_form', successPlacement = 'contact_form_success', kakaoUrl = KAKAO_URL }: ContactFormProps) {
+export default function ContactForm({
+  formName = 'contact_form',
+  successPlacement = 'contact_form_success',
+  programLabel,
+  consultationLabel = '상담 신청',
+  kakaoUrl = KAKAO_URL,
+}: ContactFormProps) {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
@@ -108,6 +116,7 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
           name,
           contact,
           message: [
+            ...(programLabel ? [`신청 프로그램: ${programLabel}`] : []),
             `나이: ${age}세`,
             `성별: ${gender}`,
             `상담 희망: ${selectedSlots.join(', ')}`,
@@ -210,10 +219,10 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
   if (state === 'done') {
     return (
       <div className={styles.formDone}>
-        <strong>상담 신청이 접수되었습니다.</strong>
+        <strong>{consultationLabel}이 접수되었습니다.</strong>
         <strong className={styles.formDoneMessage}>
           아래 버튼을 눌러 카카오톡에서<br />
-          “상담 신청했어요”라고 메시지를 남겨주세요.
+          “{consultationLabel}했어요”라고 메시지를 남겨주세요.
           <br />
           확인 후
           <br />
@@ -344,7 +353,7 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
           required
         />
         <span>
-          상담 신청을 위한 개인정보 수집·이용에 동의합니다.
+          {consultationLabel}을 위한 개인정보 수집·이용에 동의합니다.
           <small>
             수집 항목: 이름, 연락처, 나이, 성별, 상담 희망 시간 등 ·
             <br className={styles.brMobile} /> 이용 목적: 상담 일정 안내 및 연락
@@ -359,7 +368,7 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
         disabled={state === 'sending'}
         onClick={() => trackEvent('click_consultation_submit', { form: formName })}
       >
-        {state === 'sending' ? '접수 중…' : '상담 신청하기'}
+        {state === 'sending' ? '접수 중…' : `${consultationLabel}하기`}
       </button>
       <TrackedLink
         className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
