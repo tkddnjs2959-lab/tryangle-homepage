@@ -33,9 +33,10 @@ function createSubmissionId() {
 type ContactFormProps = {
   formName?: string;
   successPlacement?: string;
+  kakaoUrl?: string;
 };
 
-export default function ContactForm({ formName = 'contact_form', successPlacement = 'contact_form_success' }: ContactFormProps) {
+export default function ContactForm({ formName = 'contact_form', successPlacement = 'contact_form_success', kakaoUrl = KAKAO_URL }: ContactFormProps) {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
@@ -222,7 +223,7 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
         </strong>
         <TrackedLink
           className={styles.formDoneButton}
-          href={KAKAO_URL}
+          href={kakaoUrl}
           target="_blank"
           rel="noopener noreferrer"
           eventName="click_kakao_consult"
@@ -362,7 +363,7 @@ export default function ContactForm({ formName = 'contact_form', successPlacemen
       </button>
       <TrackedLink
         className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
-        href={KAKAO_URL}
+        href={kakaoUrl}
         target="_blank"
         rel="noopener noreferrer"
         eventName="click_kakao_consult"
