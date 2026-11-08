@@ -68,3 +68,28 @@
 .faqItem:first-child { border-top: none; padding-top: 0; }
 .faqQ { font-size: 14.5px; font-weight: 800; color: var(--ink); margin: 0 0 6px; }
 .faqA { font-size: 13.5px; line-height: 1.7; color: var(--sub); margin: 0; }
+
+.audienceNote {
+  margin: 10px 0 0;
+  color: var(--sub);
+  font-size: 15px;
+  font-weight: 700;
+}
+.priceGroups { display: grid; gap: 16px; }
+.priceGroup, .individualPriceCard {
+  padding: 20px;
+  border: 1px solid var(--sky-line);
+  border-radius: 12px;
+  background: #fff;
+}
+.individualPriceCard { border-color: #1758dc; background: #f0f5ff; }
+.groupHeading { margin: 0 0 12px; color: var(--navy); font-size: 17px; font-weight: 900; }
+.individualPrice { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--sub); }
+.individualPrice b { color: #1758dc; font-size: 24px; font-weight: 900; }
+.priceGroup .priceGrid { margin-top: 0; }
+@media (max-width: 560px) {
+  .audienceNote { font-size: 13px; }
+  .priceGroup, .individualPriceCard { padding: 16px 14px; }
+  .individualPrice { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .individualPrice b { font-size: 22px; }
+}
