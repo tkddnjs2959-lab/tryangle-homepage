@@ -6,3 +6,6 @@
  * 사이트 내부 이벤트로만 처리한다.
  */
 export const KAKAO_CHANNEL_CHAT_URL = 'https://pf.kakao.com/_mWxcMb/chat';
+
+/** 코칭 레슨 예약 및 완료 안내에서 쓰는 TRY앵글 공식 채널 프로필. */
+export const KAKAO_CHANNEL_PROFILE_URL = 'https://pf.kakao.com/_mWxcMb';
