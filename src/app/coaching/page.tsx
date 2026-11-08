@@ -81,6 +81,7 @@ export default function CoachingPage() {
             formName="coaching_lesson_booking"
             successPlacement="coaching_lesson_booking_success"
             programLabel="주아쌤의 매체연기 레슨"
+            kakaoUrl="https://pf.kakao.com/_mWxcMb"
           />
         </section>
       </main>
