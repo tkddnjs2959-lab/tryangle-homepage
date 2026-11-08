@@ -10,7 +10,7 @@ export default function CoachingPage() {
     <>
       <main className={`${pageStyles.page} ${styles.themePage}`} data-coaching-theme="dark">
         <section className={`${pageStyles.hero} ${styles.coachHero}`}>
-          <h1 className={styles.coachTitle}>주아쌤의 2:1 매체연기 수업</h1>
+          <h1 className={styles.coachTitle}>주아쌤 매체연기 레슨</h1>
           <p className={styles.audienceNote}>*본 레슨은 성인(만 19세 이상)만을 대상으로 합니다.</p>
         </section>
         {/* ---------- 레슨별 수강료 ---------- */}
@@ -88,9 +88,9 @@ export default function CoachingPage() {
 
         {/* ---------- 메인 페이지와 동일한 신청 폼 ---------- */}
         <section id="consultation" className={`${pageStyles.sheet} ${styles.applicationSection}`}>
-          <h2 className={pageStyles.h2}>레슨 예약</h2>
+          <h2 className={pageStyles.h2}>상담 예약</h2>
           <ContactForm
-            programLabel="주아쌤의 2:1 매체연기 수업"
+            programLabel="주아쌤 매체연기 레슨"
             hideCoachingAvailability
             hideGender
             bookingMode

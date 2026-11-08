@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import styles from './page.module.css';
 import { getAttribution } from './AttributionCapture';
+import TrackedLink from './TrackedLink';
 
 const DAYS = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
 const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=inquiry_complete&utm_content=contact_form';
@@ -145,14 +146,16 @@ export default function ContactForm({
           <br />
           확인 후 {bookingMode ? '레슨 가능 일정' : '상담 가능 일정'}과 진행 방법을 안내해드리겠습니다.
         </strong>
-        <a
+        <TrackedLink
           className={styles.formDoneButton}
           href={kakaoInquiryUrl ?? KAKAO_URL}
           target="_blank"
           rel="noopener noreferrer"
+          eventName="click_kakao_consult"
+          eventParams={{ placement: bookingMode ? 'coaching_booking_complete' : 'contact_form_complete' }}
         >
           {kakaoInquiryUrl ? '카카오톡 문의하기' : 'TRY앵글 카카오톡 채널 바로가기'}
-        </a>
+        </TrackedLink>
       </div>
     );
   }
@@ -229,12 +232,12 @@ export default function ContactForm({
       </div>
       {bookingMode && (
         <label className={styles.fieldLabel}>
-          <span className={styles.fieldTitle}>희망 요일·시간 <small>(선택)</small></span>
+          <span className={styles.fieldTitle}>희망 요일·시간</span>
           <textarea
             className={styles.textarea}
             value={bookingPreference}
             onChange={(e) => setBookingPreference(e.target.value)}
-            placeholder="예: 평일 저녁, 토요일 오전"
+            placeholder="예: 월요일 3시 이후, 금요일 6시"
             rows={3}
             maxLength={300}
           />
@@ -287,14 +290,16 @@ export default function ContactForm({
       <button className={styles.formSubmit} type="submit" disabled={state === 'sending'}>
         {state === 'sending' ? '접수 중…' : bookingMode ? '수업 예약하기' : '상담 신청하기'}
       </button>
-      <a
+      <TrackedLink
         className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
         href={kakaoInquiryUrl ?? KAKAO_URL}
         target="_blank"
         rel="noopener noreferrer"
+        eventName="click_kakao_consult"
+        eventParams={{ placement: bookingMode ? 'coaching_booking_form' : 'contact_form' }}
       >
         카카오톡으로 문의하기
-      </a>
+      </TrackedLink>
     </form>
   );
 }
