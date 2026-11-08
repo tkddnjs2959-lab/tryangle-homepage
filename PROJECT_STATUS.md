@@ -8,12 +8,14 @@
 - 작업 및 배포 기준 브랜치: `main`
 - Vercel 팀/프로젝트: `fsd11/tryangle-homepage`
 - 운영 주소: https://tryangle-official.co.kr
-- 코칭 페이지: https://tryangle-official.co.kr/coaching
+- 주아쌤 레슨 홈페이지: https://tryangle-official.co.kr/
+- 기존 캐릭터 포지셔닝 페이지 보존 경로: https://tryangle-official.co.kr/character-positioning (noindex)
+- `/coaching` 경로는 임시 비활성화(404) 상태다. 코칭 화면 코드는 `src/app/coaching/CoachingLanding.tsx`에 보존해 두었다.
 - 이 문서와 `main`의 파일을 함께 작업 기준으로 사용한다. Vercel의 과거 배포본이나 다른 컴퓨터의 오래된 로컬 파일을 소스 기준으로 삼지 않는다.
 
 ## 코칭 페이지 최종 요구 사항
 
-- 페이지의 주인공은 주아쌤이다. 화면에 Try앵글 로고나 브랜드 문구를 추가하지 않는다.
+- 홈페이지 루트에서 주아쌤 레슨 화면을 보여준다. 화면에 Try앵글 로고나 브랜드 문구를 추가하지 않는다.
 - 최상단 제목: `주아쌤의 2:1 매체연기 수업`.
 - 제목 바로 아래: `이 레슨은 성인 대상으로 합니다.`
 - 가격을 이력보다 먼저 배치한다. `수업료` 제목은 표시하지 않는다.
@@ -26,12 +28,15 @@
 - 상담 영역 제목은 `레슨 예약`. 코칭 폼은 매체연기 경력을 묻지 않고, 희망 요일·시간을 자유롭게 작성할 수 있게 한다. 메인 페이지의 공용 폼은 별도로 유지한다.
 - 코칭 페이지의 카카오톡 문의와 접수 완료 후 이동 주소는 https://pf.kakao.com/_mWxcMb 이다.
 - 신청하기 버튼은 스크롤 중에도 접근 가능해야 한다.
+- 루트 홈페이지는 검색 가능하게 두고, `/coaching`은 비활성화해 검색되지 않도록 한다. 코칭 화면은 루트에서 사용하며, 코드를 지우지 않는다.
 - 사진 리뷰는 실제 자료를 받은 뒤 추가한다. 현재는 리뷰 섹션을 표시하지 않는다.
 - 모바일에서는 가격 카드가 세로로 쌓이고 긴 이력 문구가 넘치지 않도록 줄바꿈한다.
 
 ## 주요 파일
 
-- `src/app/coaching/page.tsx`: 섹션 구성과 화면 문구
+- `src/app/page.tsx`: 루트 홈페이지에서 주아쌤 레슨 화면을 표시
+- `src/app/coaching/CoachingLanding.tsx`: 코칭 랜딩페이지 구성과 화면 문구
+- `src/app/coaching/page.tsx`: 임시 비활성화된 `/coaching` 경로
 - `src/app/coaching/coaching.module.css`: 코칭 페이지 디자인과 모바일 배치
 - `src/app/coaching/content.ts`: 이력과 가격 데이터
 - `src/app/ContactForm.tsx`: 공용 신청 폼, 코칭 전용 선택 항목과 카카오톡 주소 처리

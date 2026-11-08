@@ -459,65 +459,65 @@
   text-decoration: none;
 }
 
-/* 코칭 랜딩페이지에서만 신청 폼을 밝은 바탕과 핑크 포인트에 맞춘다. */
-:global([data-coaching-theme="light"]) .input,
-:global([data-coaching-theme="light"]) .textarea {
-  background: #ffffff;
-  border-color: #d8d1da;
-  color: #29242b;
-  color-scheme: light;
+/* 코칭 랜딩페이지에서만 신청 폼을 차콜·핑크 테마에 맞춘다. */
+:global([data-coaching-theme="dark"]) .input,
+:global([data-coaching-theme="dark"]) .textarea {
+  background: #302d32;
+  border-color: #555158;
+  color: #f7f5f7;
+  color-scheme: dark;
 }
-:global([data-coaching-theme="light"]) .input::placeholder,
-:global([data-coaching-theme="light"]) .textarea::placeholder { color: #857b87; }
-:global([data-coaching-theme="light"]) .input:focus,
-:global([data-coaching-theme="light"]) .textarea:focus { border-color: #e99bc9; }
-:global([data-coaching-theme="light"]) .choiceGroup {
-  background: #ffffff;
-  border-color: #d8d1da;
+:global([data-coaching-theme="dark"]) .input::placeholder,
+:global([data-coaching-theme="dark"]) .textarea::placeholder { color: #b8b1bb; }
+:global([data-coaching-theme="dark"]) .input:focus,
+:global([data-coaching-theme="dark"]) .textarea:focus { border-color: #e99bc9; }
+:global([data-coaching-theme="dark"]) .choiceGroup {
+  background: #302d32;
+  border-color: #555158;
 }
-:global([data-coaching-theme="light"]) .choiceGroup legend {
-  background: #ffffff;
-  border-bottom-color: #e7e1e8;
-  color: #29242b;
+:global([data-coaching-theme="dark"]) .choiceGroup legend {
+  background: #302d32;
+  border-bottom-color: #48444b;
+  color: #f7f5f7;
 }
-:global([data-coaching-theme="light"]) .choice,
-:global([data-coaching-theme="light"]) .privacyAgree { color: #38323a; }
-:global([data-coaching-theme="light"]) .choice input,
-:global([data-coaching-theme="light"]) .privacyAgree input { accent-color: #e99bc9; }
-:global([data-coaching-theme="light"]) .privacyAgree small { color: #68616b; }
-:global([data-coaching-theme="light"]) .formSubmit {
+:global([data-coaching-theme="dark"]) .choice,
+:global([data-coaching-theme="dark"]) .privacyAgree { color: #ece8ed; }
+:global([data-coaching-theme="dark"]) .choice input,
+:global([data-coaching-theme="dark"]) .privacyAgree input { accent-color: #e99bc9; }
+:global([data-coaching-theme="dark"]) .privacyAgree small { color: #c7c2c8; }
+:global([data-coaching-theme="dark"]) .formSubmit {
   background: #e99bc9;
-  color: #29242b;
+  color: #211d22;
 }
-:global([data-coaching-theme="light"]) .formSubmit:disabled { background: #e7d8e2; color: #68616b; }
-:global([data-coaching-theme="light"]) .formDone {
-  background: #ffffff;
-  border-color: #d8d1da;
+:global([data-coaching-theme="dark"]) .formSubmit:disabled { background: #625762; color: #d2cdd3; }
+:global([data-coaching-theme="dark"]) .formDone {
+  background: #302d32;
+  border-color: #555158;
 }
-:global([data-coaching-theme="light"]) .formDone strong,
-:global([data-coaching-theme="light"]) .formDoneMessage { color: #29242b; }
-:global([data-coaching-theme="light"]) .formDone span { color: #68616b; }
-:global([data-coaching-theme="light"]) .dayButton,
-:global([data-coaching-theme="light"]) .timeButton {
-  background: #ffffff;
-  color: #29242b;
-  border-color: #d8d1da;
+:global([data-coaching-theme="dark"]) .formDone strong,
+:global([data-coaching-theme="dark"]) .formDoneMessage { color: #f7f5f7; }
+:global([data-coaching-theme="dark"]) .formDone span { color: #c7c2c8; }
+:global([data-coaching-theme="dark"]) .dayButton,
+:global([data-coaching-theme="dark"]) .timeButton {
+  background: #302d32;
+  color: #f7f5f7;
+  border-color: #555158;
 }
-:global([data-coaching-theme="light"]) .dayButtonSelected,
-:global([data-coaching-theme="light"]) .timeButtonActive {
+:global([data-coaching-theme="dark"]) .dayButtonSelected,
+:global([data-coaching-theme="dark"]) .timeButtonActive {
   background: #e99bc9;
   border-color: #e99bc9;
-  color: #29242b;
+  color: #211d22;
 }
-:global([data-coaching-theme="light"]) .dayButtonSelected small { color: #29242b; }
-:global([data-coaching-theme="light"]) .fieldLabel { font-size: 14px; font-weight: 800; }
-:global([data-coaching-theme="light"]) .fieldTitle { font-size: 14px; font-weight: 900; }
-:global([data-coaching-theme="light"]) .fieldTitle small { font-size: 12px; }
-:global([data-coaching-theme="light"]) .input,
-:global([data-coaching-theme="light"]) .textarea { font-size: 16px; font-weight: 600; }
-:global([data-coaching-theme="light"]) .formSubmit { font-size: 16px; font-weight: 900; }
-:global([data-coaching-theme="light"]) .privacyAgree { font-size: 13px; font-weight: 600; }
-:global([data-coaching-theme="light"]) .privacyAgree small { font-size: 12px; }
+:global([data-coaching-theme="dark"]) .dayButtonSelected small { color: #211d22; }
+:global([data-coaching-theme="dark"]) .fieldLabel { font-size: 14px; font-weight: 800; }
+:global([data-coaching-theme="dark"]) .fieldTitle { font-size: 14px; font-weight: 900; }
+:global([data-coaching-theme="dark"]) .fieldTitle small { font-size: 12px; }
+:global([data-coaching-theme="dark"]) .input,
+:global([data-coaching-theme="dark"]) .textarea { font-size: 16px; font-weight: 600; }
+:global([data-coaching-theme="dark"]) .formSubmit { font-size: 16px; font-weight: 900; }
+:global([data-coaching-theme="dark"]) .privacyAgree { font-size: 13px; font-weight: 600; }
+:global([data-coaching-theme="dark"]) .privacyAgree small { font-size: 12px; }
 
 /* ================= 푸터 ================= */
 .footer {
