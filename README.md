@@ -981,3 +981,14 @@ API clarification:
 - Each article now includes deeper context, concrete preparation criteria, common mistakes, and review questions where relevant.
 - Article structure remains code-driven in `src/app/insights/content.ts`; no CMS, OpenAI API, or DeepSeek API was added.
 - This pass is intended to make the pages more useful for real visitors and stronger for search-intent landing pages.
+
+
+## 2026-11-22 Homepage Lesson Pricing
+
+Updated the public homepage lesson pricing in `src/app/coaching/content.ts`:
+
+- 2:1 lesson, once per week: 150,000 KRW per month.
+- 2:1 lesson, twice per week: 200,000 KRW per month.
+- 1:1 lesson, once per week: 300,000 KRW per month.
+
+The code and this handoff note are committed together so work can resume from any computer after syncing the repository's `main` branch.
