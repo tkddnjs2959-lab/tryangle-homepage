@@ -42,12 +42,12 @@ export const COACHING_AREAS = [
 ];
 
 export const PRICING_2_TO_1 = [
-  { freq: '주 1회', monthlyCount: 4, original: '30만원', price: '12만원' },
-  { freq: '주 2회', monthlyCount: 8, original: '47만원', price: '19만원' },
+  { freq: '주 1회', monthlyCount: 4, original: '30만원', price: '15만원' },
+  { freq: '주 2회', monthlyCount: 8, original: '47만원', price: '20만원' },
 ];
 
 export const PRICING_1_TO_1 = [
-  { freq: '주 1회', monthlyCount: 4, price: '25만원' },
+  { freq: '주 1회', monthlyCount: 4, price: '30만원' },
 ];
 
 /** 원고 준비되면 채우기. 비어있으면 섹션이 렌더링되지 않는다. */
