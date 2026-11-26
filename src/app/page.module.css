@@ -416,6 +416,33 @@
 .fieldTitle small { font-size: 11.5px; font-weight: 500; color: var(--sub); }
 .fieldLabel .input { width: 100%; min-height: 46px; box-sizing: border-box; }
 .input:focus, .textarea:focus { outline: none; border-color: var(--sky-dot); }
+
+.lessonChoiceGroup { margin: 0; padding: 0; border: 0; min-width: 0; }
+.lessonChoiceGroup legend { margin-bottom: 8px; }
+.lessonChoiceGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.lessonChoice {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--sky-line);
+  border-radius: 8px;
+  background: var(--sky-bg);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+  box-sizing: border-box;
+  word-break: keep-all;
+}
+.lessonChoice input { flex: 0 0 auto; accent-color: var(--sky-dot); }
+.lessonChoiceSelected { border-color: var(--sky-dot); box-shadow: inset 0 0 0 1px var(--sky-dot); }
+@media (max-width: 560px) {
+  .lessonChoiceGrid { grid-template-columns: minmax(0, 1fr); }
+  .lessonChoice { font-size: 12.5px; }
+}
 .formError { color: var(--danger); font-size: 13px; font-weight: 600; margin: 0; }
 .honeypot { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .privacyAgree { display: flex; align-items: flex-start; gap: 8px; color: var(--ink); font-size: 12px; line-height: 1.55; cursor: pointer; }
@@ -444,6 +471,45 @@
 }
 .formDone strong { font-size: 15px; color: var(--navy); }
 .formDoneMessage { margin: 8px 0 4px; font-size: 13.5px; line-height: 1.75; color: var(--ink); }
+
+/* 코칭 메인 폼은 검정·핑크 테마로 표시하며 회색 면을 사용하지 않는다. */
+:global([data-coaching-theme="dark"]) .input,
+:global([data-coaching-theme="dark"]) .textarea,
+:global([data-coaching-theme="dark"]) .choiceGroup,
+:global([data-coaching-theme="dark"]) .choiceGroup legend,
+:global([data-coaching-theme="dark"]) .lessonChoice,
+:global([data-coaching-theme="dark"]) .dayButton,
+:global([data-coaching-theme="dark"]) .timeButton {
+  background: #111113;
+  border-color: #332e34;
+  color: #f7f5f7;
+  color-scheme: dark;
+}
+:global([data-coaching-theme="dark"]) .input::placeholder,
+:global([data-coaching-theme="dark"]) .textarea::placeholder { color: #b8b1bb; }
+:global([data-coaching-theme="dark"]) .input:focus,
+:global([data-coaching-theme="dark"]) .textarea:focus { border-color: #e99bc9; }
+:global([data-coaching-theme="dark"]) .choice,
+:global([data-coaching-theme="dark"]) .privacyAgree { color: #ece8ed; }
+:global([data-coaching-theme="dark"]) .lessonChoiceSelected,
+:global([data-coaching-theme="dark"]) .dayButtonSelected,
+:global([data-coaching-theme="dark"]) .timeButtonActive {
+  background: #e99bc9;
+  border-color: #e99bc9;
+  color: #0a080a;
+  box-shadow: inset 0 0 0 1px #e99bc9;
+}
+:global([data-coaching-theme="dark"]) .choice input,
+:global([data-coaching-theme="dark"]) .privacyAgree input,
+:global([data-coaching-theme="dark"]) .lessonChoice input { accent-color: #e99bc9; }
+:global([data-coaching-theme="dark"]) .privacyAgree small { color: #c7c2c8; }
+:global([data-coaching-theme="dark"]) .formSubmit { background: #e99bc9; color: #0a080a; }
+:global([data-coaching-theme="dark"]) .formSubmit:disabled { background: #211d22; color: #8c858d; }
+:global([data-coaching-theme="dark"]) .formDone { background: #111113; border-color: #332e34; }
+:global([data-coaching-theme="dark"]) .formDone strong,
+:global([data-coaching-theme="dark"]) .formDoneMessage { color: #f7f5f7; }
+:global([data-coaching-theme="dark"]) .formDone span { color: #c7c2c8; }
+:global([data-coaching-theme="dark"]) .dayButtonSelected small { color: #0a080a; }
 .formDone span { font-size: 13px; color: var(--sub); }
 .formDoneButton {
   display: inline-flex;
@@ -458,58 +524,6 @@
   font-weight: 800;
   text-decoration: none;
 }
-
-/* 코칭 랜딩페이지에서만 신청 폼을 차콜·핑크 테마에 맞춘다. */
-:global([data-coaching-theme="dark"]) .input,
-:global([data-coaching-theme="dark"]) .textarea {
-  background: #302d32;
-  border-color: #555158;
-  color: #f7f5f7;
-  color-scheme: dark;
-}
-:global([data-coaching-theme="dark"]) .input::placeholder,
-:global([data-coaching-theme="dark"]) .textarea::placeholder { color: #b8b1bb; }
-:global([data-coaching-theme="dark"]) .input:focus,
-:global([data-coaching-theme="dark"]) .textarea:focus { border-color: #e99bc9; }
-:global([data-coaching-theme="dark"]) .choiceGroup {
-  background: #302d32;
-  border-color: #555158;
-}
-:global([data-coaching-theme="dark"]) .choiceGroup legend {
-  background: #302d32;
-  border-bottom-color: #48444b;
-  color: #f7f5f7;
-}
-:global([data-coaching-theme="dark"]) .choice,
-:global([data-coaching-theme="dark"]) .privacyAgree { color: #ece8ed; }
-:global([data-coaching-theme="dark"]) .choice input,
-:global([data-coaching-theme="dark"]) .privacyAgree input { accent-color: #e99bc9; }
-:global([data-coaching-theme="dark"]) .privacyAgree small { color: #c7c2c8; }
-:global([data-coaching-theme="dark"]) .formSubmit {
-  background: #e99bc9;
-  color: #211d22;
-}
-:global([data-coaching-theme="dark"]) .formSubmit:disabled { background: #625762; color: #d2cdd3; }
-:global([data-coaching-theme="dark"]) .formDone {
-  background: #302d32;
-  border-color: #555158;
-}
-:global([data-coaching-theme="dark"]) .formDone strong,
-:global([data-coaching-theme="dark"]) .formDoneMessage { color: #f7f5f7; }
-:global([data-coaching-theme="dark"]) .formDone span { color: #c7c2c8; }
-:global([data-coaching-theme="dark"]) .dayButton,
-:global([data-coaching-theme="dark"]) .timeButton {
-  background: #302d32;
-  color: #f7f5f7;
-  border-color: #555158;
-}
-:global([data-coaching-theme="dark"]) .dayButtonSelected,
-:global([data-coaching-theme="dark"]) .timeButtonActive {
-  background: #e99bc9;
-  border-color: #e99bc9;
-  color: #211d22;
-}
-:global([data-coaching-theme="dark"]) .dayButtonSelected small { color: #211d22; }
 
 /* ================= 푸터 ================= */
 .footer {

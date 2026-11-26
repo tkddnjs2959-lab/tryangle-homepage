@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 import AttributionCapture from './AttributionCapture';
 
@@ -12,6 +13,11 @@ export const metadata: Metadata = {
     url: 'https://tryangle-official.co.kr',
     siteName: 'TRYANGLE',
     images: [{ url: '/logo.jpg', width: 512, height: 512 }],
+  },
+  icons: {
+    icon: '/jua-t-logo.png',
+    shortcut: '/jua-t-logo.png',
+    apple: '/jua-t-logo.png',
   },
   title: 'TRY앵글 — 배우 퍼스널 브랜딩',
   description: '배우를 위한 퍼스널 브랜딩 · 캐릭터 분석',
@@ -64,6 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </noscript>
         ) : null}
         {children}
+        <Analytics />
       </body>
     </html>
   );

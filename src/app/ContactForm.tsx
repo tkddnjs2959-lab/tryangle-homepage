@@ -3,8 +3,15 @@
 import { useState } from 'react';
 import styles from './page.module.css';
 import { getAttribution } from './AttributionCapture';
+import TrackedLink from './TrackedLink';
 
 const DAYS = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+const LESSON_OPTIONS = [
+  '2:1 레슨 · 주 1회',
+  '2:1 레슨 · 주 2회',
+  '1:1 레슨 · 대표 연기트레이너 · 주 1회',
+  '1:1 레슨 · 소속 연기트레이너 · 주 1회',
+];
 const KAKAO_URL = 'https://app.tryangle-official.co.kr/go/kakao?utm_source=homepage&utm_medium=owned&utm_campaign=inquiry_complete&utm_content=contact_form';
 const TIMES = Array.from({ length: 12 }, (_, index) => {
   const totalMinutes = 10 * 60 + index * 60;
@@ -17,11 +24,13 @@ const AFTERNOON_TIMES = TIMES.filter((time) => Number(time.slice(0, 2)) >= 12);
 export default function ContactForm({
   programLabel,
   hideCoachingAvailability = false,
+  hideGender = false,
   bookingMode = false,
   kakaoInquiryUrl,
 }: {
   programLabel?: string;
   hideCoachingAvailability?: boolean;
+  hideGender?: boolean;
   bookingMode?: boolean;
   kakaoInquiryUrl?: string;
 } = {}) {
@@ -34,6 +43,7 @@ export default function ContactForm({
   const [preferredSlots, setPreferredSlots] = useState<Record<string, string[]>>({});
   const [major, setMajor] = useState('');
   const [mediaExperience, setMediaExperience] = useState('없음');
+  const [lessonPreferences, setLessonPreferences] = useState<string[]>([]);
   const [bookingPreference, setBookingPreference] = useState('');
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [website, setWebsite] = useState('');
@@ -44,7 +54,7 @@ export default function ContactForm({
     e.preventDefault();
     const phoneDigits = contact.replace(/[^0-9]/g, '');
     const selectedSlots = selectedDays.flatMap((day) => (preferredSlots[day] ?? []).map((time) => `${day} ${time}`));
-    if (!name.trim() || !age || !gender || !contact.trim() || !major || (!hideCoachingAvailability && !mediaExperience)) {
+    if (!name.trim() || !age || (!hideGender && !gender) || !contact.trim() || !major || (bookingMode && lessonPreferences.length === 0) || (!hideCoachingAvailability && !mediaExperience)) {
       setError('필수 항목을 모두 입력해주세요.');
       return;
     }
@@ -75,8 +85,9 @@ export default function ContactForm({
           contact,
           message: [
             ...(programLabel ? [`신청 프로그램: ${programLabel}`] : []),
+            ...(bookingMode ? [`희망 레슨: ${lessonPreferences.join(', ')}`] : []),
             `나이: ${age}세`,
-            `성별: ${gender}`,
+            ...(!hideGender ? [`성별: ${gender}`] : []),
             ...(bookingMode && bookingPreference.trim() ? [`희망 요일·시간: ${bookingPreference.trim()}`] : []),
             ...(!hideCoachingAvailability ? [`상담 희망: ${selectedSlots.join(', ')}`] : []),
             `연기 전공 여부: ${major}`,
@@ -117,6 +128,12 @@ export default function ContactForm({
     });
   }
 
+  function toggleLesson(lesson: string) {
+    setLessonPreferences((current) => current.includes(lesson)
+      ? current.filter((item) => item !== lesson)
+      : [...current, lesson]);
+  }
+
   function renderTimeButtons(times: string[]) {
     return times.map((time) => {
       const active = (preferredSlots[activeDay] ?? []).includes(time);
@@ -136,21 +153,23 @@ export default function ContactForm({
   if (state === 'done') {
     return (
       <div className={styles.formDone}>
-        <strong>{bookingMode ? '레슨 예약이 접수되었습니다.' : '상담 신청이 접수되었습니다.'}</strong>
+        <strong>{bookingMode ? '상담 예약이 접수되었습니다.' : '상담 신청이 접수되었습니다.'}</strong>
         <strong className={styles.formDoneMessage}>
           아래 버튼을 눌러 카카오톡에서<br />
-          “{bookingMode ? '레슨 예약했어요' : '상담 신청했어요'}”라고 메시지를 남겨주세요.
+          “{bookingMode ? '상담 예약했어요' : '상담 신청했어요'}”라고 메시지를 남겨주세요.
           <br />
-          확인 후 {bookingMode ? '레슨 가능 일정' : '상담 가능 일정'}과 진행 방법을 안내해드리겠습니다.
+          {bookingMode ? '확인 후 방문상담 가능 일정을 안내해드리겠습니다.' : '확인 후 상담 가능 일정과 진행 방법을 안내해드리겠습니다.'}
         </strong>
-        <a
+        <TrackedLink
           className={styles.formDoneButton}
           href={kakaoInquiryUrl ?? KAKAO_URL}
           target="_blank"
           rel="noopener noreferrer"
+          eventName="click_kakao_consult"
+          eventParams={{ placement: bookingMode ? 'coaching_booking_complete' : 'contact_form_complete' }}
         >
           {kakaoInquiryUrl ? '카카오톡 문의하기' : 'TRY앵글 카카오톡 채널 바로가기'}
-        </a>
+        </TrackedLink>
       </div>
     );
   }
@@ -186,12 +205,14 @@ export default function ContactForm({
           inputMode="numeric"
         />
       </div>
-      <div className={styles.formRow}>
-        <select className={styles.input} value={gender} onChange={(e) => setGender(e.target.value)}>
-          <option value="">성별 선택</option>
-          <option value="여">여</option>
-          <option value="남">남</option>
-        </select>
+      <div className={hideGender ? styles.formRowSingle : styles.formRow}>
+        {!hideGender && (
+          <select className={styles.input} value={gender} onChange={(e) => setGender(e.target.value)}>
+            <option value="">성별 선택</option>
+            <option value="여">여</option>
+            <option value="남">남</option>
+          </select>
+        )}
         <input
           className={styles.input}
           type="tel"
@@ -224,13 +245,30 @@ export default function ContactForm({
         )}
       </div>
       {bookingMode && (
+        <fieldset className={styles.lessonChoiceGroup}>
+          <legend className={styles.fieldTitle}>희망 레슨 <small>(복수 선택 가능)</small></legend>
+          <div className={styles.lessonChoiceGrid}>
+            {LESSON_OPTIONS.map((lesson) => (
+              <label key={lesson} className={`${styles.lessonChoice} ${lessonPreferences.includes(lesson) ? styles.lessonChoiceSelected : ''}`}>
+                <input
+                  type="checkbox"
+                  checked={lessonPreferences.includes(lesson)}
+                  onChange={() => toggleLesson(lesson)}
+                />
+                <span>{lesson}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      )}
+      {bookingMode && (
         <label className={styles.fieldLabel}>
-          <span className={styles.fieldTitle}>희망 요일·시간 <small>(선택)</small></span>
+          <span className={styles.fieldTitle}>희망 요일·시간</span>
           <textarea
             className={styles.textarea}
             value={bookingPreference}
             onChange={(e) => setBookingPreference(e.target.value)}
-            placeholder="예: 평일 저녁, 토요일 오전"
+            placeholder="예: 월요일 3시 이후, 금요일 6시"
             rows={3}
             maxLength={300}
           />
@@ -275,22 +313,24 @@ export default function ContactForm({
         <span>
           {bookingMode ? '레슨 예약' : '상담 신청'}을 위한 개인정보 수집·이용에 동의합니다.
           <small>
-            수집 항목: 이름, 연락처, 나이, 성별{bookingMode ? ', 희망 요일·시간' : hideCoachingAvailability ? '' : ', 상담 희망 시간'} 등 · 이용 목적: 상담 일정 안내 및 연락
+            수집 항목: 이름, 연락처, 나이{hideGender ? '' : ', 성별'}{bookingMode ? ', 희망 레슨, 희망 요일·시간' : hideCoachingAvailability ? '' : ', 상담 희망 시간'} 등 · 이용 목적: 상담 일정 안내 및 연락
           </small>
         </span>
       </label>
       {error && <p className={styles.formError}>{error}</p>}
       <button className={styles.formSubmit} type="submit" disabled={state === 'sending'}>
-        {state === 'sending' ? '접수 중…' : bookingMode ? '레슨 예약하기' : '상담 신청하기'}
+        {state === 'sending' ? '접수 중…' : bookingMode ? '상담 예약하기' : '상담 신청하기'}
       </button>
-      <a
+      <TrackedLink
         className={`${styles.kakaoBtn} ${styles.kakaoBtnWide}`}
         href={kakaoInquiryUrl ?? KAKAO_URL}
         target="_blank"
         rel="noopener noreferrer"
+        eventName="click_kakao_consult"
+        eventParams={{ placement: bookingMode ? 'coaching_booking_form' : 'contact_form' }}
       >
         카카오톡으로 문의하기
-      </a>
+      </TrackedLink>
     </form>
   );
 }

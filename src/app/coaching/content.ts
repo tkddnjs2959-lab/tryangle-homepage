@@ -1,5 +1,5 @@
 /**
- * 주아쌤의 2:1 매체연기 수업 — 숨김 랜딩페이지 콘텐츠.
+ * 주아T 매체연기 레슨 홈페이지 콘텐츠.
  *
  * 가격·일정·문구가 바뀔 때 이 파일만 고치면 된다 (JSX 를 건드릴 필요 없음).
  * FAQ·혜택·차이점처럼 아직 원고가 없는 항목은 빈 배열/null 로 두면
@@ -13,7 +13,7 @@
  * 메인 홈페이지의 '브랜딩 어드바이저' 소개와는 의도적으로 다르게,
  * 여기서는 연기트레이너 이력 중심으로 구성한다.
  */
-export const TRAINER = {
+export const LEAD_TRAINER = {
   name: '이주아',
   title: '매체연기 트레이너',
   education: [
@@ -34,6 +34,17 @@ export const TRAINER = {
   ],
 };
 
+export const TEAM_TRAINER = {
+  name: '김유리',
+  title: '소속 연기트레이너',
+  photo: '/trainer-kim-yuri.jpg',
+  career: [
+    '숭실대학교 영화예술학과 졸업',
+    '전 숲컴퍼니 연기트레이너',
+    'KBS·SBS·MBC·JTBC·tvN 등 드라마 및 상업 영화 다수 출연',
+  ],
+};
+
 export const COACHING_AREAS = [
   '카메라 앞 매체연기 기본기와 표현 훈련',
   '대본 및 장면 분석, 인물의 목표와 감정선 찾기',
@@ -42,12 +53,13 @@ export const COACHING_AREAS = [
 ];
 
 export const PRICING_2_TO_1 = [
-  { freq: '주 1회', monthlyCount: 4, original: '30만원', price: '12만원' },
-  { freq: '주 2회', monthlyCount: 8, original: '47만원', price: '19만원' },
+  { freq: '주 1회', monthlyCount: 4, original: '30만원', price: '15만원' },
+  { freq: '주 2회', monthlyCount: 8, original: '47만원', price: '20만원' },
 ];
 
 export const PRICING_1_TO_1 = [
-  { freq: '주 1회', monthlyCount: 4, price: '25만원' },
+  { trainer: '대표 연기트레이너', freq: '주 1회', monthlyCount: 4, price: '30만원' },
+  { trainer: '소속 연기트레이너', freq: '주 1회', monthlyCount: 4, price: '20만원' },
 ];
 
 /** 원고 준비되면 채우기. 비어있으면 섹션이 렌더링되지 않는다. */
