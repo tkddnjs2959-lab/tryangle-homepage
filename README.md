@@ -16,6 +16,7 @@ The repository's tracked [`PROJECT_STATUS.md`](./PROJECT_STATUS.md) is the singl
 - Current design: black surfaces with pink accents; no gray surface theme and no blue theme
 - Current pricing: 2:1 weekly once 150,000 KRW, 2:1 weekly twice 200,000 KRW, lead 1:1 300,000 KRW, team-trainer 1:1 200,000 KRW
 - Booking lesson choices allow multiple selections.
+- The root homepage uses the updated Lee Jua profile photo and detailed three-part team-trainer history; `/coaching` remains intentionally disabled and unchanged.
 - Start on another computer with `git status`, then `git pull --ff-only origin main`; never deploy an uncommitted working tree.
 
 If another AI mentions `readme.mk`, treat it as a likely typo for `README.md` unless an actual `readme.mk` file exists.

@@ -45,6 +45,21 @@ export const TEAM_TRAINER = {
   ],
 };
 
+/** 메인 홈페이지에서만 노출하는 소속 트레이너 상세 이력. */
+export const HOMEPAGE_TEAM_TRAINER = {
+  education: [
+    '숭실대학교 영화예술학과 졸업',
+  ],
+  trainerCareer: [
+    '전 숲컴퍼니 연기트레이너',
+  ],
+  actingCareer: [
+    'KBS <위대한 유산>, SBS <별을따다줘>, SBS <자명고>, MBC <제왕의 딸, 수백향>, JTBC <러브어게인>, tvN <푸른거탑 리턴즈>',
+    '영화 <반창꼬>, 영화 <동창생>, 영화 <아빠를 빌려드립니다> 외 다수 작품 출연',
+    'LG드럼세탁기, BC카드, BBQ치킨 등 CF 메인 모델 활동',
+  ],
+};
+
 export const COACHING_AREAS = [
   '카메라 앞 매체연기 기본기와 표현 훈련',
   '대본 및 장면 분석, 인물의 목표와 감정선 찾기',

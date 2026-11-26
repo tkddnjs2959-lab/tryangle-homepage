@@ -3,9 +3,15 @@ import pageStyles from '../page.module.css';
 import TrackedLink from '../TrackedLink';
 import ContactForm from '../ContactForm';
 import styles from './coaching.module.css';
-import { LEAD_TRAINER, PRICING_1_TO_1, PRICING_2_TO_1, TEAM_TRAINER } from './content';
+import { HOMEPAGE_TEAM_TRAINER, LEAD_TRAINER, PRICING_1_TO_1, PRICING_2_TO_1, TEAM_TRAINER } from './content';
 
-export default function CoachingPage() {
+type CoachingPageProps = {
+  profileVariant?: 'coaching' | 'homepage';
+};
+
+export default function CoachingPage({ profileVariant = 'coaching' }: CoachingPageProps) {
+  const isHomepage = profileVariant === 'homepage';
+
   return (
     <>
       <main className={`${pageStyles.page} ${styles.themePage}`} data-coaching-theme="dark">
@@ -78,7 +84,7 @@ export default function CoachingPage() {
                   <ul>{LEAD_TRAINER.education.map((e) => <li key={e}>{e}</li>)}</ul>
                 </div>
                 <div className={`${styles.profileGroup} ${styles.careerGroup}`}>
-                  <h4>연기트레이너 대표 이력</h4>
+                  <h4>{isHomepage ? '대표 이력' : '연기트레이너 대표 이력'}</h4>
                   <ul>{LEAD_TRAINER.trainerCareer.map((c) => (
                     <li key={c}>{c.split('\n').map((part, index) => <span key={part}>{index > 0 && <br />}{part}</span>)}</li>
                   ))}</ul>
@@ -91,10 +97,11 @@ export default function CoachingPage() {
             </div>
             <div className={styles.profilePhotoColumn}>
               <Image
-                src="/mentor.jpg"
+                src={isHomepage ? '/trainer-lee-jua-home.jpg' : '/mentor.jpg'}
                 alt="이주아 대표 연기트레이너"
-                width={200}
-                height={249}
+                width={isHomepage ? 873 : 200}
+                height={isHomepage ? 1049 : 249}
+                sizes="(max-width: 560px) 112px, 245px"
                 className={styles.profilePhoto}
               />
             </div>
@@ -106,9 +113,26 @@ export default function CoachingPage() {
             <div className={styles.profileDetails}>
               <h3 className={styles.profileHeading}>소속 연기트레이너</h3>
               <p className={styles.teamTrainerName}>김유리 연기트레이너</p>
-              <ul className={styles.teamTrainerCareer}>
-                {TEAM_TRAINER.career.map((career) => <li key={career}>{career}</li>)}
-              </ul>
+              {isHomepage ? (
+                <div className={styles.profileTimeline}>
+                  <div className={styles.profileGroup}>
+                    <h4>학력</h4>
+                    <ul>{HOMEPAGE_TEAM_TRAINER.education.map((education) => <li key={education}>{education}</li>)}</ul>
+                  </div>
+                  <div className={styles.profileGroup}>
+                    <h4>대표 이력</h4>
+                    <ul>{HOMEPAGE_TEAM_TRAINER.trainerCareer.map((career) => <li key={career}>{career}</li>)}</ul>
+                  </div>
+                  <div className={styles.profileGroup}>
+                    <h4>배우 활동</h4>
+                    <ul>{HOMEPAGE_TEAM_TRAINER.actingCareer.map((career) => <li key={career}>{career}</li>)}</ul>
+                  </div>
+                </div>
+              ) : (
+                <ul className={styles.teamTrainerCareer}>
+                  {TEAM_TRAINER.career.map((career) => <li key={career}>{career}</li>)}
+                </ul>
+              )}
             </div>
             <div className={styles.profilePhotoColumn}>
               <Image
