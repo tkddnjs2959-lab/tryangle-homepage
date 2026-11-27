@@ -53,16 +53,15 @@
 
 ## 다른 컴퓨터에서 이어서 작업하기
 
-1. 기존 로컬 변경이 있으면 먼저 별도 브랜치에 커밋하거나 파일을 백업한다.
-2. 저장소에서 `git fetch origin` 후 `git switch main`과 `git pull --ff-only origin main`을 실행한다.
-3. `PROJECT_STATUS.md`를 읽고 수정할 페이지와 요구 사항을 확인한다.
-4. 작업 후 변경 파일을 확인하고 `npm run build`로 배포 가능 여부를 확인한다.
-5. `main`에 커밋하고 `git push origin main`으로 올린다. 배포된 버전과 GitHub 소스가 같은 커밋을 가리키는지 확인한다.
+1. 작업을 시작할 때 GitHub에서 이 저장소의 `main` 최신 커밋 SHA를 직접 조회한다. 작업 문서와 수정할 파일은 그 SHA 기준으로 읽는다.
+2. 기본 작업 방식은 GitHub에서 직접 수정하는 것이다. 기존 PC 폴더를 갱신하거나 이전 작업본을 가져올 필요가 없다. 빌드가 필요하면 같은 SHA의 깨끗한 임시 작업 공간이나 CI를 사용한다.
+3. 변경은 확인한 SHA를 부모로 삼아 `main`에 반영한다. 강제 푸시를 사용하지 않는다. 다른 PC가 먼저 반영했다면 최신 파일을 다시 읽고 요청한 변경만 재적용한 뒤 검증한다.
+4. 완료 시 GitHub `main`에서 변경과 커밋 SHA를 다시 확인한다. 운영 반영 여부는 Vercel 운영 배포의 상태와 SHA를 별도로 대조해 보고한다.
 
 ## 배포·버전 관리 원칙
 
 - GitHub `main`만 운영 소스의 단일 기준으로 사용한다. 다른 컴퓨터의 로컬 파일이나 Vercel 과거 배포본을 최신본으로 간주하지 않는다.
-- 작업 시작 전 반드시 `git status`로 미저장 변경을 확인한 뒤 `git pull --ff-only origin main`을 실행한다.
+- 작업 시작과 완료 시 GitHub `main` SHA를 확인한다. 위의 ‘다른 컴퓨터에서 이어서 작업하기’ 절차를 따른다.
 - 운영 변경은 기능별로 커밋하고 `git push origin main`을 먼저 실행한다. 커밋하지 않은 dirty working tree를 Vercel CLI로 직접 배포하지 않는다.
 - Vercel은 GitHub `main` 연결 자동 배포를 기본 경로로 사용한다. 긴급 CLI 배포를 했다면 같은 내용을 즉시 `main`에 커밋·푸시해 운영본과 소스를 일치시킨다.
 - 최종 확정본은 `homepage-final-YYYY-MM-DD` 형식의 Git 태그로 남긴다. 태그는 복구용이며 다음 작업은 항상 최신 `main`에서 시작한다.
