@@ -37,8 +37,7 @@ export default function CoachingPage({ profileVariant = 'coaching' }: CoachingPa
                 <div key={p.freq} className={`${styles.priceCard} ${index === 0 ? styles.priceCardLight : styles.priceCardDark}`}>
                   <strong className={styles.priceFrequency}>{p.freq} 레슨</strong>
                   <div className={styles.priceSchedule}>
-                    <span>월 총 {p.monthlyCount}회</span>
-                    <span>회당 1시간 기준</span>
+                    <span>회당 1시간</span>
                   </div>
                   <div className={styles.priceAmounts}>
                     <del>정가 {p.original}</del>
@@ -59,7 +58,7 @@ export default function CoachingPage({ profileVariant = 'coaching' }: CoachingPa
                   </div>
                   <div className={styles.priceSchedule}>
                     <span>월 총 {p.monthlyCount}회</span>
-                    <span>회당 1시간 기준</span>
+                    <span>회당 1시간</span>
                   </div>
                   <div className={styles.priceAmounts}>
                     <b>{p.price}</b>

@@ -51,7 +51,8 @@ export const HOMEPAGE_TEAM_TRAINER = {
     '숭실대학교 영화예술학과 졸업',
   ],
   trainerCareer: [
-    '전 숲컴퍼니 연기트레이너',
+    '숲컴퍼니 연기트레이너',
+    'J&K 엔터테인먼트 연기트레이너',
   ],
   actingCareer: [
     'KBS <위대한 유산>, SBS <별을따다줘>, SBS <자명고>, MBC <제왕의 딸, 수백향>, JTBC <러브어게인>, tvN <푸른거탑 리턴즈>',
@@ -68,7 +69,7 @@ export const COACHING_AREAS = [
 ];
 
 export const PRICING_2_TO_1 = [
-  { freq: '주 1회', monthlyCount: 4, original: '30만원', price: '15만원' },
+  { freq: '주 1회', monthlyCount: 4, original: '30만원', price: '월 15만원' },
   { freq: '주 2회', monthlyCount: 8, original: '47만원', price: '20만원' },
 ];
 
